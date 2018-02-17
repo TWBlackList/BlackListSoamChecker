@@ -8,7 +8,7 @@ using ReimuAPI.ReimuBase;
 using ReimuAPI.ReimuBase.TgData;
 
 namespace CNBlackListSoamChecker.CommandObject
-{2
+{
     public class SpamStringManager
     {
         public static int SPAMSTR_TYPE_EQUALS = 0;
