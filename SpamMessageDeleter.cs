@@ -155,6 +155,9 @@ namespace CNBlackListSoamChecker
                         case 6:
                             points = new SpamMessageChecker().GetContainsPoints(smsg.Messages, chatText);
                             break;
+                        case 7:
+                            points = new SpamMessageChecker().GetMultiContainsPoints(smsg.Messages, text);
+                            break;
                     }
 
                     if (points >= smsg.MinPoints)
