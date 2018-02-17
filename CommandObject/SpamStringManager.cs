@@ -8,7 +8,7 @@ using ReimuAPI.ReimuBase;
 using ReimuAPI.ReimuBase.TgData;
 
 namespace CNBlackListSoamChecker.CommandObject
-{
+{2
     public class SpamStringManager
     {
         public static int SPAMSTR_TYPE_EQUALS = 0;
@@ -17,7 +17,7 @@ namespace CNBlackListSoamChecker.CommandObject
         public static int SPAMSTR_TYPE_HALAL = 3;
         public static int SPAMSTR_TYPE_INDIA = 4;
         public static int SPAMSTR_TYPE_CONTAINS = 5;
-        public static int SPAMSTR_TYPE_MULTICONTAINS = 5;
+        public static int SPAMSTR_TYPE_MULTICONTAINS = 6;
 
         public void GetAllInfo(TgMessage RawMessage)
         {
@@ -354,7 +354,7 @@ namespace CNBlackListSoamChecker.CommandObject
                             msg = + smsg.FriendlyName + " : " + new SpamMessageChecker().GetContainsPoints(smsg.Messages, chatText).ToString();
                             break;
                         case 7:
-                            msg = + smsg.FriendlyName + " : " + new SpamMessageChecker().GetMultiContainsPoints(smsg.Messages, text;.ToString();
+                            msg = + smsg.FriendlyName + " : " + new SpamMessageChecker().GetMultiContainsPoints(smsg.Messages, text).ToString();
                             break;
                     }
                     msg = + "\n";
