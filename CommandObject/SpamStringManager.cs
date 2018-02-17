@@ -348,16 +348,16 @@ namespace CNBlackListSoamChecker.CommandObject
                             msg = + smsg.FriendlyName + " : " + new SpamMessageChecker().GetHalalPoints(chatText).ToString();
                             break;
                         case 5:
-                            msg = + smsg.FriendlyName + " : " + new SpamMessageChecker().GetIndiaPoints(chatText);.ToString();
+                            msg = + smsg.FriendlyName + " : " + new SpamMessageChecker().GetIndiaPoints(chatText).ToString();
                             break;
                         case 6:
                             msg = + smsg.FriendlyName + " : " + new SpamMessageChecker().GetContainsPoints(smsg.Messages, chatText).ToString();
                             break;
                         case 7:
-                            msg = + smsg.FriendlyName + " : " + new SpamMessageChecker().GetMultiContainsPoints(smsg.Messages, text);.ToString();
+                            msg = + smsg.FriendlyName + " : " + new SpamMessageChecker().GetMultiContainsPoints(smsg.Messages, text;.ToString();
                             break;
                     }
-                    msg = + "\n"
+                    msg = + "\n";
                 }
                 
                 TgApi.getDefaultApiConnection().sendMessage(
