@@ -62,15 +62,6 @@ internal long GetGroupID(Dictionary<string, string> banValues, TgMessage RawMess
             if (from == "f" || from == "fwd") return RawMessage.GetReplyMessage().GetForwardedFromUser();
             return null;
         }
-        
-        internal UserInfo GetUserInfo(TgMessage RawMessage, string from)
-        {
-            if (RawMessage.reply_to_message == null) return null;
-            if (from == "r" || from == "reply")
-                return RawMessage.GetReplyMessage().GetSendUser();
-            if (from == "f" || from == "fwd") return RawMessage.GetReplyMessage().GetForwardedFromUser();
-            return null;
-        }
 
         internal long GetBanUnixTime(Dictionary<string, string> banValues, TgMessage RawMessage)
         {
