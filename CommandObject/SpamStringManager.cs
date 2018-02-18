@@ -231,6 +231,8 @@ namespace CNBlackListSoamChecker.CommandObject
                 "\n印度 = 5" +
                 "\n包含 = 6" +
                 "\n多重包含 = 7" ;
+            RawMessage.text = RawMessage.text.Replace("\"M\"","\"Message\"");
+            RawMessage.text = RawMessage.text.Replace("\"P\"","\"Point\"");
             int spacePath = RawMessage.text.IndexOf(" ");
             if (spacePath == -1)
             {
