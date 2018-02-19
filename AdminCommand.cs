@@ -88,11 +88,8 @@ namespace CNBlackListSoamChecker
                             new BlockGroup().listBlockGroup(RawMessage);
                             throw new StopProcessException();
                     }
-
-                    throw new StopProcessException();
                 }
             }
-
             return false;
         }
     }
