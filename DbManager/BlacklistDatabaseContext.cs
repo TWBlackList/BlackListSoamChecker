@@ -81,9 +81,8 @@ namespace CNBlackListSoamChecker.DbManager
 
                 if (ChannelMessageID != 0 && Temp.MainChannelName != null)
                     msg += "\n\n參考 : https://t.me/" + Temp.MainChannelName + "/" + ChannelMessageID;
-                    
-                msg = RAPI.escapeMarkdown(msg);
 
+                msg = RAPI.escapeMarkdown(msg);
             }
 
             return msg;
