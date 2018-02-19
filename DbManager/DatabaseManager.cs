@@ -105,7 +105,6 @@ namespace CNBlackListSoamChecker.DbManager
             UserInfo userinfo = null
         )
         {
-            bool finalResult = true;
             int ChannelReasonID = 0;
             if (Temp.MainChannelID != 0)
             {
@@ -120,7 +119,6 @@ namespace CNBlackListSoamChecker.DbManager
                     }
                     else
                     {
-                        finalResult = false;
                         banmsg = "User ID: " + UserID;
                     }
                 }
@@ -132,19 +130,17 @@ namespace CNBlackListSoamChecker.DbManager
                 banmsg += "\n\n已被解除封鎖";
                 if (Reason != null) banmsg += "，原因 : \n" + Reason;
                 banmsg += "\nOID : " + AdminID + "\n";
-                try
-                {
-                    ChannelReasonID = TgApi.getDefaultApiConnection().sendMessage(Temp.MainChannelID, banmsg).result
-                        .message_id;
-                }
-                catch
-                {
-                }
+
+                BanUser ban = Temp.GetDatabaseManager().GetUserBanStatus(UserID);
+                if(ban.Ban == 1) return false;
+
+                ChannelReasonID = TgApi.getDefaultApiConnection().sendMessage(Temp.MainChannelID, banmsg).result.message_id;
+                
             }
 
             ChangeDbUnban(AdminID, UserID, Reason, ChannelReasonID);
             CNBlacklistApi.PostToAPI(UserID, false, 1, 0, Reason);
-            return finalResult;
+            return true;
         }
 
         private void ChangeBanTemp(
