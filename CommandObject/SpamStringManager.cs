@@ -360,7 +360,7 @@ namespace CNBlackListSoamChecker.CommandObject
                             points = new SpamMessageChecker().GetContainsPoints(smsg.Messages, text);
                             break;
                         case 7:
-                            points = new SpamMessageChecker().GetMultiContainsPoints(smsg.Messages, text);
+                            points = new SpamMessageChecker().GetRussiaPoints(text);
                             break;
                     }
 
@@ -422,7 +422,7 @@ namespace CNBlackListSoamChecker.CommandObject
                         points = new SpamMessageChecker().GetContainsPoints(smsg.Messages, text);
                         break;
                     case 7:
-                        points = new SpamMessageChecker().GetMultiContainsPoints(smsg.Messages, text);
+                        points = new SpamMessageChecker().GetRussiaPoints(text);
                         break;
                 }
 
