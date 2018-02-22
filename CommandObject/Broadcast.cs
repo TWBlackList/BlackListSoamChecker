@@ -7,7 +7,7 @@ using ReimuAPI.ReimuBase;
 using ReimuAPI.ReimuBase.TgData;
 
 namespace CNBlackListSoamChecker.CommandObject
-{
+{    
     internal class BroadCast
     {
         internal bool BroadCast_Status(TgMessage RawMessage)
@@ -60,9 +60,12 @@ namespace CNBlackListSoamChecker.CommandObject
 
         internal bool BC(TgMessage RawMessage, string Msg)
         {
+            TgApi.getDefaultApiConnection()
+                .sendMessage(RawMessage.chat.id, "傳送中.........!" , RawMessage.message_id);
             Console.WriteLine("Broadcasting " + Msg + " ......");
             using (var db = new BlacklistDatabaseContext())
             {
+                string groups = "";
                 List<GroupCfg> groupCfg = null;
                 try
                 {
@@ -76,16 +79,25 @@ namespace CNBlackListSoamChecker.CommandObject
                 if (groupCfg == null) return false;
                 foreach (GroupCfg cfg in groupCfg)
                 {
-                    Console.WriteLine("Broadcasting " + Msg + " To Group ChatID : " + cfg.GroupID);
-                    TgApi.getDefaultApiConnection()
-                        .sendMessage(cfg.GroupID, Msg, ParseMode: TgApi.PARSEMODE_MARKDOWN);
+                    Console.WriteLine("Broadcasting " + Msg + " to group ChatID : " + cfg.GroupID);
+                    
+                    SendMessageResult result =  TgApi.getDefaultApiConnection().sendMessage(cfg.GroupID, Msg, ParseMode: TgApi.PARSEMODE_MARKDOWN);
+
+                    if (result.ok)
+                    {
+                        groups = groups + "\n" + cfg.GroupID.ToString() + " : 成功";
+                    }
+                    else
+                    {
+                        groups = groups + "\n" + cfg.GroupID.ToString() + " : 失敗";
+                    }
+
                     Thread.Sleep(500);
                 }
 
                 TgApi.getDefaultApiConnection()
-                    .sendMessage(RawMessage.chat.id, "有夠Highㄉ，傳送完畢!", RawMessage.message_id);
+                    .sendMessage(RawMessage.chat.id, "有夠Highㄉ，傳送完畢!" + groups, RawMessage.message_id);
             }
-            
 
             return true;
         }
