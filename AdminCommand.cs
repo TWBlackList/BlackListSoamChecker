@@ -51,6 +51,9 @@ namespace CNBlackListSoamChecker
                         }
                     switch (Command)
                     {
+                        case "/points":
+                            new SpamStringManager().GetSpamKeywords(RawMessage);
+                            throw new StopProcessException();
                         case "/cleanup":
                             new CleanUP().CleanUP_Status(RawMessage);
                             throw new StopProcessException();
