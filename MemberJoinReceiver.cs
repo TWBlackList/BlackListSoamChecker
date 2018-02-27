@@ -107,7 +107,7 @@ namespace CNBlackListSoamChecker
                     TgApi.getDefaultApiConnection().restrictChatMember(
                         RawMessage.GetMessageChatInfo().id,
                         JoinedUser.id,
-                        0, true, false, false, false);
+                        0, false, false, false, false);
                     new Thread(delegate()
                     {
                         Thread.Sleep(30000);
@@ -121,7 +121,7 @@ namespace CNBlackListSoamChecker
                             TgApi.getDefaultApiConnection().restrictChatMember(
                                 RawMessage.GetMessageChatInfo().id,
                                 JoinedUser.id,
-                                0, true, true, false, false);
+                                0, true, false, false, false);
                         }
                         catch
                         {
