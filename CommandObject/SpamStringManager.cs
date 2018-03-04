@@ -488,7 +488,7 @@ namespace CNBlackListSoamChecker.CommandObject
 
             if (rule == null)
             {
-                string text = RawMessage.text.Replace("/point ","");
+                string text = RawMessage.text.Replace("/points ","");
                 List<SpamMessage> spamMsgList = Temp.GetDatabaseManager().GetSpamMessageList();
                 string msg = "";
                 bool found = false;
@@ -545,7 +545,7 @@ namespace CNBlackListSoamChecker.CommandObject
             }
             else
             {
-                string text = RawMessage.text.Replace("/point ","").Replace("rule=","").Replace(rule,"");
+                string text = RawMessage.text.Replace("/points ","").Replace("rule=","").Replace(rule,"");
                 SpamMessage smsg = Temp.GetDatabaseManager().GetSpamRule(rule);
                 if (smsg == null)
                 {
