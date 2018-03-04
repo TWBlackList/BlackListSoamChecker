@@ -171,11 +171,24 @@ namespace CNBlackListSoamChecker.CommandObject
                 return;
             }
 
-            TgApi.getDefaultApiConnection().sendMessage(
-                RawMessage.GetMessageChatInfo().id,
-                spamstrings,
-                RawMessage.message_id
-            );
+
+            var spamlist = new List<string>();
+
+            for (var i = 0; i < spamstrings.Length; i += 4000)
+            {
+                spamlist.Add(spamstrings.Substring(i, Math.Min(4000, spamstrings.Length - i)));
+            }
+
+            foreach (string msg in spamlist)
+            {
+                TgApi.getDefaultApiConnection().sendMessage(
+                    RawMessage.GetMessageChatInfo().id,
+                    "<code>" + msg + "</code>",
+                    RawMessage.message_id,
+                    TgApi.PARSEMODE_HTML
+                );
+            }
+
         }
 
         public void Get(TgMessage RawMessage)
