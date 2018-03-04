@@ -484,20 +484,11 @@ namespace CNBlackListSoamChecker.CommandObject
 
             Dictionary<string, string> banValues =
                 CommandDecoder.cutKeyIsValue(RawMessage.text.Substring(spacePath + 1));
-            string text = banValues.GetValueOrDefault("text", null);
             string rule = banValues.GetValueOrDefault("rule", null);
-            if (text == null)
-            {
-                TgApi.getDefaultApiConnection().sendMessage(
-                    RawMessage.GetMessageChatInfo().id,
-                    "你的輸入有錯誤",
-                    RawMessage.message_id
-                );
-                return;
-            }
 
             if (rule == null)
             {
+                string text = RawMessage.text.Replace("/point ","");
                 List<SpamMessage> spamMsgList = Temp.GetDatabaseManager().GetSpamMessageList();
                 string msg = "";
                 bool found = false;
@@ -554,6 +545,7 @@ namespace CNBlackListSoamChecker.CommandObject
             }
             else
             {
+                string text = RawMessage.text.Replace("/point ","").Replace("rule=","").Replace(rule,"");
                 SpamMessage smsg = Temp.GetDatabaseManager().GetSpamRule(rule);
                 if (smsg == null)
                 {
