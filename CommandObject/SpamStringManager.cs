@@ -89,6 +89,14 @@ namespace CNBlackListSoamChecker.CommandObject
                     spamstrings += "FriendlyName: <code>" + msg.FriendlyName + "</code>, Enabled: " + msg.Enabled +
                                    "\n";
                 spamstrings += "\n您可以使用 /getspamstr [FriendlyName] 來取得詳細訊息。";
+
+                
+                TgApi.getDefaultApiConnection().sendMessage(
+                    RawMessage.GetMessageChatInfo().id,
+                    spamstrings,
+                    RawMessage.message_id,
+                    TgApi.PARSEMODE_HTML
+                );
             }
             else
             {
@@ -116,24 +124,26 @@ namespace CNBlackListSoamChecker.CommandObject
                 }
 
                 if (spamstrings == "") spamstrings = "沒有查到這筆紀錄，請檢查您的輸入。";
+
+                
+                var spamlist = new List<string>();
+
+                for (var i = 0; i < spamstrings.Length; i += 4000)
+                {
+                    spamlist.Add(spamstrings.Substring(i, Math.Min(4000, spamstrings.Length - i)));
+                }
+
+                foreach (string msg in spamlist)
+                {
+                    TgApi.getDefaultApiConnection().sendMessage(
+                        RawMessage.GetMessageChatInfo().id,
+                        "<code>" + msg + "</code>",
+                        RawMessage.message_id,
+                        TgApi.PARSEMODE_HTML
+                    );
+                }
             }
 
-            var spamlist = new List<string>();
-
-            for (var i = 0; i < spamstrings.Length; i += 4000)
-            {
-                spamlist.Add(spamstrings.Substring(i, Math.Min(4000, spamstrings.Length - i)));
-            }
-
-            foreach (string msg in spamlist)
-            {
-                TgApi.getDefaultApiConnection().sendMessage(
-                    RawMessage.GetMessageChatInfo().id,
-                    "<code>" + msg + "</code>",
-                    RawMessage.message_id,
-                    TgApi.PARSEMODE_HTML
-                );
-            }
         }
 
         public void GetByID(TgMessage RawMessage)
