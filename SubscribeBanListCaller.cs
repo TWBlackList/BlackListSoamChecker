@@ -41,24 +41,37 @@ namespace CNBlackListSoamChecker
                     if (userInChatInfo.ok)
                         if (userInChatInfo.result.status == "member")
                         {
-                            SetActionResult result = TgApi.getDefaultApiConnection()
-                                .kickChatMember(cfg.GroupID, user.UserID, GetTime.GetUnixTime() + 86400);
-
-                            if (result.ok)
-                                TgApi.getDefaultApiConnection().sendMessage(
+                            new Thread(delegate()
+                            {
+                                System.Console.Write("[SubscribeBanList] Ban " + user.UserID.ToString() + " in " + cfg.GroupID.ToString());
+                                TgApi.getDefaultApiConnection().restrictChatMember(
+                                    cfg.GroupID,
+                                    user.UserID,
+                                    GetTime.GetUnixTime() + 10,
+                                    true,
+                                    false);
+                                SendMessageResult result = TgApi.getDefaultApiConnection().sendMessage(
                                     cfg.GroupID,
                                     "使用者 : " + user.UserID + "\n" + user.GetBanMessage() +
-                                    "\n\n由於開啟了 SubscribeBanList ，已自動移除。"
+                                    "\n\n由於開啟了 SubscribeBanList ，已嘗試自動移除。" +
+                                    "若要提出申訴，請至 @" + Temp.CourtGroupName + " 。"
                                 );
-                            else
-                                TgApi.getDefaultApiConnection().sendMessage(
-                                    cfg.GroupID,
-                                    "使用者 : " + user.UserID + "\n" + user.GetBanMessage() +
-                                    "\n\n由於開啟了 SubscribeBanList ，但沒有 (Ban User) 權限，請設定正確的權限。"
+                                Thread.Sleep(10000);
+                                SetActionResult kickresult = TgApi.getDefaultApiConnection()
+                                    .kickChatMember(cfg.GroupID, user.UserID, GetTime.GetUnixTime() + 60);
+                                if(kickresult.ok)
+                                    System.Console.WriteLine("...Done");
+                                else
+                                    System.Console.WriteLine("...Fail");
+                                Thread.Sleep(10000);
+                                TgApi.getDefaultApiConnection().deleteMessage(
+                                    result.result.chat.id,
+                                    result.result.message_id
                                 );
+                            }).Start();
                         }
 
-                    Thread.Sleep(3000);
+                    Thread.Sleep(500);
                 }
             }
         }
