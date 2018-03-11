@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
-using CNBlackListSoamChecker.DbManager;
+using CMNBlackListSoamChecker.DbManager;
 using ReimuAPI.ReimuBase;
 using ReimuAPI.ReimuBase.TgData;
 
-namespace CNBlackListSoamChecker.CommandObject
+namespace CMNBlackListSoamChecker.CommandObject
 {
     public class SpamStringManager
     {
@@ -17,11 +17,9 @@ namespace CNBlackListSoamChecker.CommandObject
         public static int SPAMSTR_TYPE_HALAL = 3;
         public static int SPAMSTR_TYPE_INDIA = 4;
         public static int SPAMSTR_TYPE_CONTAINS = 5;
-        public static int SPAMSTR_TYPE_MULTICONTAINS = 6;
 
         public void GetAllInfo(TgMessage RawMessage)
         {
-
             string spamstrings = "";
             List<SpamMessage> msgs = Temp.GetDatabaseManager().GetSpamMessageList();
             foreach (SpamMessage msg in msgs)
@@ -90,7 +88,6 @@ namespace CNBlackListSoamChecker.CommandObject
                                    "\n";
                 spamstrings += "\n您可以使用 /getspamstr [FriendlyName] 來取得詳細訊息。";
 
-                
                 TgApi.getDefaultApiConnection().sendMessage(
                     RawMessage.GetMessageChatInfo().id,
                     spamstrings,
@@ -143,7 +140,7 @@ namespace CNBlackListSoamChecker.CommandObject
                     );
                 }
             }
-
+            
         }
 
         public void GetByID(TgMessage RawMessage)
@@ -190,7 +187,6 @@ namespace CNBlackListSoamChecker.CommandObject
                     .sendMessage(RawMessage.GetMessageChatInfo().id, "null", RawMessage.message_id);
                 return;
             }
-
 
             var spamlist = new List<string>();
 
@@ -344,7 +340,6 @@ namespace CNBlackListSoamChecker.CommandObject
             );
         }
 
-
         public void GetSpamPoints(TgMessage RawMessage)
         {
             int spacePath = RawMessage.text.IndexOf(" ");
@@ -352,8 +347,9 @@ namespace CNBlackListSoamChecker.CommandObject
             {
                 TgApi.getDefaultApiConnection().sendMessage(
                     RawMessage.GetMessageChatInfo().id,
-                    "/getspampoints text=\"被檢測訊息，如果包含英文與數字以外的文字需要加引號\"" +
-                    " rule=\"規則的暱稱，如果包含英文與數字以外的文字需要加引號\"",
+                    "/getspampoints 被檢測訊息",
+                    //"/getspampoints text=\"被檢測訊息，如果包含英文與數字以外的文字需要加引號\"" +
+                    //" rule=\"規則的暱稱，如果包含英文與數字以外的文字需要加引號\"",
                     RawMessage.message_id
                 );
                 return;
@@ -361,8 +357,9 @@ namespace CNBlackListSoamChecker.CommandObject
 
             Dictionary<string, string> banValues =
                 CommandDecoder.cutKeyIsValue(RawMessage.text.Substring(spacePath + 1));
-            string text = banValues.GetValueOrDefault("text", null);
-            string rule = banValues.GetValueOrDefault("rule", null);
+            string text = RawMessage.text.Replace("/getspampoints ", "");
+            //string text = banValues.GetValueOrDefault("text", null);
+            //string rule = banValues.GetValueOrDefault("rule", null);
             if (text == null)
             {
                 TgApi.getDefaultApiConnection().sendMessage(
@@ -373,8 +370,8 @@ namespace CNBlackListSoamChecker.CommandObject
                 return;
             }
 
-            if (rule == null)
-            {
+            //if (rule == null)
+            //{
                 List<SpamMessage> spamMsgList = Temp.GetDatabaseManager().GetSpamMessageList();
                 string msg = "";
                 bool found = false;
@@ -428,55 +425,55 @@ namespace CNBlackListSoamChecker.CommandObject
                         "未得分",
                         RawMessage.message_id
                     );
-            }
-            else
-            {
-                SpamMessage smsg = Temp.GetDatabaseManager().GetSpamRule(rule);
-                if (smsg == null)
-                {
-                    TgApi.getDefaultApiConnection().sendMessage(
-                        RawMessage.GetMessageChatInfo().id,
-                        "没有找到您指定的规則，請重新指定。您可使用 /getspamstr 獲取所以規則。",
-                        RawMessage.message_id
-                    );
-                    return;
-                }
-
-                int points = 0;
-                switch (smsg.Type)
-                {
-                    case 0:
-                        points = new SpamMessageChecker().GetEqualsPoints(smsg.Messages, text);
-                        break;
-                    case 1:
-                        points = new SpamMessageChecker().GetRegexPoints(smsg.Messages, text);
-                        break;
-                    case 2:
-                        points = new SpamMessageChecker().GetSpamPoints(smsg.Messages, text);
-                        break;
-                    case 3:
-                        points = new SpamMessageChecker().GetIndexOfPoints(smsg.Messages, text);
-                        break;
-                    case 4:
-                        points = new SpamMessageChecker().GetHalalPoints(text);
-                        break;
-                    case 5:
-                        points = new SpamMessageChecker().GetIndiaPoints(text);
-                        break;
-                    case 6:
-                        points = new SpamMessageChecker().GetContainsPoints(smsg.Messages, text);
-                        break;
-                    case 7:
-                        points = new SpamMessageChecker().GetRussiaPoints(text);
-                        break;
-                }
-
-                TgApi.getDefaultApiConnection().sendMessage(
-                    RawMessage.GetMessageChatInfo().id,
-                    "得分: " + points,
-                    RawMessage.message_id
-                );
-            }
+            //}
+            //else
+            //{
+            //    SpamMessage smsg = Temp.GetDatabaseManager().GetSpamRule(rule);
+            //    if (smsg == null)
+            //    {
+            //        TgApi.getDefaultApiConnection().sendMessage(
+            //            RawMessage.GetMessageChatInfo().id,
+            //            "没有找到您指定的规則，請重新指定。您可使用 /getspamstr 獲取所以規則。",
+            //            RawMessage.message_id
+            //        );
+            //        return;
+            //    }
+            //
+            //    int points = 0;
+            //    switch (smsg.Type)
+            //    {
+            //        case 0:
+            //            points = new SpamMessageChecker().GetEqualsPoints(smsg.Messages, text);
+            //            break;
+            //        case 1:
+            //            points = new SpamMessageChecker().GetRegexPoints(smsg.Messages, text);
+            //            break;
+            //        case 2:
+            //            points = new SpamMessageChecker().GetSpamPoints(smsg.Messages, text);
+            //            break;
+            //        case 3:
+            //            points = new SpamMessageChecker().GetIndexOfPoints(smsg.Messages, text);
+            //            break;
+            //        case 4:
+            //            points = new SpamMessageChecker().GetHalalPoints(text);
+            //            break;
+            //        case 5:
+            //            points = new SpamMessageChecker().GetIndiaPoints(text);
+            //            break;
+            //        case 6:
+            //            points = new SpamMessageChecker().GetContainsPoints(smsg.Messages, text);
+            //            break;
+            //        case 7:
+            //            points = new SpamMessageChecker().GetRussiaPoints(text);
+            //            break;
+            //    }
+            //
+            //    TgApi.getDefaultApiConnection().sendMessage(
+            //        RawMessage.GetMessageChatInfo().id,
+            //        "得分: " + points,
+            //        RawMessage.message_id
+            //    );
+            //}
         }
 
         public void GetSpamKeywords(TgMessage RawMessage)
