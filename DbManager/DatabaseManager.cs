@@ -128,7 +128,11 @@ namespace CNBlackListSoamChecker.DbManager
                 }
 
                 banmsg += "\n\n已被解除封鎖";
+                
                 if (Reason != null) banmsg += "，原因 : \n" + Reason;
+
+                banmsg += "\n原封鎖原因 : \n"  + Temp.GetDatabaseManager().GetUserBanStatus(UserID).Reason + "\n";
+
                 banmsg += "\nOID : " + AdminID + "\n";
 
                 BanUser ban = Temp.GetDatabaseManager().GetUserBanStatus(UserID);
@@ -348,25 +352,6 @@ namespace CNBlackListSoamChecker.DbManager
                 return groupCfg;
             }
         }
-        
-        public bool RemoveGroupCfg(long GroupID)
-        {
-            using (var db = new BlacklistDatabaseContext())
-            {
-                try
-                {
-                    var groupCfg = db.GroupConfig
-                        .Single(groups => groups.GroupID == GroupID);
-                    db.Remove(groupCfg);
-                    db.SaveChanges();
-                    return true;
-                }
-                catch (InvalidOperationException)
-                {
-                    return false;
-                }
-            }
-        }
 
         public GroupCfg SetGroupConfig(
             long gid,
@@ -404,6 +389,25 @@ namespace CNBlackListSoamChecker.DbManager
                 }
 
                 return groupCfg;
+            }
+        }
+
+        public bool RemoveGroupCfg(long GroupID)
+        {
+            using (var db = new BlacklistDatabaseContext())
+            {
+                try
+                {
+                    var groupCfg = db.GroupConfig
+                        .Single(groups => groups.GroupID == GroupID);
+                    db.Remove(groupCfg);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (InvalidOperationException)
+                {
+                    return false;
+                }
             }
         }
 
