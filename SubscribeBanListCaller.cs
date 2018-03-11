@@ -48,7 +48,6 @@ namespace CNBlackListSoamChecker
                                     cfg.GroupID,
                                     user.UserID,
                                     GetTime.GetUnixTime() + 10,
-                                    true,
                                     false);
                                 SendMessageResult result = TgApi.getDefaultApiConnection().sendMessage(
                                     cfg.GroupID,
@@ -57,13 +56,9 @@ namespace CNBlackListSoamChecker
                                     "若要提出申訴，請至 @" + Temp.CourtGroupName + " 。"
                                 );
                                 Thread.Sleep(10000);
-                                SetActionResult kickresult = TgApi.getDefaultApiConnection()
+                                TgApi.getDefaultApiConnection()
                                     .kickChatMember(cfg.GroupID, user.UserID, GetTime.GetUnixTime() + 60);
-                                if(kickresult.ok)
-                                    System.Console.WriteLine("...Done");
-                                else
-                                    System.Console.WriteLine("...Fail");
-                                Thread.Sleep(10000);
+                                Thread.Sleep(20000);
                                 TgApi.getDefaultApiConnection().deleteMessage(
                                     result.result.chat.id,
                                     result.result.message_id
