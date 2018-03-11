@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
-using CMNBlackListSoamChecker.DbManager;
+using CNBlackListSoamChecker.DbManager;
 using ReimuAPI.ReimuBase;
 using ReimuAPI.ReimuBase.TgData;
 
-namespace CMNBlackListSoamChecker.CommandObject
+namespace CNBlackListSoamChecker.CommandObject
 {
     public class SpamStringManager
     {
