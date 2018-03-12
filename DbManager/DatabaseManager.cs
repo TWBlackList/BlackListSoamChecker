@@ -408,6 +408,10 @@ namespace CNBlackListSoamChecker.DbManager
                 {
                     return false;
                 }
+                catch
+                {
+                    return false;
+                }
             }
         }
 

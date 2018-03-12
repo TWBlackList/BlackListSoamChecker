@@ -57,7 +57,7 @@ namespace CNBlackListSoamChecker
                                 );
                                 Thread.Sleep(10000);
                                 TgApi.getDefaultApiConnection()
-                                    .kickChatMember(cfg.GroupID, user.UserID, GetTime.GetUnixTime() + 60);
+                                    .kickChatMember(cfg.GroupID, user.UserID, GetTime.GetUnixTime() + 300);
                                 Thread.Sleep(20000);
                                 TgApi.getDefaultApiConnection().deleteMessage(
                                     result.result.chat.id,

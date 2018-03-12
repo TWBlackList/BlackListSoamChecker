@@ -24,7 +24,7 @@ namespace CNBlackListSoamChecker
                     .checkIsAdmin(RawMessage.GetMessageChatInfo().id, RawMessage.from.id))
             {
                 SetActionResult result = TgApi.getDefaultApiConnection()
-                    .kickChatMember(RawMessage.GetMessageChatInfo().id, JoinedUser.id, GetTime.GetUnixTime() + 86400);
+                    .kickChatMember(RawMessage.GetMessageChatInfo().id, JoinedUser.id, GetTime.GetUnixTime() + 300);
                 if (result.ok)
                     TgApi.getDefaultApiConnection().sendMessage(
                         RawMessage.GetMessageChatInfo().id,
@@ -66,6 +66,15 @@ namespace CNBlackListSoamChecker
                     return new CallbackMessage();
                 }
 
+                if (RawMessage.GetMessageChatInfo().type == "group" &&
+                    RawMessage.GetMessageChatInfo().all_members_are_administrators)
+                {
+                    TgApi.getDefaultApiConnection().sendMessage(RawMessage.GetMessageChatInfo().id, "一般群組無法使用本服務，如有疑問請至 @ChineseBlackList ");
+                    Thread.Sleep(2000);
+                    TgApi.getDefaultApiConnection().leaveChat(RawMessage.GetMessageChatInfo().id);
+                    return new CallbackMessage();
+                }
+
                 TgApi.getDefaultApiConnection().sendMessage(
                     RawMessage.GetMessageChatInfo().id,
                     "歡迎使用 @" + TgApi.getDefaultApiConnection().getMe().username + "\n" +
@@ -99,7 +108,7 @@ namespace CNBlackListSoamChecker
                     if (RAPI.getIsInWhitelist(JoinedUser.id)) return new CallbackMessage();
                     TgApi.getDefaultApiConnection().sendMessage(
                         RawMessage.GetMessageChatInfo().id,
-                        "您未被封鎖，請離開",
+                        "您未被封鎖，請離開，本群僅提供被 CNBL 封鎖者申訴",
                         RawMessage.message_id,
                         TgApi.PARSEMODE_MARKDOWN
                     );
@@ -116,7 +125,7 @@ namespace CNBlackListSoamChecker
                             TgApi.getDefaultApiConnection().kickChatMember(
                                 RawMessage.GetMessageChatInfo().id,
                                 JoinedUser.id,
-                                GetTime.GetUnixTime() + 86400
+                                GetTime.GetUnixTime() + 300
                             );
                             TgApi.getDefaultApiConnection().restrictChatMember(
                                 RawMessage.GetMessageChatInfo().id,
@@ -155,7 +164,7 @@ namespace CNBlackListSoamChecker
                                 SetActionResult result = TgApi.getDefaultApiConnection().kickChatMember(
                                     RawMessage.GetMessageChatInfo().id,
                                     JoinedUser.id,
-                                    GetTime.GetUnixTime() + 86400
+                                    GetTime.GetUnixTime() + 300
                                 );
                                 if (!result.ok)
                                     resultmsg += "\n注意 : 由於開啟了 AutoKick 但沒有 Ban Users 權限" +
