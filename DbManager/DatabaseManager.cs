@@ -54,7 +54,7 @@ namespace CNBlackListSoamChecker.DbManager
                     else
                     {
                         finalResult = false;
-                        banmsg = "User ID: " + UserID;
+                        banmsg = "User ID : " + UserID;
                     }
                 }
                 else
@@ -119,7 +119,7 @@ namespace CNBlackListSoamChecker.DbManager
                     }
                     else
                     {
-                        banmsg = "User ID: " + UserID;
+                        banmsg = "User ID : " + UserID;
                     }
                 }
                 else
