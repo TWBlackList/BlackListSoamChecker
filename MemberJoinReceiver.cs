@@ -44,7 +44,7 @@ namespace CNBlackListSoamChecker
                         RawMessage.GetSendUser().id,
                         0,
                         banUtilTime,
-                        "自動封鎖 - 拉入機器人",
+                        "自動封鎖 - 拉入機器人 " + JoinedUser.GetUserTextInfo() ,
                         RawMessage.GetMessageChatInfo().id,
                         0,
                         RawMessage.GetSendUser()
@@ -59,7 +59,7 @@ namespace CNBlackListSoamChecker
                     new Thread(delegate()
                     {
                         TgApi.getDefaultApiConnection().sendMessage(RawMessage.GetMessageChatInfo().id, "此群組禁止使用本服務。");
-                        Thread.Sleep(2000);
+                        Thread.Sleep(1000);
                         TgApi.getDefaultApiConnection().leaveChat(RawMessage.GetMessageChatInfo().id);
                     }).Start();
                     return new CallbackMessage();
