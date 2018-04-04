@@ -1,4 +1,5 @@
-﻿using ReimuAPI.ReimuBase;
+﻿using System.Collections.Generic;
+using ReimuAPI.ReimuBase;
 using ReimuAPI.ReimuBase.TgData;
 
 namespace CNBlackListSoamChecker.CommandObject
@@ -7,7 +8,7 @@ namespace CNBlackListSoamChecker.CommandObject
     {
         internal bool Leave(TgMessage RawMessage)
         {
-            var saySpace = RawMessage.text.IndexOf(" ");
+            int saySpace = RawMessage.text.IndexOf(" ");
             if (saySpace == -1)
                 if (RAPI.getIsBotAdmin(RawMessage.GetSendUser().id) || RAPI.getIsBotOP(RawMessage.GetSendUser().id) ||
                     TgApi.getDefaultApiConnection().checkIsAdmin(RawMessage.chat.id, RawMessage.GetSendUser().id))
@@ -20,10 +21,10 @@ namespace CNBlackListSoamChecker.CommandObject
 
             if (TgApi.getDefaultApiConnection().checkIsAdmin(RawMessage.chat.id, RawMessage.GetSendUser().id))
             {
-                var
+                Dictionary<string, string>
                     banValues = CommandDecoder.cutKeyIsValue(RawMessage.text.Substring(saySpace + 1));
 
-                var groupID = new GetValues().GetGroupID(banValues, RawMessage);
+                long groupID = new GetValues().GetGroupID(banValues, RawMessage);
 
                 if (groupID == 0)
                 {
