@@ -7,12 +7,12 @@ using ReimuAPI.ReimuBase;
 using ReimuAPI.ReimuBase.TgData;
 
 namespace CNBlackListSoamChecker.CommandObject
-{    
+{
     internal class BroadCast
     {
         internal bool BroadCast_Status(TgMessage RawMessage)
         {
-            int saySpace = RawMessage.text.IndexOf(" ");
+            var saySpace = RawMessage.text.IndexOf(" ");
             if (saySpace == -1)
             {
                 TgApi.getDefaultApiConnection().sendMessage(
@@ -24,10 +24,10 @@ namespace CNBlackListSoamChecker.CommandObject
                 return true;
             }
 
-            Dictionary<string, string>
+            var
                 banValues = CommandDecoder.cutKeyIsValue(RawMessage.text.Substring(saySpace + 1));
 
-            string text = new GetValues().GetText(banValues, RawMessage);
+            var text = new GetValues().GetText(banValues, RawMessage);
 
             if (text == null)
             {
@@ -40,7 +40,7 @@ namespace CNBlackListSoamChecker.CommandObject
                 return true;
             }
 
-            long groupID = new GetValues().GetGroupID(banValues, RawMessage);
+            var groupID = new GetValues().GetGroupID(banValues, RawMessage);
 
             if (groupID == 0)
             {
@@ -61,11 +61,11 @@ namespace CNBlackListSoamChecker.CommandObject
         internal bool BC(TgMessage RawMessage, string Msg)
         {
             TgApi.getDefaultApiConnection()
-                .sendMessage(RawMessage.chat.id, "傳送中.........!" , RawMessage.message_id);
+                .sendMessage(RawMessage.chat.id, "傳送中.........!", RawMessage.message_id);
             Console.WriteLine("Broadcasting " + Msg + " ......");
             using (var db = new BlacklistDatabaseContext())
             {
-                string groups = "";
+                var groups = "";
                 List<GroupCfg> groupCfg = null;
                 try
                 {
@@ -77,20 +77,17 @@ namespace CNBlackListSoamChecker.CommandObject
                 }
 
                 if (groupCfg == null) return false;
-                foreach (GroupCfg cfg in groupCfg)
+                foreach (var cfg in groupCfg)
                 {
                     Console.WriteLine("Broadcasting " + Msg + " to group ChatID : " + cfg.GroupID);
-                    
-                    SendMessageResult result =  TgApi.getDefaultApiConnection().sendMessage(cfg.GroupID, Msg, ParseMode: TgApi.PARSEMODE_MARKDOWN);
+
+                    var result = TgApi.getDefaultApiConnection()
+                        .sendMessage(cfg.GroupID, Msg, ParseMode: TgApi.PARSEMODE_MARKDOWN);
 
                     if (result.ok)
-                    {
-                        groups = groups + "\n" + cfg.GroupID.ToString() + " : 成功";
-                    }
+                        groups = groups + "\n" + cfg.GroupID + " : 成功";
                     else
-                    {
-                        groups = groups + "\n" + cfg.GroupID.ToString() + " : 失敗";
-                    }
+                        groups = groups + "\n" + cfg.GroupID + " : 失敗";
 
                     Thread.Sleep(500);
                 }

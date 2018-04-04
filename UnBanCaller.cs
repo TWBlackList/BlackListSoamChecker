@@ -30,7 +30,7 @@ namespace CNBlackListSoamChecker
                 }
 
                 if (groupCfg == null) return;
-                foreach (GroupCfg cfg in groupCfg)
+                foreach (var cfg in groupCfg)
                 {
                     var userInChatInfo = TgApi.getDefaultApiConnection().getChatMember(cfg.GroupID, user);
 

@@ -20,7 +20,7 @@ namespace CNBlackListSoamChecker.CommandObject
         {
             using (var db = new BlacklistDatabaseContext())
             {
-                string groups = "";
+                var groups = "";
                 List<GroupCfg> groupCfg = null;
                 try
                 {
@@ -32,12 +32,18 @@ namespace CNBlackListSoamChecker.CommandObject
                 }
 
                 if (groupCfg == null) return false;
-                foreach (GroupCfg cfg in groupCfg)
+                foreach (var cfg in groupCfg)
                 {
-                    string groupInfo = "無法取得";
-                    try{groupInfo = TgApi.getDefaultApiConnection().getChatInfo(cfg.GroupID).result.GetChatTextInfo(); } catch { }
+                    var groupInfo = "無法取得";
+                    try
+                    {
+                        groupInfo = TgApi.getDefaultApiConnection().getChatInfo(cfg.GroupID).result.GetChatTextInfo();
+                    }
+                    catch
+                    {
+                    }
 
-                    groups = groups + cfg.GroupID.ToString() + " : \n" + RAPI.escapeMarkdown(groupInfo) + "\n\n";
+                    groups = groups + cfg.GroupID + " : \n" + RAPI.escapeMarkdown(groupInfo) + "\n\n";
 
                     if (groups.Length > 3072)
                     {
@@ -46,14 +52,11 @@ namespace CNBlackListSoamChecker.CommandObject
                         groups = "";
                         Thread.Sleep(3000);
                     }
-                    
                 }
 
                 if (groups.Length > 0)
-                {
                     TgApi.getDefaultApiConnection()
                         .sendMessage(RawMessage.chat.id, groups, ParseMode: TgApi.PARSEMODE_MARKDOWN);
-                }
 
                 TgApi.getDefaultApiConnection()
                     .sendMessage(RawMessage.chat.id, "Groups 輸出完畢!", RawMessage.message_id);

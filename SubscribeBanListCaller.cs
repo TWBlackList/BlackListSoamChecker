@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using CNBlackListSoamChecker.DbManager;
 using ReimuAPI.ReimuBase;
-using ReimuAPI.ReimuBase.TgData;
 
 namespace CNBlackListSoamChecker
 {
@@ -35,22 +34,21 @@ namespace CNBlackListSoamChecker
                 }
 
                 if (groupCfg == null) return;
-                foreach (GroupCfg cfg in groupCfg)
+                foreach (var cfg in groupCfg)
                 {
                     var userInChatInfo = TgApi.getDefaultApiConnection().getChatMember(cfg.GroupID, user.UserID);
                     if (userInChatInfo.ok)
                         if (userInChatInfo.result.status == "member")
-                        {
                             new Thread(delegate()
                             {
-                                System.Console.WriteLine("[SubscribeBanList] Ban " + user.UserID.ToString() +
-                                                         " in " + cfg.GroupID.ToString());
+                                Console.WriteLine("[SubscribeBanList] Ban " + user.UserID +
+                                                  " in " + cfg.GroupID);
                                 //TgApi.getDefaultApiConnection().restrictChatMember(
                                 //    cfg.GroupID,
                                 //    user.UserID,
                                 //    GetTime.GetUnixTime() + 10,
                                 //    false);
-                                SendMessageResult result = TgApi.getDefaultApiConnection().sendMessage(
+                                var result = TgApi.getDefaultApiConnection().sendMessage(
                                     cfg.GroupID,
                                     "使用者 : " + user.UserID + "\n" + user.GetBanMessage() +
                                     "\n\n由於開啟了 SubscribeBanList ，已嘗試自動移除。"
@@ -59,7 +57,6 @@ namespace CNBlackListSoamChecker
                                 TgApi.getDefaultApiConnection()
                                     .kickChatMember(cfg.GroupID, user.UserID, GetTime.GetUnixTime() + 1800);
                             }).Start();
-                        }
 
                     Thread.Sleep(500);
                 }
