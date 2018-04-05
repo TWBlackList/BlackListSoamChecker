@@ -63,7 +63,6 @@ namespace CNBlackListSoamChecker
                         TgApi.getDefaultApiConnection().leaveChat(RawMessage.GetMessageChatInfo().id);
                     }).Start();
                     return new CallbackMessage();
-                    return new CallbackMessage();
                 }
 
                 if (RawMessage.GetMessageChatInfo().type == "group")
