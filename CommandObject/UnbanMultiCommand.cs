@@ -15,7 +15,7 @@ namespace CNBlackListSoamChecker.CommandObject
             {
                 TgApi.getDefaultApiConnection().sendMessage(
                     RawMessage.GetMessageChatInfo().id,
-                    "/suunban [i|id=1] [f|from=f|fwd|r|reply]" +
+                    "/suunban [i|id=1,2,3] [f|from=f|fwd|r|reply]" +
                     " r|reason=\"asdfsadf asdfadsf\"\n\n" +
                     "from 選項僅在 id 未被定義時起作用\n" +
                     "ID 選擇優先度: 手動輸入 ID > 回覆的被轉發訊息 > 回覆的訊息\n" +
@@ -47,7 +47,7 @@ namespace CNBlackListSoamChecker.CommandObject
             {
                 TgApi.getDefaultApiConnection().sendMessage(
                     RawMessage.GetMessageChatInfo().id,
-                    "您的輸入有錯誤，請檢查您的輸入，或使用 /ban 取得幫助 err10",
+                    "您的輸入有錯誤，請檢查您的輸入，或使用 /suunban 取得幫助 err10",
                     RawMessage.message_id
                 );
                 return true;

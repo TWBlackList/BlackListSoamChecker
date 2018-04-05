@@ -8,6 +8,16 @@ namespace CNBlackListSoamChecker
     {
         internal bool AdminCommands(TgMessage RawMessage, string JsonMessage, string Command)
         {
+            if (RawMessage.GetMessageChatInfo().id == Temp.InternGroupID && RawMessage.GetReplyMessage().GetSendUser().id == TgApi.getDefaultApiConnection().getMe().id)
+            {
+                switch (Command)
+                {
+                    case "/cnban":
+                    case "/ban":
+                        new BanUserCommand().Ban(RawMessage, JsonMessage, Command);
+                        throw new StopProcessException();                    
+                }
+            }
             if (RAPI.getIsBotOP(RawMessage.GetSendUser().id) || RAPI.getIsBotAdmin(RawMessage.GetSendUser().id))
             {
                 if (!Temp.DisableBanList)
