@@ -62,6 +62,9 @@ namespace CNBlackListSoamChecker
                         }
                     switch (Command)
                     {
+                        case "/groupadmin":
+                            new GetAdmins().GetGroupAdmins(RawMessage);
+                            throw new StopProcessException();
                         case "/points":
                             new SpamStringManager().GetSpamKeywords(RawMessage);
                             throw new StopProcessException();
