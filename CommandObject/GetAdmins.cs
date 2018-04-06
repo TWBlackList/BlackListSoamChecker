@@ -30,12 +30,11 @@ namespace CNBlackListSoamChecker.CommandObject
 
             GroupUserInfo[] admins = TgApi.getDefaultApiConnection().getChatAdministrators(gid);
 
-
-            string msg = TgApi.getDefaultApiConnection().getChatInfo(gid).result.title + "\nGID : `" + gid.ToString() + "`\n\n\n";
+            string msg = RAPI.escapeMarkdown(TgApi.getDefaultApiConnection().getChatInfo(gid).result.title) + "\nGID : `" + gid.ToString() + "`\n\n";
 
             string creatorMessage = "";
             
-            string adminMessage = "\n\n\nAdmin\n";
+            string adminMessage = "\n\nAdmin";
               
             foreach (var admin in admins)
             {
@@ -59,7 +58,6 @@ namespace CNBlackListSoamChecker.CommandObject
 
             TgApi.getDefaultApiConnection()
                 .sendMessage(RawMessage.chat.id, msg);
-
             
             return true;
         }
