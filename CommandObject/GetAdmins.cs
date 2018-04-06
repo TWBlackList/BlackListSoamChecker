@@ -41,7 +41,7 @@ namespace CNBlackListSoamChecker.CommandObject
             }
 
             TgApi.getDefaultApiConnection()
-                .sendMessage(RawMessage.chat.id, msg, ParseMode: TgApi.PARSEMODE_MARKDOWN);
+                .sendMessage(RawMessage.chat.id, msg);
             
             return true;
         }
