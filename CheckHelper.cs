@@ -15,11 +15,12 @@ namespace CNBlackListSoamChecker
                 
                 bool status = false;
                 GroupUserInfo[] admins = TgApi.getDefaultApiConnection().getChatAdministrators(ChatID,true);
+                System.Console.WriteLine("Getting Chat Administrator List ChatID : " + ChatID);
                 foreach (var admin in admins)
                 {
                     var result = TgApi.getDefaultApiConnection().getChatMember(Temp.ReportGroupID, admin.user.id);
                     if (result.ok)
-                        if(result.result.status != "left")
+                        if(result.result.status != "left"  && result.result.user.id != TgApi().getDefaultApiConnection().getMe().id)
                         {
                             status = true;
                             break;
@@ -27,7 +28,13 @@ namespace CNBlackListSoamChecker
                 }
 
                 if (status)
+                {
+                    System.Console.WriteLine("[checkHelper] Admin in report group GID : " + ChatID.ToString());
                     Temp.adminInReport.Add(ChatID);
+                }
+                else
+                    System.Console.WriteLine("[checkHelper] Admin not in report group GID : " + ChatID.ToString());
+
 
                 return status;
 
