@@ -68,6 +68,9 @@ namespace CNBlackListSoamChecker
                             case "/getspamstr":
                                 new SpamStringManager().GetName(RawMessage);
                                 throw new StopProcessException();
+                            case "/reloadspamstr":
+                                new SpamStringManager().reloadSpamList(RawMessage);
+                                throw new StopProcessException();
                         }
                     switch (Command)
                     {
