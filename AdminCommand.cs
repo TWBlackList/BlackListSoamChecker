@@ -44,6 +44,15 @@ namespace CNBlackListSoamChecker
                         case "/unban":
                             new UnbanUserCommand().Unban(RawMessage);
                             throw new StopProcessException();
+                        case "/addhk":
+                            new HKWhitelist().addHKWhitelist(RawMessage);
+                            throw new StopProcessException();
+                        case "/delhk":
+                            new HKWhitelist().deleteHKWhitelist(RawMessage);
+                            throw new StopProcessException();
+                        case "/lshk":
+                            new HKWhitelist().listHKWhitelist(RawMessage);
+                            throw new StopProcessException();
                     }
                 if (RAPI.getIsBotAdmin(RawMessage.GetSendUser().id))
                 {
@@ -94,15 +103,6 @@ namespace CNBlackListSoamChecker
                             throw new StopProcessException();
                         case "/delop":
                             new OP().delOP(RawMessage);
-                            throw new StopProcessException();
-                        case "/addhk":
-                            new HKWhitelist().addHKWhitelist(RawMessage);
-                            throw new StopProcessException();
-                        case "/delhk":
-                            new HKWhitelist().deleteHKWhitelist(RawMessage);
-                            throw new StopProcessException();
-                        case "/lshk":
-                            new HKWhitelist().listHKWhitelist(RawMessage);
                             throw new StopProcessException();
                         case "/addwl":
                             new Whitelist().addWhitelist(RawMessage);
