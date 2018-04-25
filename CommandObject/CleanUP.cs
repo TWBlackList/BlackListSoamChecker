@@ -39,13 +39,12 @@ namespace CNBlackListSoamChecker.CommandObject
                     bool status = false;
                     SendMessageResult result = TgApi.getDefaultApiConnection().sendMessage(
                         cfg.GroupID,
-                        "測試訊息(不用理會此訊息)",
-                        ParseMode: TgApi.PARSEMODE_MARKDOWN);
+                        "測試訊息(不用理會此訊息)");
+                    
                     if (result.ok)
                     {
-                        TgApi.getDefaultApiConnection().deleteMessage(Tcfg.GroupID, result.result.message_id);
+                        TgApi.getDefaultApiConnection().deleteMessage(cfg.GroupID, result.result.message_id);
                         status = true;
-                        break;
                     }
                     
                     if (status)
