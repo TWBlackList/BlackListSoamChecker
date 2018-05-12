@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using BlackListSoamChecker.DbManager;
-using System.Runtime.Serialization.Json;
+using System.Web.Script.Serialization;
 using System.IO;
 using System.Text;
 
@@ -17,22 +17,12 @@ namespace BlackListSoamChecker
         
             if (!File.Exists(configPath))
             {
-                DataContractJsonSerializer configJson = new DataContractJsonSerializer(typeof(BlackListConfig));  
-                MemoryStream ms = new MemoryStream();  
-                configJson.WriteObject(ms, new BlackListConfig());  
-                ms.Position = 0;  
-                StreamReader sr = new StreamReader(ms);  
-                System.IO.File.WriteAllText(configPath, sr.ReadToEnd());
+                string json = new JavaScriptSerializer().Serialize(new BlackListConfig());
+                System.IO.File.WriteAllText(configPath, json);
             }
         
             string json = File.ReadAllText(configPath);
-            BlackListConfig data = (BlackListConfig) new DataContractJsonSerializer(
-                typeof(BlackListConfig)
-            ).ReadObject(
-                new MemoryStream(
-                    Encoding.UTF8.GetBytes(json)
-                )
-            );
+            var data = new JavaScriptSerializer().Deserialize<BlackListConfig>(json);
             return data;
         }
 
