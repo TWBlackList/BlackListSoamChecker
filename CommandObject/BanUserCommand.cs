@@ -2,7 +2,7 @@
 using ReimuAPI.ReimuBase;
 using ReimuAPI.ReimuBase.TgData;
 
-namespace CNBlackListSoamChecker.CommandObject
+namespace BlackListSoamChecker.CommandObject
 {
     internal class BanUserCommand
     {
@@ -145,8 +145,8 @@ namespace CNBlackListSoamChecker.CommandObject
             }
 
             bool status;            
-            if (RawMessage.GetMessageChatInfo().id == Temp.InternGroupID && RawMessage.GetReplyMessage().GetSendUser().id == TgApi.getDefaultApiConnection().getMe().id)
-                status = Temp.GetDatabaseManager().BanUser(
+            if (RawMessage.GetMessageChatInfo().id == Config.InternGroupID && RawMessage.GetReplyMessage().GetSendUser().id == TgApi.getDefaultApiConnection().getMe().id)
+                status = Config.GetDatabaseManager().BanUser(
                     1,
                     BanUserId,
                     Level,
@@ -157,7 +157,7 @@ namespace CNBlackListSoamChecker.CommandObject
                     BanUserInfo
                 );
             else if (BanUserInfo == null)
-                status = Temp.GetDatabaseManager().BanUser(
+                status = Config.GetDatabaseManager().BanUser(
                     RawMessage.GetSendUser().id,
                     BanUserId,
                     Level,
@@ -165,7 +165,7 @@ namespace CNBlackListSoamChecker.CommandObject
                     Reason
                 );
             else if (RawMessage.GetReplyMessage().new_chat_member != null)
-                status = Temp.GetDatabaseManager().BanUser(
+                status = Config.GetDatabaseManager().BanUser(
                     RawMessage.GetSendUser().id,
                     BanUserId,
                     Level,
@@ -176,7 +176,7 @@ namespace CNBlackListSoamChecker.CommandObject
                     BanUserInfo
                 );
             else
-                status = Temp.GetDatabaseManager().BanUser(
+                status = Config.GetDatabaseManager().BanUser(
                     RawMessage.GetSendUser().id,
                     BanUserId,
                     Level,
@@ -199,7 +199,7 @@ namespace CNBlackListSoamChecker.CommandObject
             //{
             //    TgApi.getDefaultApiConnection().sendMessage(
             //        RawMessage.GetMessageChatInfo().id,
-            //        "操作成功。\n\n請注意 : 轉發使用者訊息到頻道或是發送使用者訊息到頻道失敗，請您手動發送至 @" + Temp.MainChannelName + " 。 err11",
+            //        "操作成功。\n\n請注意 : 轉發使用者訊息到頻道或是發送使用者訊息到頻道失敗，請您手動發送至 @" + Config.MainChannelName + " 。 err11",
             //        RawMessage.message_id
             //        );
             //    return true;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CNBlackListSoamChecker
+namespace BlackListSoamChecker
 {
     internal class ConfigManager
     {
@@ -12,7 +12,11 @@ namespace CNBlackListSoamChecker
             {
                 string configPath = Environment.GetEnvironmentVariable("BOT_CONFIGPATH");
                 if (configPath == "" || configPath == null)
+                {
                     ConfigPath = @"plugincfg/soamchecker/";
+                    System.IO.Directory.CreateDirectory(@"plugincfg/");
+                    System.IO.Directory.CreateDirectory(@"plugincfg/soamchecker/");
+                }
                 else
                     ConfigPath = configPath + "/";
             }

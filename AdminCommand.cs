@@ -1,15 +1,15 @@
-﻿using CNBlackListSoamChecker.CommandObject;
+﻿using BlackListSoamChecker.CommandObject;
 using ReimuAPI.ReimuBase;
 using ReimuAPI.ReimuBase.TgData;
 
-namespace CNBlackListSoamChecker
+namespace BlackListSoamChecker
 {
     internal class AdminCommand
     {
         internal bool AdminCommands(TgMessage RawMessage, string JsonMessage, string Command)
         {
             if (RawMessage.GetReplyMessage() != null)
-                if (RawMessage.GetMessageChatInfo().id == Temp.InternGroupID && RawMessage.GetReplyMessage().GetSendUser().id == TgApi.getDefaultApiConnection().getMe().id)
+                if (RawMessage.GetMessageChatInfo().id == Config.InternGroupID && RawMessage.GetReplyMessage().GetSendUser().id == TgApi.getDefaultApiConnection().getMe().id)
                 {
                     switch (Command)
                     {
@@ -27,7 +27,7 @@ namespace CNBlackListSoamChecker
                         new AllGroups().Groups_Status(RawMessage);
                         throw new StopProcessException();    
                 }
-                if (!Temp.DisableBanList)
+                if (!Config.DisableBanList)
                     switch (Command)
                     {
                         case "/groupadmin":
@@ -56,7 +56,7 @@ namespace CNBlackListSoamChecker
                     }
                 if (RAPI.getIsBotAdmin(RawMessage.GetSendUser().id))
                 {
-                    if (!Temp.DisableBanList)
+                    if (!Config.DisableBanList)
                         switch (Command)
                         {
                             case "/getallspamstr":

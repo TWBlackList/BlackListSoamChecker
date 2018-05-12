@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using CNBlackListSoamChecker.DbManager;
+using BlackListSoamChecker.DbManager;
 using ReimuAPI.ReimuBase;
 
-namespace CNBlackListSoamChecker
+namespace BlackListSoamChecker
 {
     internal class UnBanCaller
     {
@@ -16,7 +16,7 @@ namespace CNBlackListSoamChecker
 
         internal void CallGroups(int user)
         {
-            if (Temp.DisableAdminTools) return;
+            if (Config.DisableAdminTools) return;
             using (var db = new BlacklistDatabaseContext())
             {
                 List<GroupCfg> groupCfg = null;

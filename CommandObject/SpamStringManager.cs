@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
-using CNBlackListSoamChecker.DbManager;
+using BlackListSoamChecker.DbManager;
 using ReimuAPI.ReimuBase;
 using ReimuAPI.ReimuBase.TgData;
 
-namespace CNBlackListSoamChecker.CommandObject
+namespace BlackListSoamChecker.CommandObject
 {
     public class SpamStringManager
     {
@@ -22,7 +22,7 @@ namespace CNBlackListSoamChecker.CommandObject
 
         public void reloadSpamList(TgMessage RawMessage)
         {
-            Temp.spamMessageList = null;
+            Config.spamMessageList = null;
             TgApi.getDefaultApiConnection().sendMessage(
                 RawMessage.GetMessageChatInfo().id,
                 "已將暫存 SpamStr 清單清空",
@@ -33,7 +33,7 @@ namespace CNBlackListSoamChecker.CommandObject
         public void GetAllInfo(TgMessage RawMessage)
         {
             string spamstrings = "";
-            List<SpamMessage> msgs = Temp.GetDatabaseManager().GetSpamMessageList();
+            List<SpamMessage> msgs = Config.GetDatabaseManager().GetSpamMessageList();
             foreach (SpamMessage msg in msgs)
             {
                 spamstrings += "- " + msg.FriendlyName + ":" +
@@ -79,7 +79,7 @@ namespace CNBlackListSoamChecker.CommandObject
         {
             int spacePath = RawMessage.text.IndexOf(" ");
             string spamstrings = "";
-            List<SpamMessage> msgs = Temp.GetDatabaseManager().GetSpamMessageList();
+            List<SpamMessage> msgs = Config.GetDatabaseManager().GetSpamMessageList();
             if (spacePath == -1)
             {
                 if (msgs.Count == 0)
@@ -160,7 +160,7 @@ namespace CNBlackListSoamChecker.CommandObject
 
             string name = RawMessage.text.Substring(spacePath + 1);
             string spamstrings = "";
-            List<SpamMessage> msgs = Temp.GetDatabaseManager().GetSpamMessageList();
+            List<SpamMessage> msgs = Config.GetDatabaseManager().GetSpamMessageList();
             foreach (SpamMessage msg in msgs)
             {
                 if (name != msg.FriendlyName) continue;
@@ -219,7 +219,7 @@ namespace CNBlackListSoamChecker.CommandObject
 
             string jsonText = RawMessage.text.Substring(spacePath + 1);
             string spamstrings = "";
-            List<SpamMessage> msgs = Temp.GetDatabaseManager().GetSpamMessageList();
+            List<SpamMessage> msgs = Config.GetDatabaseManager().GetSpamMessageList();
             foreach (SpamMessage msg in msgs) spamstrings += "- " + msg.FriendlyName + "\n";
             if (spamstrings == "")
             {
@@ -306,7 +306,7 @@ namespace CNBlackListSoamChecker.CommandObject
                 return;
             }
 
-            Temp.GetDatabaseManager().AddSpamMessage(smsg);
+            Config.GetDatabaseManager().AddSpamMessage(smsg);
             TgApi.getDefaultApiConnection().sendMessage(
                 RawMessage.GetMessageChatInfo().id,
                 "ok",
@@ -329,7 +329,7 @@ namespace CNBlackListSoamChecker.CommandObject
             }
 
             string RuleFriendlyName = RawMessage.text.Substring(spacePath + 1);
-            int count = Temp.GetDatabaseManager().DeleteSpamMessage(RuleFriendlyName);
+            int count = Config.GetDatabaseManager().DeleteSpamMessage(RuleFriendlyName);
             TgApi.getDefaultApiConnection().sendMessage(
                 RawMessage.GetMessageChatInfo().id,
                 "刪除了 " + count + " 項",
@@ -369,7 +369,7 @@ namespace CNBlackListSoamChecker.CommandObject
 
             //if (rule == null)
             //{
-            List<SpamMessage> spamMsgList = Temp.GetDatabaseManager().GetSpamMessageList();
+            List<SpamMessage> spamMsgList = Config.GetDatabaseManager().GetSpamMessageList();
             string msg = "";
             bool found = false;
             foreach (SpamMessage smsg in spamMsgList)
@@ -428,7 +428,7 @@ namespace CNBlackListSoamChecker.CommandObject
             //}
             //else
             //{
-            //    SpamMessage smsg = Temp.GetDatabaseManager().GetSpamRule(rule);
+            //    SpamMessage smsg = Config.GetDatabaseManager().GetSpamRule(rule);
             //    if (smsg == null)
             //    {
             //        TgApi.getDefaultApiConnection().sendMessage(
@@ -490,7 +490,7 @@ namespace CNBlackListSoamChecker.CommandObject
             }
 
             string text = RawMessage.text.Replace("/points ", "");
-            List<SpamMessage> spamMsgList = Temp.GetDatabaseManager().GetSpamMessageList();
+            List<SpamMessage> spamMsgList = Config.GetDatabaseManager().GetSpamMessageList();
             string msg = "";
             bool found = false;
             foreach (SpamMessage smsg in spamMsgList)

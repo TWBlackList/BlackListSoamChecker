@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ReimuAPI.ReimuBase;
 
-namespace CNBlackListSoamChecker.DbManager
+namespace BlackListSoamChecker.DbManager
 {
     internal class BlacklistDatabaseContext : DbContext
     {
@@ -51,8 +51,8 @@ namespace CNBlackListSoamChecker.DbManager
 
                 msg += "\n原因 : " + Reason;
 
-                if (ChannelMessageID != 0 && Temp.MainChannelName != null)
-                    msg += "\n\n參考 : https://t.me/" + Temp.MainChannelName + "/" + ChannelMessageID;
+                if (ChannelMessageID != 0 && Config.MainChannelName != null)
+                    msg += "\n\n參考 : https://t.me/" + Config.MainChannelName + "/" + ChannelMessageID;
             }
 
             return msg;
@@ -79,8 +79,8 @@ namespace CNBlackListSoamChecker.DbManager
 
                 msg += "\n原因 : " + Reason;
 
-                if (ChannelMessageID != 0 && Temp.MainChannelName != null)
-                    msg += "\n\n參考 : https://t.me/" + Temp.MainChannelName + "/" + ChannelMessageID;
+                if (ChannelMessageID != 0 && Config.MainChannelName != null)
+                    msg += "\n\n參考 : https://t.me/" + Config.MainChannelName + "/" + ChannelMessageID;
 
                 msg = RAPI.escapeMarkdown(msg);
             }

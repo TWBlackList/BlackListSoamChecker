@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using CNBlackListSoamChecker.CommandObject;
-using CNBlackListSoamChecker.DbManager;
+using BlackListSoamChecker.CommandObject;
+using BlackListSoamChecker.DbManager;
 using ReimuAPI.ReimuBase;
 using ReimuAPI.ReimuBase.Interfaces;
 using ReimuAPI.ReimuBase.TgData;
 
-namespace CNBlackListSoamChecker
+namespace BlackListSoamChecker
 {
     internal class SpamMessageDeleter : IOtherMessageReceiver
     {
@@ -39,7 +39,7 @@ namespace CNBlackListSoamChecker
                 new Thread(delegate()
                 {
                     TgApi.getDefaultApiConnection().sendMessage(BaseMessage.GetMessageChatInfo().id, 
-                        "群管理必須加入[項目群組](https://t.me/" + Temp.ReportGroupName + ")才可使用本服務。",ParseMode: TgApi.PARSEMODE_MARKDOWN);
+                        "群管理必須加入[項目群組](https://t.me/" + Config.ReportGroupName + ")才可使用本服務。",ParseMode: TgApi.PARSEMODE_MARKDOWN);
                     Thread.Sleep(2000);
                     TgApi.getDefaultApiConnection().leaveChat(BaseMessage.GetMessageChatInfo().id);
                 }).Start();
@@ -91,25 +91,25 @@ namespace CNBlackListSoamChecker
                             CallAdmin(BaseMessage);
                     }
 
-                if (Temp.InternGroupID != 0)
+                if (Config.InternGroupID != 0)
                 {
                     TgApi.getDefaultApiConnection().forwardMessage(
-                        Temp.InternGroupID,
+                        Config.InternGroupID,
                         BaseMessage.GetMessageChatInfo().id,
                         BaseMessage.GetReplyMessage().message_id
                     );
                     TgApi.getDefaultApiConnection().sendMessage(
-                        Temp.InternGroupID,
+                        Config.InternGroupID,
                         BaseMessage.GetMessageChatInfo().GetChatTextInfo() + "\n\nReport By" + BaseMessage.GetSendUser().GetUserTextInfo()
                     );
                 }
             }
             // Call Admin END
 
-            if (Temp.ReportGroupID != 0 && BaseMessage.GetMessageChatInfo().id == Temp.ReportGroupID)
+            if (Config.ReportGroupID != 0 && BaseMessage.GetMessageChatInfo().id == Config.ReportGroupID)
                 if (BaseMessage.forward_from != null)
                 {
-                    BanUser banUser = Temp.GetDatabaseManager().GetUserBanStatus(BaseMessage.forward_from.id);
+                    BanUser banUser = Config.GetDatabaseManager().GetUserBanStatus(BaseMessage.forward_from.id);
                     if (banUser.Ban == 0)
                     {
                         string resultmsg = "使用者被封鎖了\n" + banUser.GetBanMessage_ESCMD();
@@ -124,7 +124,7 @@ namespace CNBlackListSoamChecker
                     {
                         int max_point = 0;
                         SpamMessage max_point_spam = new SpamMessage();
-                        List<SpamMessage> spamMsgList = Temp.GetDatabaseManager().GetSpamMessageList();
+                        List<SpamMessage> spamMsgList = Config.GetDatabaseManager().GetSpamMessageList();
                         foreach (SpamMessage smsg in spamMsgList)
                         {
                             int points = 0;
@@ -187,7 +187,7 @@ namespace CNBlackListSoamChecker
                                           max_point_spam.BanMinutes * 60;
                                 new Task(() =>
                                 {
-                                    Temp.GetDatabaseManager().BanUser(
+                                    Config.GetDatabaseManager().BanUser(
                                         0,
                                         BaseMessage.forward_from.id,
                                         max_point_spam.BanLevel,
@@ -220,12 +220,12 @@ namespace CNBlackListSoamChecker
                 return new CallbackMessage();
 
             // ALTI HALAL Start
-            GroupCfg cfg = Temp.GetDatabaseManager().GetGroupConfig(BaseMessage.chat.id);
+            GroupCfg cfg = Config.GetDatabaseManager().GetGroupConfig(BaseMessage.chat.id);
             if (cfg.AntiHalal == 0)
             {
                 int max_point = 0;
                 SpamMessage max_point_spam = new SpamMessage();
-                List<SpamMessage> spamMsgList = Temp.GetDatabaseManager().GetSpamMessageList();
+                List<SpamMessage> spamMsgList = Config.GetDatabaseManager().GetSpamMessageList();
                 foreach (SpamMessage smsg in spamMsgList)
                 {
                     int points = 0;
@@ -256,13 +256,13 @@ namespace CNBlackListSoamChecker
                     new Thread(delegate()
                     {
                         string msg = "";
-                        if (Temp.ReportGroupName == Temp.CourtGroupName)
+                        if (Config.ReportGroupName == Config.CourtGroupName)
                             msg = "偵測到 " + max_point_spam.FriendlyName +
-                                  " ，已自動回報，如有誤報請加入 @" + Temp.ReportGroupName + " 以報告誤報。";
+                                  " ，已自動回報，如有誤報請加入 @" + Config.ReportGroupName + " 以報告誤報。";
                         else
                             msg = "偵測到 " + max_point_spam.FriendlyName +
-                                  " ，已自動回報，如有誤報請加入 @" + Temp.ReportGroupName + " 以報告誤報" +
-                                  " ，如有疑慮請加入 @" + Temp.CourtGroupName + " 提出申訴。";
+                                  " ，已自動回報，如有誤報請加入 @" + Config.ReportGroupName + " 以報告誤報" +
+                                  " ，如有疑慮請加入 @" + Config.CourtGroupName + " 提出申訴。";
 
                         SendMessageResult autodeletespammessagesendresult = TgApi.getDefaultApiConnection()
                             .sendMessage(
@@ -280,17 +280,17 @@ namespace CNBlackListSoamChecker
                     return new CallbackMessage {StopProcess = true};
                 }
                 //{
-                //    List<SpamMessage> spamMsgList = Temp.GetDatabaseManager().GetSpamMessageList();
+                //    List<SpamMessage> spamMsgList = Config.GetDatabaseManager().GetSpamMessageList();
                 //    int halalPoints = new SpamMessageChecker().GetHalalPoints(chatText);
                 //    int indiaPoints = new SpamMessageChecker().GetIndiaPoints(chatText);
                 //    int russiaPoints = new SpamMessageChecker().GetRussiaPoints(chatText);
                 //    if (halalPoints >= 8 || indiaPoints >= 16)
                 //    {
                 //        //If not in ban status , ban user.
-                //        if (Temp.GetDatabaseManager().GetUserBanStatus(BaseMessage.from.id).Ban != 0)
+                //        if (Config.GetDatabaseManager().GetUserBanStatus(BaseMessage.from.id).Ban != 0)
                 //            new Task(() =>
                 //            {
-                //                Temp.GetDatabaseManager().BanUser(
+                //                Config.GetDatabaseManager().BanUser(
                 //                    0,
                 //                    BaseMessage.from.id,
                 //                    0,
@@ -305,7 +305,7 @@ namespace CNBlackListSoamChecker
                 //new Task(() =>
                 //{
                 //    TgApi.getDefaultApiConnection().forwardMessage(
-                //        Temp.ReasonChannelID,
+                //        Config.ReasonChannelID,
                 //        BaseMessage.GetMessageChatInfo().id,
                 //        BaseMessage.message_id);
                 //}).Start();
@@ -317,7 +317,7 @@ namespace CNBlackListSoamChecker
                 //            TgApi.getDefaultApiConnection().deleteMessage(BaseMessage.chat.id, BaseMessage.message_id);
                 //        }).Start();
 
-                //        BanUser banstat = Temp.GetDatabaseManager().GetUserBanStatus(BaseMessage.GetSendUser().id);
+                //        BanUser banstat = Config.GetDatabaseManager().GetUserBanStatus(BaseMessage.GetSendUser().id);
 
                 //        if (banstat.Ban == 0)
                 //            TgApi.getDefaultApiConnection().kickChatMember(
@@ -331,7 +331,7 @@ namespace CNBlackListSoamChecker
                 //        {
                 //            SendMessageResult autodeletespammessagesendresult = TgApi.getDefaultApiConnection().sendMessage(
                 //                BaseMessage.GetMessageChatInfo().id,
-                //                "偵測到無法理解的語言，已自動回報，如有誤報請加入 @" + Temp.ReportGroupName + " 以報告誤報。"
+                //                "偵測到無法理解的語言，已自動回報，如有誤報請加入 @" + Config.ReportGroupName + " 以報告誤報。"
                 //            );
                 //            Thread.Sleep(60000);
                 //            TgApi.getDefaultApiConnection().deleteMessage(
@@ -345,11 +345,11 @@ namespace CNBlackListSoamChecker
             // ALTI HALAL AND INDIA END
 
             // AUTO DELETE SPAM MESSAGE START
-            if (Temp.DisableBanList == false && cfg.AutoDeleteSpamMessage == 0)
+            if (Config.DisableBanList == false && cfg.AutoDeleteSpamMessage == 0)
             {
                 int max_point = 0;
                 SpamMessage max_point_spam = new SpamMessage();
-                List<SpamMessage> spamMsgList = Temp.GetDatabaseManager().GetSpamMessageList();
+                List<SpamMessage> spamMsgList = Config.GetDatabaseManager().GetSpamMessageList();
                 foreach (SpamMessage smsg in spamMsgList)
                 {
                     int points = 0;
@@ -391,13 +391,13 @@ namespace CNBlackListSoamChecker
                     new Thread(delegate()
                     {
                         string msg = "";
-                        if (Temp.ReportGroupName == Temp.CourtGroupName)
+                        if (Config.ReportGroupName == Config.CourtGroupName)
                             msg = "偵測到 " + max_point_spam.FriendlyName +
-                                  " ，已自動回報，如有誤報請加入 @" + Temp.ReportGroupName + " 以報告誤報。";
+                                  " ，已自動回報，如有誤報請加入 @" + Config.ReportGroupName + " 以報告誤報。";
                         else
                             msg = "偵測到 " + max_point_spam.FriendlyName +
-                                  " ，已自動回報，如有誤報請加入 @" + Temp.ReportGroupName + " 以報告誤報。" +
-                                  " ，如有疑慮請加入 @" + Temp.CourtGroupName + " 提出申訴。";
+                                  " ，已自動回報，如有誤報請加入 @" + Config.ReportGroupName + " 以報告誤報。" +
+                                  " ，如有疑慮請加入 @" + Config.CourtGroupName + " 提出申訴。";
                         SendMessageResult autodeletespammessagesendresult = TgApi.getDefaultApiConnection()
                             .sendMessage(
                                 BaseMessage.GetMessageChatInfo().id,
@@ -485,10 +485,10 @@ namespace CNBlackListSoamChecker
             {
                 new Thread(delegate()
                 {
-                    if (Temp.GetDatabaseManager().GetUserBanStatus(SendUserInfo.id).Ban == 0) return;
+                    if (Config.GetDatabaseManager().GetUserBanStatus(SendUserInfo.id).Ban == 0) return;
                     new Task(() =>
                     {
-                        Temp.GetDatabaseManager().BanUser(
+                        Config.GetDatabaseManager().BanUser(
                             0,
                             SendUserInfo.id,
                             smsg.BanLevel,

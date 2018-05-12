@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading;
-using CNBlackListSoamChecker.CommandObject;
-using CNBlackListSoamChecker.DbManager;
+using BlackListSoamChecker.CommandObject;
+using BlackListSoamChecker.DbManager;
 using ReimuAPI.ReimuBase;
 using ReimuAPI.ReimuBase.Interfaces;
 using ReimuAPI.ReimuBase.TgData;
 
-namespace CNBlackListSoamChecker
+namespace BlackListSoamChecker
 {
     internal class CommandListener : ICommandReceiver
     {
@@ -42,7 +42,7 @@ namespace CNBlackListSoamChecker
         {
             try
             {
-                GroupCfg cfg = Temp.GetDatabaseManager().GetGroupConfig(RawMessage.chat.id);
+                GroupCfg cfg = Config.GetDatabaseManager().GetGroupConfig(RawMessage.chat.id);
                 if (cfg.AdminOnly == 0)
                     if (TgApi.getDefaultApiConnection().checkIsAdmin(RawMessage.chat.id, RawMessage.from.id) ||
                         RAPI.getIsBotAdmin(RawMessage.from.id) || RAPI.getIsBotOP(RawMessage.from.id))
@@ -90,7 +90,7 @@ namespace CNBlackListSoamChecker
                         new SoamManager().SoamStatus(RawMessage);
                         break;
                     //case "/cnkick":
-                    //    if (Temp.DisableBanList)
+                    //    if (Config.DisableBanList)
                     //    {
                     //        TgApi.getDefaultApiConnection().sendMessage(
                     //            RawMessage.chat.id,
@@ -104,7 +104,7 @@ namespace CNBlackListSoamChecker
                     //        TgApi.getDefaultApiConnection().sendMessage(RawMessage.chat.id, "請回覆一則訊息", RawMessage.message_id);
                     //        return new CallbackMessage();
                     //    }
-                    //    BanUser ban = Temp.GetDatabaseManager().GetUserBanStatus(RawMessage.reply_to_message.from.id);
+                    //    BanUser ban = Config.GetDatabaseManager().GetUserBanStatus(RawMessage.reply_to_message.from.id);
                     //    if (ban.Ban == 0)
                     //    {
                     //        if (ban.Level == 0)
@@ -134,7 +134,7 @@ namespace CNBlackListSoamChecker
                     //            TgApi.getDefaultApiConnection().sendMessage(
                     //                RawMessage.chat.id,
                     //                "無法移除，因為此使用者不在黑名單，請您聯絡群組的管理員處理。" +
-                    //                "如果你認為這位使用者將會影響大量群組，您可連絡 @" + Temp.MainChannelName + " 提供的群組。",
+                    //                "如果你認為這位使用者將會影響大量群組，您可連絡 @" + Config.MainChannelName + " 提供的群組。",
                     //                RawMessage.message_id
                     //                );
                     //            return new CallbackMessage();
@@ -145,7 +145,7 @@ namespace CNBlackListSoamChecker
                     //        TgApi.getDefaultApiConnection().sendMessage(
                     //            RawMessage.chat.id,
                     //            "無法移除，因為此使用者不在黑名單，請您聯絡群組的管理員處理。" +
-                    //            "如果你認為這位使用者將會影響大量群組，您可連絡 @" + Temp.MainChannelName + " 提供的群組。",
+                    //            "如果你認為這位使用者將會影響大量群組，您可連絡 @" + Config.MainChannelName + " 提供的群組。",
                     //            RawMessage.message_id
                     //            );
                     //        return new CallbackMessage();
@@ -178,7 +178,7 @@ namespace CNBlackListSoamChecker
                 case "/banstat":
                 case "/banstatus":
                 case "/cnbanstat":
-                    if (Temp.DisableBanList)
+                    if (Config.DisableBanList)
                     {
                         TgApi.getDefaultApiConnection().sendMessage(
                             RawMessage.chat.id,

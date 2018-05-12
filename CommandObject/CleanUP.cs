@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using CNBlackListSoamChecker.DbManager;
+using BlackListSoamChecker.DbManager;
 using ReimuAPI.ReimuBase;
 using ReimuAPI.ReimuBase.TgData;
 
-namespace CNBlackListSoamChecker.CommandObject
+namespace BlackListSoamChecker.CommandObject
 {
     internal class CleanUP
     {
@@ -54,7 +54,7 @@ namespace CNBlackListSoamChecker.CommandObject
                     else
                     {
                         groups = groups + cfg.GroupID + " : Bot不是聊天成員，";
-                        if (Temp.GetDatabaseManager().RemoveGroupCfg(cfg.GroupID))
+                        if (Config.GetDatabaseManager().RemoveGroupCfg(cfg.GroupID))
                             groups = groups + "移除成功\n";
                         else
                             groups = groups + "移除失敗\n";

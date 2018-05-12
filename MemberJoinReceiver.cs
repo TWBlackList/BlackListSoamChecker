@@ -1,11 +1,11 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using CNBlackListSoamChecker.DbManager;
+using BlackListSoamChecker.DbManager;
 using ReimuAPI.ReimuBase;
 using ReimuAPI.ReimuBase.Interfaces;
 using ReimuAPI.ReimuBase.TgData;
 
-namespace CNBlackListSoamChecker
+namespace BlackListSoamChecker
 {
     internal class MemberJoinReceiver : IMemberJoinLeftListener
     {
@@ -17,7 +17,7 @@ namespace CNBlackListSoamChecker
         public CallbackMessage OnSupergroupMemberJoinReceive(TgMessage RawMessage, string JsonMessage,
             UserInfo JoinedUser)
         {
-            DatabaseManager dbmgr = Temp.GetDatabaseManager();
+            DatabaseManager dbmgr = Config.GetDatabaseManager();
             GroupCfg groupCfg = dbmgr.GetGroupConfig(RawMessage.GetMessageChatInfo().id);
 
             if (groupCfg.AntiBot == 0 && JoinedUser.is_bot && !TgApi.getDefaultApiConnection()
@@ -39,7 +39,7 @@ namespace CNBlackListSoamChecker
                 new Task(() =>
                 {
                     long banUtilTime = GetTime.GetUnixTime() + 86400;
-                    Temp.GetDatabaseManager().BanUser(
+                    Config.GetDatabaseManager().BanUser(
                         0,
                         RawMessage.GetSendUser().id,
                         0,
@@ -79,7 +79,7 @@ namespace CNBlackListSoamChecker
                     new Thread(delegate()
                     {
                         TgApi.getDefaultApiConnection().sendMessage(RawMessage.GetMessageChatInfo().id, 
-                            "群管理必須加入[項目群組](https://t.me/" + Temp.ReportGroupName + ")才可使用本服務。",ParseMode: TgApi.PARSEMODE_MARKDOWN);
+                            "群管理必須加入[項目群組](https://t.me/" + Config.ReportGroupName + ")才可使用本服務。",ParseMode: TgApi.PARSEMODE_MARKDOWN);
                         Thread.Sleep(2000);
                         TgApi.getDefaultApiConnection().leaveChat(RawMessage.GetMessageChatInfo().id);
                     }).Start();
@@ -100,9 +100,9 @@ namespace CNBlackListSoamChecker
                 return new CallbackMessage();
             }
 
-            if (Temp.DisableBanList) return new CallbackMessage();
+            if (Config.DisableBanList) return new CallbackMessage();
 
-            if (Temp.CourtGroupName != null && RawMessage.GetMessageChatInfo().username == Temp.CourtGroupName)
+            if (Config.CourtGroupName != null && RawMessage.GetMessageChatInfo().username == Config.CourtGroupName)
             {
                 BanUser banUser = dbmgr.GetUserBanStatus(JoinedUser.id);
                 if (banUser.Ban == 0)
@@ -160,8 +160,8 @@ namespace CNBlackListSoamChecker
                 if (banUser.Ban == 0)
                 {
                     string banReason;
-                    if (banUser.ChannelMessageID != 0 && Temp.MainChannelName != null)
-                        banReason = "[原因請點選這裡查看](https://t.me/" + Temp.MainChannelName + "/" +
+                    if (banUser.ChannelMessageID != 0 && Config.MainChannelName != null)
+                        banReason = "[原因請點選這裡查看](https://t.me/" + Config.MainChannelName + "/" +
                                     banUser.ChannelMessageID + ")\n";
                     else
                         banReason = "\n原因 : " + RAPI.escapeMarkdown(banUser.Reason) + "\n";
@@ -169,7 +169,7 @@ namespace CNBlackListSoamChecker
                     {
                         resultmsg += "警告 : 這個使用者「將會」對群組造成負面影響\n" +
                                      banReason +
-                                     "\n若有誤判，可以到 [這個群組](https://t.me/" + Temp.CourtGroupName + ") 尋求申訴";
+                                     "\n若有誤判，可以到 [這個群組](https://t.me/" + Config.CourtGroupName + ") 尋求申訴";
                         if (groupCfg.AutoKick == 0)
                             try
                             {
@@ -190,7 +190,7 @@ namespace CNBlackListSoamChecker
                     {
                         resultmsg += "警告 : 這個使用者「可能」對群組造成負面影響" + banReason + "\n" +
                                      "請群組管理員多加留意\n" +
-                                     "對於被警告的使用者，你可以通過 [這個群組](https://t.me/" + Temp.CourtGroupName + ") 以請求解除。";
+                                     "對於被警告的使用者，你可以通過 [這個群組](https://t.me/" + Config.CourtGroupName + ") 以請求解除。";
                     }
                 }
                 else

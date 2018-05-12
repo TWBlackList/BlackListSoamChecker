@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using CNBlackListSoamChecker.DbManager;
+using BlackListSoamChecker.DbManager;
 using Newtonsoft.Json;
 using ReimuAPI.ReimuBase;
 using ReimuAPI.ReimuBase.TgData;
 
-namespace CNBlackListSoamChecker.CommandObject
+namespace BlackListSoamChecker.CommandObject
 {
     internal class OP
     {
@@ -174,7 +174,7 @@ namespace CNBlackListSoamChecker.CommandObject
                 if (groupCfg == null) return false;
                 foreach (GroupCfg cfg in groupCfg)
                 {
-                    Temp.GetDatabaseManager().SetGroupConfig(
+                    Config.GetDatabaseManager().SetGroupConfig(
                         cfg.GroupID,
                         AdminOnly,
                         Blacklist,
@@ -185,7 +185,7 @@ namespace CNBlackListSoamChecker.CommandObject
                         SubscribeBanList: SubscribeBanList
                     );
                     if (enabled == "")
-                        if (Temp.MainChannelName == null)
+                        if (Config.MainChannelName == null)
                             enabled = "";
                         else
                             enabled = "";
@@ -222,7 +222,7 @@ namespace CNBlackListSoamChecker.CommandObject
             if (text.IndexOf(" blacklist") != -1)
             {
                 Blacklist = 0;
-                if (Temp.DisableBanList)
+                if (Config.DisableBanList)
                     otherMsg += "\nBlackList 開啟失敗，目前版本未啟用此功能。。";
                 else
                     enabled += " Blacklist";
@@ -231,7 +231,7 @@ namespace CNBlackListSoamChecker.CommandObject
             if (text.IndexOf(" autokick") != -1)
             {
                 AutoKick = 0;
-                if (Temp.DisableBanList)
+                if (Config.DisableBanList)
                     otherMsg += "\nAutoKick 開啟失敗，目前版本未啟用此功能。。";
                 else
                     enabled += " AutoKick";
@@ -246,7 +246,7 @@ namespace CNBlackListSoamChecker.CommandObject
             if (text.IndexOf(" autodeletespammessage") != -1)
             {
                 AutoDeleteSpamMessage = 0;
-                if (Temp.DisableBanList)
+                if (Config.DisableBanList)
                     otherMsg += "\nAutoDeleteSpamMessage 開啟失敗，目前版本未啟用此功能。。";
                 else
                     enabled += " AutoDeleteSpamMessage";
@@ -261,7 +261,7 @@ namespace CNBlackListSoamChecker.CommandObject
             if (text.IndexOf(" subscribebanlist") != -1)
             {
                 SubscribeBanList = 0;
-                if (Temp.DisableBanList)
+                if (Config.DisableBanList)
                     otherMsg += "\nSubscribeBanList 開啟失敗，目前版本未啟用此功能。。";
                 else
                     enabled += " SubscribeBanList";
@@ -283,7 +283,7 @@ namespace CNBlackListSoamChecker.CommandObject
                 if (groupCfg == null) return false;
                 foreach (GroupCfg cfg in groupCfg)
                 {
-                    Temp.GetDatabaseManager().SetGroupConfig(
+                    Config.GetDatabaseManager().SetGroupConfig(
                         cfg.GroupID,
                         AdminOnly,
                         Blacklist,
@@ -294,7 +294,7 @@ namespace CNBlackListSoamChecker.CommandObject
                         SubscribeBanList: SubscribeBanList
                     );
                     if (enabled == "")
-                        if (Temp.MainChannelName == null)
+                        if (Config.MainChannelName == null)
                             enabled = "";
                         else
                             enabled = "";

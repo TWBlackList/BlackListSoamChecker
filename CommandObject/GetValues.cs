@@ -9,7 +9,7 @@ using ReimuAPI.ReimuBase.TgData;
  * !!! DO NOT TOUCH, MAGIC !!!
  */
 
-namespace CNBlackListSoamChecker.CommandObject
+namespace BlackListSoamChecker.CommandObject
 {
     internal class GetValues
     {

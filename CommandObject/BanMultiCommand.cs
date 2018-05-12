@@ -3,7 +3,7 @@ using System.Threading;
 using ReimuAPI.ReimuBase;
 using ReimuAPI.ReimuBase.TgData;
 
-namespace CNBlackListSoamChecker.CommandObject
+namespace BlackListSoamChecker.CommandObject
 {
     internal class BanMultiUserCommand
     {
@@ -114,7 +114,7 @@ namespace CNBlackListSoamChecker.CommandObject
                 foreach (int userid in UsersArray)
                 {
                     BanUserId = userid;
-                    status = Temp.GetDatabaseManager().BanUser(
+                    status = Config.GetDatabaseManager().BanUser(
                         RawMessage.GetSendUser().id,
                         BanUserId,
                         Level,
@@ -142,7 +142,7 @@ namespace CNBlackListSoamChecker.CommandObject
                 //{
                 //    TgApi.getDefaultApiConnection().sendMessage(
                 //        RawMessage.GetMessageChatInfo().id,
-                //        "操作成功。\n\n請注意 : 轉發使用者訊息到頻道或是發送使用者訊息到頻道失敗，請您手動發送至 @" + Temp.MainChannelName + " 。 err11",
+                //        "操作成功。\n\n請注意 : 轉發使用者訊息到頻道或是發送使用者訊息到頻道失敗，請您手動發送至 @" + Config.MainChannelName + " 。 err11",
                 //        RawMessage.message_id
                 //        );
                 //    return true;

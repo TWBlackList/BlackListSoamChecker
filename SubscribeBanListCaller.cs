@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using CNBlackListSoamChecker.DbManager;
+using BlackListSoamChecker.DbManager;
 using ReimuAPI.ReimuBase;
 using ReimuAPI.ReimuBase.TgData;
 
-namespace CNBlackListSoamChecker
+namespace BlackListSoamChecker
 {
     internal class SubscribeBanListCaller
     {
@@ -17,7 +17,7 @@ namespace CNBlackListSoamChecker
 
         internal void CallGroups(BanUser user)
         {
-            if (Temp.DisableAdminTools) return;
+            if (Config.DisableAdminTools) return;
             if (user.Level == 1)
                 return;
             using (var db = new BlacklistDatabaseContext())

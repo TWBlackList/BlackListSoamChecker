@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using ReimuAPI.ReimuBase;
 using ReimuAPI.ReimuBase.TgData;
 
-namespace CNBlackListSoamChecker.CommandObject
+namespace BlackListSoamChecker.CommandObject
 {
     internal class UnbanUserCommand
     {
@@ -68,13 +68,13 @@ namespace CNBlackListSoamChecker.CommandObject
             try
             {
                 if (BanUserInfo == null)
-                    status = Temp.GetDatabaseManager().UnbanUser(
+                    status = Config.GetDatabaseManager().UnbanUser(
                         RawMessage.GetSendUser().id,
                         BanUserId,
                         Reason
                     );
                 else
-                    status = Temp.GetDatabaseManager().UnbanUser(
+                    status = Config.GetDatabaseManager().UnbanUser(
                         RawMessage.GetSendUser().id,
                         BanUserId,
                         Reason,
@@ -98,7 +98,7 @@ namespace CNBlackListSoamChecker.CommandObject
                     "操作成功。",
                     RawMessage.message_id
                 );
-                if(RawMessage.GetMessageChatInfo().id == Temp.CourtGroupID)
+                if(RawMessage.GetMessageChatInfo().id == Config.CourtGroupID)
                     TgApi.getDefaultApiConnection()
                         .kickChatMember(RawMessage.GetMessageChatInfo().id, BanUserId, GetTime.GetUnixTime() + 1);
                 return true;
@@ -112,7 +112,7 @@ namespace CNBlackListSoamChecker.CommandObject
             return false;
             //    TgApi.getDefaultApiConnection().sendMessage(
             //        RawMessage.GetMessageChatInfo().id,
-            //        "操作成功。\n\n請注意 : 轉發使用者訊息到頻道或是發送使用者訊息到頻道失敗，請您手動發送至  @" + Temp.MainChannelName + " 。 err11",
+            //        "操作成功。\n\n請注意 : 轉發使用者訊息到頻道或是發送使用者訊息到頻道失敗，請您手動發送至  @" + Config.MainChannelName + " 。 err11",
             //        RawMessage.message_id
             //        );
             //    return true;

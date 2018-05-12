@@ -4,7 +4,7 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using ReimuAPI.ReimuBase;
 
-namespace CNBlackListSoamChecker
+namespace BlackListSoamChecker
 {
     internal class CNBlacklistApi
     {

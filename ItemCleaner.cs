@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
-using CNBlackListSoamChecker.DbManager;
+using BlackListSoamChecker.DbManager;
 using ReimuAPI.ReimuBase.Interfaces;
 
-namespace CNBlackListSoamChecker
+namespace BlackListSoamChecker
 {
     internal class ItemCleaner : IClearItemsReceiver
     {
         public void ClearItems()
         {
-            Temp.spamMessageList = null;
-            Temp.groupConfig = new Dictionary<long, GroupCfg>();
-            Temp.bannedUsers = new Dictionary<int, BanUser>();
+            Config.spamMessageList = null;
+            Config.groupConfig = new Dictionary<long, GroupCfg>();
+            Config.bannedUsers = new Dictionary<int, BanUser>();
         }
     }
 }

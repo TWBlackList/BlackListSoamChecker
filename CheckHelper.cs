@@ -1,23 +1,23 @@
 ﻿using ReimuAPI.ReimuBase;
 using ReimuAPI.ReimuBase.TgData;
 
-namespace CNBlackListSoamChecker
+namespace BlackListSoamChecker
 {
     public class CheckHelper
     {
         public bool CheckAdminInReportGroup(long ChatID)
         {
-            if (Temp.ReportGroupID != 0)
+            if (Config.ReportGroupID != 0)
             {
-                foreach (long i in Temp.adminInReport)
+                foreach (long i in Config.adminInReport)
                     if (i == ChatID)
                         return true;
 
-                foreach (long i in Temp.adminChecking)
+                foreach (long i in Config.adminChecking)
                     if (i == ChatID)
                         return true;
                 
-                Temp.adminChecking.Add(ChatID);
+                Config.adminChecking.Add(ChatID);
                 
                 bool status = false;
                 GroupUserInfo[] admins = TgApi.getDefaultApiConnection().getChatAdministrators(ChatID,true);
@@ -26,7 +26,7 @@ namespace CNBlackListSoamChecker
                 {
                     if (admin.user.id != TgApi.getDefaultApiConnection().getMe().id)
                     {
-                        var result = TgApi.getDefaultApiConnection().getChatMember(Temp.ReportGroupID , admin.user.id);
+                        var result = TgApi.getDefaultApiConnection().getChatMember(Config.ReportGroupID , admin.user.id);
                         if (result.ok)
                             if (result.result.status != "left")
                             {
@@ -42,12 +42,12 @@ namespace CNBlackListSoamChecker
                         if (admin.user.id != TgApi.getDefaultApiConnection().getMe().id)
                         {
                             SendMessageResult result = TgApi.getDefaultApiConnection().sendMessage(
-                                Temp.ReportGroupID,
+                                Config.ReportGroupID,
                                 "[加群測試(不用理會此訊息)](tg://user?id=" + admin.user.id.ToString() + ")",
                                 ParseMode: TgApi.PARSEMODE_MARKDOWN);
                             if (result.ok)
                             {
-                                TgApi.getDefaultApiConnection().deleteMessage(Temp.ReportGroupID, result.result.message_id);
+                                TgApi.getDefaultApiConnection().deleteMessage(Config.ReportGroupID, result.result.message_id);
                                 status = true;
                                 break;
                             }
@@ -56,12 +56,12 @@ namespace CNBlackListSoamChecker
                 if (status)
                 {
                     System.Console.WriteLine("[checkHelper] Admin in report group GID : " + ChatID.ToString());
-                    Temp.adminInReport.Add(ChatID);
+                    Config.adminInReport.Add(ChatID);
                 }
                 else
                     System.Console.WriteLine("[checkHelper] Admin not in report group GID : " + ChatID.ToString());
 
-                Temp.adminChecking.Remove(ChatID);
+                Config.adminChecking.Remove(ChatID);
                 
                 return status;
 
