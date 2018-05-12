@@ -54,13 +54,13 @@ namespace BlackListSoamChecker
         
         // 0 = Enable , 1 = Disable
         internal static int DefaultSoamAdminOnly = json.DefaultSoam.AdminOnly;                 // 只允許管理員使用指令
-        internal static int DefaultSoamBlacklist = json.DefaultSoam.DefaultSoamBlacklist;                 // 黑名單功能
-        internal static int DefaultSoamAutoKick = json.DefaultSoam.DefaultSoamAutoKick;                  // 自動踢除
-        internal static int DefaultSoamAntiBot = json.DefaultSoam.DefaultSoamAntiBot;                   // 自動踢除拉機器人的人
-        internal static int DefaultSoamAntiHalal = json.DefaultSoam.DefaultSoamAntiHalal;                 // 防清真
-        internal static int DefaultSoamAutoDeleteSpamMessage = json.DefaultSoam.DefaultSoamAutoDeleteSpamMessage;     // 自動刪除 Spam 訊息
-        internal static int DefaultSoamAutoDeleteCommand = json.DefaultSoam.DefaultSoamAutoDeleteCommand;         // 自動刪除指令
-        internal static int DefaultSoamSubscribeBanList = json.DefaultSoam.DefaultSoamSubscribeBanList;          // 訂閱封鎖清單
+        internal static int DefaultSoamBlacklist = json.DefaultSoam.Blacklist;                 // 黑名單功能
+        internal static int DefaultSoamAutoKick = json.DefaultSoam.AutoKick;                  // 自動踢除
+        internal static int DefaultSoamAntiBot = json.DefaultSoam.AntiBot;                   // 自動踢除拉機器人的人
+        internal static int DefaultSoamAntiHalal = json.DefaultSoam.AntiHalal;                 // 防清真
+        internal static int DefaultSoamAutoDeleteSpamMessage = json.DefaultSoam.AutoDeleteSpamMessage;     // 自動刪除 Spam 訊息
+        internal static int DefaultSoamAutoDeleteCommand = json.DefaultSoam.AutoDeleteCommand;         // 自動刪除指令
+        internal static int DefaultSoamSubscribeBanList = json.DefaultSoam.SubscribeBanList;          // 訂閱封鎖清單
         
         public static long AdminGroupID = json.AdminGroupID; // If haven't, change it to 0
         public static long MainChannelID = json.MainChannelID; // If haven't, change it to 0
