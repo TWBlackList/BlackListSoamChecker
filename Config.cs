@@ -17,7 +17,6 @@ namespace BlackListSoamChecker
         
             if (!File.Exists(configPath))
             {
-                File.Create(configPath);
                 DataContractJsonSerializer configJson = new DataContractJsonSerializer(typeof(BlackListConfig));  
                 MemoryStream ms = new MemoryStream();  
                 configJson.WriteObject(ms, new BlackListConfig());  
