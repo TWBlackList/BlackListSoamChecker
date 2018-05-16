@@ -39,7 +39,7 @@ namespace BlackListSoamChecker
                 return data;
             }
 
-            return null;
+            return tmp;
         }
 
         
