@@ -113,7 +113,7 @@ namespace BlackListSoamChecker
         internal static bool EnableDisableAllGroupSoam = json.SoamFunctions.EnableDisableAllGroupSoam;                  // 開啟關閉所有群組功能
         internal static bool EnableEnableSoam = json.SoamFunctions.EnableEnableSoam;                                    // 開啟啟用群組功能
         internal static bool EnableDisableSoam = json.SoamFunctions.EnableDisableSoam;                                  // 開啟關閉群組功能
-        internal static bool EnableSoamStatus = json.SoamFunctions.EnableGetAllGroup;                                   // 開啟取得群組功能狀態
+        internal static bool EnableSoamStatus = json.SoamFunctions.EnableSoamStatus;                                   // 開啟取得群組功能狀態
         
         
         internal static bool EnableGetAllGroup = json.AdminFunctions.EnableGetAllGroup;                                 // 開啟取得所有群組資訊
