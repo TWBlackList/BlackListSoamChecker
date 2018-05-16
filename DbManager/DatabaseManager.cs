@@ -35,7 +35,6 @@ namespace BlackListSoamChecker.DbManager
             if (RAPI.getIsInWhitelist(UserID)) return false;
             bool finalResult = true;
             string banmsg = "";
-            SendMessageResult result = null;
             int ReasonID = 0;
             int ChannelReasonID = 0;
             if (Config.ReasonChannelID != 0 && ChatID != 0 && MessageID != 0)

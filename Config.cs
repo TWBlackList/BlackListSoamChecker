@@ -42,6 +42,7 @@ namespace BlackListSoamChecker
             return null;
         }
 
+        
         private static DatabaseManager databaseManager;
         internal static List<SpamMessage> spamMessageList = null;
         internal static Dictionary<long, GroupCfg> groupConfig = new Dictionary<long, GroupCfg>();
@@ -49,40 +50,93 @@ namespace BlackListSoamChecker
         internal static List<long> adminInReport = new List<long>();
         internal static List<long> adminChecking = new List<long>();
         
+        
         internal static BlackListConfig json = getJsonConfig();
         internal static BlackListConfig tmp = null;
+        
         
         internal static bool DisableAdminTools = json.Functions.DisableAdminTools;                                      // 管理員功能，若需要的話改成 false，否則改成 true
         internal static bool DisableBanList = json.Functions.DisableBanList;                                            // 封鎖清單功能，若需要的話改成 false，否則改成 true
         
+        
         internal static bool EnableOnlyJoinGroupInviteByAdmin = json.Setting.EnableOnlyJoinGroupInviteByAdmin;          // 讓Bot只加入OP拉取的群組
         internal static bool EnableAutoKickNotBanUserinCourtGroup = json.Setting.EnableAutoKickNotBanUserinCourtGroup;  // 讓Bot自動在申訴群組踢除非被封鎖者
         
+        
         // 0 = Disable , 1 = Enable
-        internal static int DefaultSoamAdminOnly = json.DefaultSoam.AdminOnly ? 0 : 1;                             // 只允許管理員使用指令
-        internal static int DefaultSoamBlacklist = json.DefaultSoam.Blacklist ? 0 : 1;                             // 黑名單功能
-        internal static int DefaultSoamAutoKick = json.DefaultSoam.AutoKick ? 0 : 1;                               // 自動踢除
-        internal static int DefaultSoamAntiBot = json.DefaultSoam.AntiBot ? 0 : 1;                                 // 自動踢除拉機器人的人
-        internal static int DefaultSoamAntiHalal = json.DefaultSoam.AntiHalal ? 0 : 1;                             // 防清真
-        internal static int DefaultSoamAutoDeleteSpamMessage = json.DefaultSoam.AutoDeleteSpamMessage ? 0 : 1;     // 自動刪除 Spam 訊息
-        internal static int DefaultSoamAutoDeleteCommand = json.DefaultSoam.AutoDeleteCommand ? 0 : 1;             // 自動刪除指令
-        internal static int DefaultSoamSubscribeBanList = json.DefaultSoam.SubscribeBanList ? 0 : 1;               // 訂閱封鎖清單
+        internal static int DefaultSoamAdminOnly = json.DefaultSoam.AdminOnly ? 0 : 1;                                  // 只允許管理員使用指令
+        internal static int DefaultSoamBlacklist = json.DefaultSoam.Blacklist ? 0 : 1;                                  // 黑名單功能
+        internal static int DefaultSoamAutoKick = json.DefaultSoam.AutoKick ? 0 : 1;                                    // 自動踢除
+        internal static int DefaultSoamAntiBot = json.DefaultSoam.AntiBot ? 0 : 1;                                      // 自動踢除拉機器人的人
+        internal static int DefaultSoamAntiHalal = json.DefaultSoam.AntiHalal ? 0 : 1;                                  // 防清真
+        internal static int DefaultSoamAutoDeleteSpamMessage = json.DefaultSoam.AutoDeleteSpamMessage ? 0 : 1;          // 自動刪除 Spam 訊息
+        internal static int DefaultSoamAutoDeleteCommand = json.DefaultSoam.AutoDeleteCommand ? 0 : 1;                  // 自動刪除指令
+        internal static int DefaultSoamSubscribeBanList = json.DefaultSoam.SubscribeBanList ? 0 : 1;                    // 訂閱封鎖清單
         
-        public static long AdminGroupID = json.Chats.AdminGroupID;                                                      // 管理用群組
         
-        public static long MainChannelID = json.Chats.MainChannelID;                                                    // 主要頻道 ChatID ( 封鎖通知 )
-        public static string MainChannelName = json.Chats.MainChannelName;                                              // 主要頻道 Username
+        internal static long AdminGroupID = json.Chats.AdminGroupID;                                                    // 管理用群組
         
-        public static long ReasonChannelID = json.Chats.ReasonChannelID;                                                // 原因頻道 ChatID ( 封鎖原因 )
-        public static string ReasonChannelName = json.Chats.ReasonChannelName;                                          // 原因頻道 Username
+        internal static long MainChannelID = json.Chats.MainChannelID;                                                  // 主要頻道 ChatID ( 封鎖通知 )
+        internal static string MainChannelName = json.Chats.MainChannelName;                                            // 主要頻道 Username
         
-        public static long ReportGroupID = json.Chats.ReportGroupID;                                                    // 回報群組 ChatID ( 回報SPAM )
-        public static string ReportGroupName = json.Chats.ReportGroupName;                                              // 回報群組 Username
+        internal static long ReasonChannelID = json.Chats.ReasonChannelID;                                              // 原因頻道 ChatID ( 封鎖原因 )
+        internal static string ReasonChannelName = json.Chats.ReasonChannelName;                                        // 原因頻道 Username
+        
+        internal static long ReportGroupID = json.Chats.ReportGroupID;                                                  // 回報群組 ChatID ( 回報SPAM )
+        internal static string ReportGroupName = json.Chats.ReportGroupName;                                            // 回報群組 Username
 
-        public static long CourtGroupID = json.Chats.CourtGroupID;                                                      // 申訴群組 ChatID ( 申訴 )
-        public static string CourtGroupName =json.Chats.CourtGroupName;                                                 // 申訴群組 UserName
+        internal static long CourtGroupID = json.Chats.CourtGroupID;                                                    // 申訴群組 ChatID ( 申訴 )
+        internal static string CourtGroupName =json.Chats.CourtGroupName;                                               // 申訴群組 UserName
         
-        public static long InternGroupID = json.Chats.InternGroupID;                                                    // 內部群組 ChatID ( 此群組內的所有人都可對Bot轉發的訊息執行封鎖 )
+        internal static long InternGroupID = json.Chats.InternGroupID;                                                  // 內部群組 ChatID ( 此群組內的所有人都可對Bot轉發的訊息執行封鎖 )
+        
+        
+        internal static bool EnableCustomBan = json.BanFunctions.EnableCustomBan;                                       // 開啟擁有前綴的 ban 指令
+        internal static bool EnableCustomUnBan = json.BanFunctions.EnableCustomUnBan;                                   // 開啟擁有前綴的 unban 指令
+        internal static bool EnableBan = json.BanFunctions.EnableBan;                                                   // 開啟封鎖指令
+        internal static bool EnableUnBan = json.BanFunctions.EnableUnBan;                                               // 開啟解除封鎖指令
+        internal static bool EnableSuperBan = json.BanFunctions.EnableSuperBan;                                         // 開啟多重封鎖指令
+        internal static bool EnableSuperUnBan = json.BanFunctions.EnableSuperUnBan;                                     // 開啟多重解除封鎖指令
+        internal static bool EnableBanStat = json.BanFunctions.EnableBanStat;                                           // 開啟封鎖狀態查詢
+        
+       
+        internal static bool EnableGetAllSpamStringInfo = json.SpamStringFunctions.EnableGetAllSpamStringInfo;          // 開啟取得所有 SPAM 規則
+        internal static bool EnableAddSpamString = json.SpamStringFunctions.EnableAddSpamString;                        // 開啟新增 SPAM 規則
+        internal static bool EnableDeleteSpamString = json.SpamStringFunctions.EnableDeleteSpamString;                  // 開啟刪除 SPAM 規則
+        internal static bool EnableGetSpamString = json.SpamStringFunctions.EnableGetSpamString;                        // 開啟取得 SPAM 規則
+        internal static bool EnableReloadSpamString = json.SpamStringFunctions.EnableReloadSpamString;                  // 開啟重新讀取 SPAM 規則
+        internal static bool EnableGetSpamStringPoints = json.SpamStringFunctions.EnableGetSpamStringPoints;            // 開啟測試 SPAM 點數
+        internal static bool EnableGetSpamStringKeywords = json.SpamStringFunctions.EnableGetSpamStringKeywords;        // 開啟測試 SPAM 關鍵字
+        
+        
+        internal static bool EnableEnableAllGroupSoam = json.SoamFunctions.EnableEnableAllGroupSoam;                    // 開啟啟用所有群組功能
+        internal static bool EnableDisableAllGroupSoam = json.SoamFunctions.EnableDisableAllGroupSoam;                  // 開啟關閉所有群組功能
+        internal static bool EnableEnableSoam = json.SoamFunctions.EnableEnableSoam;                                    // 開啟啟用群組功能
+        internal static bool EnableDisableSoam = json.SoamFunctions.EnableDisableSoam;                                  // 開啟關閉群組功能
+        internal static bool EnableSoamStatus = json.SoamFunctions.EnableGetAllGroup;                                   // 開啟取得群組功能狀態
+        
+        
+        internal static bool EnableGetAllGroup = json.AdminFunctions.EnableGetAllGroup;                                 // 開啟取得所有群組資訊
+        internal static bool EnableGetGroupAdmin = json.AdminFunctions.EnableGetGroupAdmin;                             // 開啟取得群組管理員名單
+        internal static bool EnableCleanUp = json.AdminFunctions.EnableCleanUp;                                         // 開啟清除未使用的群組
+        internal static bool EnableBroadcast = json.AdminFunctions.EnableBroadcast;                                     // 開啟廣播
+        internal static bool EnableAddOP = json.AdminFunctions.EnableAddOP;                                             // 開啟新增 OP
+        internal static bool EnableDeleteOP = json.AdminFunctions.EnableDeleteOP;                                       // 開啟刪除 OP
+        internal static bool EnableLeave = json.AdminFunctions.EnableLeave;                                             // 開啟取得 OP 清單
+        
+        
+        internal static bool EnableWhitelistAdd = json.WhiteListFunctions.EnableWhitelistAdd;                           // 開啟新增白名單
+        internal static bool EnableWhitelistDelete = json.WhiteListFunctions.EnableWhitelistDelete;                     // 開啟刪除白名單
+        internal static bool EnableWhitelisList = json.WhiteListFunctions.EnableWhitelisList;                           // 開啟白名單清單
+        internal static bool EnableHKWhitelistAdd = json.WhiteListFunctions.EnableHKWhitelistAdd;                       // 開啟新增HK白名單
+        internal static bool EnableHKWhitelistDelete = json.WhiteListFunctions.EnableHKWhitelistDelete;                 // 開啟刪除HK白名單
+        internal static bool EnableHKWhitelisList = json.WhiteListFunctions.EnableHKWhitelisList;                       // 開啟HK白名單清單
+        
+        
+        internal static bool EnableBlockListAdd = json.BlockListFunctions.EnableBlockListAdd;                           // 開啟新增拒絕服務名單
+        internal static bool EnableBlockListDelete = json.BlockListFunctions.EnableBlockListDelete;                     // 開啟刪除拒絕服務名單
+        internal static bool EnableBlockListList = json.BlockListFunctions.EnableBlockListList;                         // 開啟拒絕服務名單清單
+        
 
         internal static DatabaseManager GetDatabaseManager()
         {
@@ -93,7 +147,6 @@ namespace BlackListSoamChecker
     
     public class BlackListConfig
     {
-        public string Language { get; set; } = "zh_TW";
         public Chats Chats { get; set; } = new Chats();
         public Setting Setting { get; set; } = new Setting();
         public DefaultSoam DefaultSoam { get; set; } = new DefaultSoam();
@@ -122,6 +175,8 @@ namespace BlackListSoamChecker
 
     public class Setting
     {
+        public string Language { get; set; } = "zh_TW";
+        public string CustomPrefix { get; set; } = "tw";
         public bool EnableOnlyJoinGroupInviteByAdmin = false; // 讓Bot只加入Admin拉取的群組
         public bool EnableAutoKickNotBanUserinCourtGroup = false; // 讓Bot自動在申訴群組踢除非被封鎖者
     }
@@ -161,6 +216,7 @@ namespace BlackListSoamChecker
         public bool EnableGetSpamString { get; set; } = true;
         
         public bool EnableReloadSpamString { get; set; } = true;
+        public bool EnableGetSpamStringKeywords { get; set; } = true;
         public bool EnableGetSpamStringPoints { get; set; } = true;
     }
     
