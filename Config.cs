@@ -217,8 +217,8 @@ namespace BlackListSoamChecker
     
     public class SoamFunctions
     {
-        public bool EnableEnableAll { get; set; } = true;
-        public bool EnableDisableAll { get; set; } = true;
+        public bool EnableEnableAllGroupSoam { get; set; } = true;
+        public bool EnableDisableAllGroupSoam { get; set; } = true;
         
         public bool EnableEnableSoam { get; set; } = true;
         public bool EnableDisableSoam { get; set; } = true;
