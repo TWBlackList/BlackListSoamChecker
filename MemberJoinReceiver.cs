@@ -68,7 +68,7 @@ namespace BlackListSoamChecker
                 if (RawMessage.GetMessageChatInfo().type == "group")
                 {
                     TgApi.getDefaultApiConnection().sendMessage(RawMessage.GetMessageChatInfo().id,
-                        "一般群組無法使用本服務，如有疑問請至 @ChineseBlackList ");
+                        "一般群組無法使用本服務，如有疑問請至 @" + Config.CourtGroupName);
                     Thread.Sleep(2000);
                     TgApi.getDefaultApiConnection().leaveChat(RawMessage.GetMessageChatInfo().id);
                     return new CallbackMessage();
@@ -79,7 +79,7 @@ namespace BlackListSoamChecker
                     new Thread(delegate()
                     {
                         TgApi.getDefaultApiConnection().sendMessage(RawMessage.GetMessageChatInfo().id, 
-                            "群管理必須加入[項目群組](https://t.me/" + Config.ReportGroupName + ")才可使用本服務。",ParseMode: TgApi.PARSEMODE_MARKDOWN);
+                            "群管理必須加入[項目群組](https://t.me/" + Config.AdminContactGroupName + ")才可使用本服務。",ParseMode: TgApi.PARSEMODE_MARKDOWN);
                         Thread.Sleep(2000);
                         TgApi.getDefaultApiConnection().leaveChat(RawMessage.GetMessageChatInfo().id);
                     }).Start();
@@ -93,7 +93,7 @@ namespace BlackListSoamChecker
                     "1.請在群組中给予 @" + TgApi.getDefaultApiConnection().getMe().username + " 管理員權限\n" +
                     "2.使用 /help 可查閱使用說明\n" +
                     "預設開啟的功能有 BlackList AutoKick AntiHalal SubscribeBanList，可以根據需要來調整。\n\n" +
-                    "注意 : 加入機器人即同意讓渡部分 Ban Users 權限予本項目組，並授權本組依據 @ChineseBlackList 置頂規定，代表群管理對群組內成員逕行封鎖\n" +
+                    "注意 : 加入機器人即同意讓渡部分 Ban Users 權限予本項目組，並授權本組依據 @" + Config.ReportGroupName + " 置頂規定，代表群管理對群組內成員逕行封鎖\n" +
                     "如不同意請立即移除此機器人，且禁止違背群主意願私自添加",
                     RawMessage.message_id
                 );
@@ -117,6 +117,7 @@ namespace BlackListSoamChecker
                 }
                 else
                 {
+                    if (!Config.EnableAutoKickNotBanUserinCourtGroup) return new CallbackMessage();
                     if (RAPI.getIsInWhitelist(JoinedUser.id)) return new CallbackMessage();
                     TgApi.getDefaultApiConnection().sendMessage(
                         RawMessage.GetMessageChatInfo().id,

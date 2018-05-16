@@ -22,7 +22,7 @@ namespace BlackListSoamChecker.CommandObject
             {
                 TgApi.getDefaultApiConnection().sendMessage(
                     RawMessage.GetMessageChatInfo().id,
-                    "您的輸入有錯誤，請檢查您的輸入，或使用 /cnban 查詢幫助。 err9"
+                    String.BAN_ERROR_MESSAGE + " err9"
                 );
                 return null;
             }
@@ -74,7 +74,7 @@ namespace BlackListSoamChecker.CommandObject
             {
                 TgApi.getDefaultApiConnection().sendMessage(
                     RawMessage.GetMessageChatInfo().id,
-                    "您的輸入有錯誤，請檢查您的輸入，或使用 /cnban 查詢幫助。 err4"
+                    String.BAN_ERROR_MESSAGE + " err4"
                 );
                 return -1;
             }
@@ -85,7 +85,7 @@ namespace BlackListSoamChecker.CommandObject
             {
                 TgApi.getDefaultApiConnection().sendMessage(
                     RawMessage.GetMessageChatInfo().id,
-                    "您的輸入有錯誤，請檢查您的輸入，或使用 /cnban 查詢幫助。 err5"
+                    String.BAN_ERROR_MESSAGE + " err5"
                 );
                 return -1;
             }
@@ -100,7 +100,7 @@ namespace BlackListSoamChecker.CommandObject
             {
                 TgApi.getDefaultApiConnection().sendMessage(
                     RawMessage.GetMessageChatInfo().id,
-                    "您的輸入有錯誤，請檢查您的輸入，或使用 /cnban 查詢幫助。 err6"
+                    String.BAN_ERROR_MESSAGE + " err6"
                 );
                 return -1;
             }
@@ -116,7 +116,7 @@ namespace BlackListSoamChecker.CommandObject
                 {
                     TgApi.getDefaultApiConnection().sendMessage(
                         RawMessage.GetMessageChatInfo().id,
-                        "最大時間不可超過 3660 天，請重新輸入。你可以將 m, h, d 3個項目改成 0 以代表永久，您可以使用 /cnban 取得帮助。 err7"
+                        Strings.BAN_ERROR_MESSAGE + "，最大時間不可超過 3660 天。你可以將 m, h, d 3個項目改成 0 以代表永久。 err7"
                     );
                     return -1;
                 }
@@ -152,7 +152,7 @@ namespace BlackListSoamChecker.CommandObject
                                 {
                                     TgApi.getDefaultApiConnection().sendMessage(
                                         RawMessage.GetMessageChatInfo().id,
-                                        "没有找到任何使用者 ID，請檢查您的輸入，或使用 /cnban 查看帮助。 err1"
+                                        Strings.BAN_ERROR_NOTFOUNDUSERID_MESSAGE + " err1"
                                     );
                                     return null;
                                 }
@@ -167,7 +167,7 @@ namespace BlackListSoamChecker.CommandObject
                             {
                                 TgApi.getDefaultApiConnection().sendMessage(
                                     RawMessage.GetMessageChatInfo().id,
-                                    "未檢查到您指定的回覆訊息的 ID，請檢查您的輸入，或使用 /cnban 查看帮助。 err2"
+                                    Strings.BAN_ERROR_NOTFOUNDMSGID_MESSAGE + " err2"
                                 );
                                 return null;
                             }
@@ -182,7 +182,7 @@ namespace BlackListSoamChecker.CommandObject
                         {
                             TgApi.getDefaultApiConnection().sendMessage(
                                 RawMessage.GetMessageChatInfo().id,
-                                "未檢查到您指定的回覆訊息的 ID，請檢查您的輸入，或使用 /cnban 查看帮助。 err2"
+                                Strings.BAN_ERROR_NOTFOUNDMSGID_MESSAGE + " err2"
                             );
                             return null;
                         }
@@ -199,7 +199,7 @@ namespace BlackListSoamChecker.CommandObject
                 {
                     TgApi.getDefaultApiConnection().sendMessage(
                         RawMessage.GetMessageChatInfo().id,
-                        "您的輸入有錯誤，請檢查您的輸入，或使用 /cnban 查詢幫助。 err3"
+                        String.BAN_ERROR_MESSAGE + " err3"
                     );
                     return null;
                 }

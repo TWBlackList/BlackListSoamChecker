@@ -14,14 +14,7 @@ namespace BlackListSoamChecker.CommandObject
             {
                 TgApi.getDefaultApiConnection().sendMessage(
                     RawMessage.GetMessageChatInfo().id,
-                    "/cnunban [i|id=1] [f|from=f|fwd|r|reply]" +
-                    " r|reason=\"asdfsadf asdfadsf\"\n\n" +
-                    "from 選項僅在 id 未被定義時起作用\n" +
-                    "ID 選擇優先度: 手動輸入 ID > 回覆的被轉發訊息 > 回覆的訊息\n" +
-                    "選項優先度: 簡寫 > 全名\n" +
-                    "Example:\n" +
-                    "/cnunban id=1 reason=\"aaa bbb\\n\\\"ccc\\\" ddd\"\n" +
-                    "/cnunban",
+                    ,
                     RawMessage.message_id
                 );
                 return true;
@@ -57,7 +50,7 @@ namespace BlackListSoamChecker.CommandObject
             {
                 TgApi.getDefaultApiConnection().sendMessage(
                     RawMessage.GetMessageChatInfo().id,
-                    "您的輸入有錯誤，請檢查您的輸入，或使用 /ban 取得幫助 err10",
+                    Strings.UNBAN_ERROR_MESSAGE + " err10",
                     RawMessage.message_id
                 );
                 return true;
@@ -85,7 +78,7 @@ namespace BlackListSoamChecker.CommandObject
             {
                 TgApi.getDefaultApiConnection().sendMessage(
                     RawMessage.GetMessageChatInfo().id,
-                    "操作失敗，這位使用者目前可能没有被封鎖。",
+                    Strings.EXEC_FAIL + Strings.UNBAN_ERROR_USER_NOT_BANNED,
                     RawMessage.message_id
                 );
                 return true;
@@ -95,7 +88,7 @@ namespace BlackListSoamChecker.CommandObject
             {
                 TgApi.getDefaultApiConnection().sendMessage(
                     RawMessage.GetMessageChatInfo().id,
-                    "操作成功。",
+                    Strings.EXEC_OK,
                     RawMessage.message_id
                 );
                 if(RawMessage.GetMessageChatInfo().id == Config.CourtGroupID)
@@ -106,7 +99,7 @@ namespace BlackListSoamChecker.CommandObject
 
             TgApi.getDefaultApiConnection().sendMessage(
                 RawMessage.GetMessageChatInfo().id,
-                "操作失敗，或許使用者未被封鎖。",
+                Strings.EXEC_FAIL + Strings.UNBAN_ERROR_USER_NOT_BANNED,
                 RawMessage.message_id
             );
             return false;

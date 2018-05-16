@@ -185,6 +185,9 @@ namespace BlackListSoamChecker
         public long CourtGroupID { get; set; } = 0;
         public string CourtGroupName { get; set; } = null;
         
+        public long AdminContactGroupID { get; set; } = 0;
+        public string AdminContactGroupName { get; set; } = null;
+        
         public long InternGroupID { get; set; } = 0;
     }
 

@@ -14,17 +14,7 @@ namespace BlackListSoamChecker.CommandObject
             {
                 TgApi.getDefaultApiConnection().sendMessage(
                     RawMessage.GetMessageChatInfo().id,
-                    "/suban [i|id=1,2,3] [l|level=0] [m|minutes=0] [h|hours=0] [d|days=15] [f|from=f|fwd|r|reply] [halal [f|fwd|r|reply]]" +
-                    " r|reason=\"asdfsadf asdfadsf\"\n\n" +
-                    "m: 分鐘, h: 小時, d: 天\n" +
-                    "from 選項僅在 id 未被定義時起作用\n" +
-                    "ID 選擇優先度: 手動輸入 ID > 回覆的被轉發訊息 > 回覆的訊息\n" +
-                    "選項優先度: 簡寫 > 全名\n" +
-                    "halal 選項只能單獨使用，不能與其他選項共同使用，並且需要回覆一則訊息，否則將觸發異常。\n\n" +
-                    "Example:\n" +
-                    "/suban id=1,2,3 m=0 h=0 d=15 level=0 reason=\"aaa bbb\\n\\\"ccc\\\" ddd\"\n" +
-                    "/suban halal\n" +
-                    "/suban halal=reply",
+                    Strings.SUPERBAN_HELP_MESSAGE,
                     RawMessage.message_id
                 );
                 return true;
@@ -44,14 +34,14 @@ namespace BlackListSoamChecker.CommandObject
                 if (value.Substring(0, 5) == "halal")
                 {
                     NotHalal = false;
-                    Reason = "無法理解的語言";
+                    Reason = Strings.HALAL;
                     if (valLen > 6)
                     {
                         if (value[5] != ' ')
                         {
                             TgApi.getDefaultApiConnection().sendMessage(
                                 RawMessage.GetMessageChatInfo().id,
-                                "您的輸入有錯誤，請檢查您的輸入，或使用 /suban 查詢幫助。 err_a1",
+                                Strings.SUPERBAN_ERROR_MESSAGE + " err_a1",
                                 RawMessage.message_id
                             );
                             return true;
@@ -88,7 +78,7 @@ namespace BlackListSoamChecker.CommandObject
                     {
                         TgApi.getDefaultApiConnection().sendMessage(
                             RawMessage.GetMessageChatInfo().id,
-                            "您的輸入有錯誤，請檢查您的輸入，或使用 /suban 查詢幫助。 err8",
+                            Strings.SUPERBAN_ERROR_MESSAGE + " err8",
                             RawMessage.message_id
                         );
                         return true;
@@ -97,13 +87,13 @@ namespace BlackListSoamChecker.CommandObject
                     // 获取 Reason
                     Reason = new GetValues().GetReason(banValues, RawMessage);
                     if (Reason == null) return true; // 如果 Reason 是 null 则代表出现了异常
-                    if (Reason.ToLower() == "halal") Reason = "無法理解的語言";
+                    if (Reason.ToLower() == "halal") Reason = Strings.HALAL;
                 }
                 catch (DecodeException)
                 {
                     TgApi.getDefaultApiConnection().sendMessage(
                         RawMessage.GetMessageChatInfo().id,
-                        "您的輸入有錯誤，請檢查您的輸入，或使用 /suban 查詢幫助 err10",
+                        Strings.SUPERBAN_ERROR_MESSAGE + " err10",
                         RawMessage.message_id
                     );
                     return true;
@@ -124,7 +114,7 @@ namespace BlackListSoamChecker.CommandObject
                     if (RAPI.getIsInWhitelist(BanUserId))
                         TgApi.getDefaultApiConnection().sendMessage(
                             RawMessage.GetSendUser().id,
-                            "操作失敗 : 使用者在白名單 UID" + BanUserId,
+                            Strings.EXEC_FAIL + Strings.BAN_ERROR_USER_IN_WHITELIST + " UID " + BanUserId,
                             RawMessage.message_id
                         );
                     Thread.Sleep(3500);
@@ -134,7 +124,7 @@ namespace BlackListSoamChecker.CommandObject
                 //{
                 TgApi.getDefaultApiConnection().sendMessage(
                     RawMessage.GetMessageChatInfo().id,
-                    "操作成功。",
+                    Strings.EXEC_OK,
                     RawMessage.message_id
                 );
                 //}

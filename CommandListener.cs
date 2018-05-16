@@ -176,7 +176,6 @@ namespace BlackListSoamChecker
             {
                 case "/user":
                     if(Config.EnableUser) {new UserCommand().User(RawMessage);}
-
                     return true;
                 case "/lsop":
                     if (Config.EnableListOP) {new OP().lsOP(RawMessage);}

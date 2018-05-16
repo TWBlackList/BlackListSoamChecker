@@ -7,7 +7,7 @@ namespace BlackListSoamChecker
     {
         public bool CheckAdminInReportGroup(long ChatID)
         {
-            if (Config.ReportGroupID != 0)
+            if (Config.AdminContactGroupID != 0)
             {
                 foreach (long i in Config.adminInReport)
                     if (i == ChatID)
@@ -26,7 +26,7 @@ namespace BlackListSoamChecker
                 {
                     if (admin.user.id != TgApi.getDefaultApiConnection().getMe().id)
                     {
-                        var result = TgApi.getDefaultApiConnection().getChatMember(Config.ReportGroupID , admin.user.id);
+                        var result = TgApi.getDefaultApiConnection().getChatMember(Config.AdminContactGroupID , admin.user.id);
                         if (result.ok)
                             if (result.result.status != "left")
                             {
@@ -42,12 +42,12 @@ namespace BlackListSoamChecker
                         if (admin.user.id != TgApi.getDefaultApiConnection().getMe().id)
                         {
                             SendMessageResult result = TgApi.getDefaultApiConnection().sendMessage(
-                                Config.ReportGroupID,
+                                Config.AdminContactGroupID,
                                 "[加群測試(不用理會此訊息)](tg://user?id=" + admin.user.id.ToString() + ")",
                                 ParseMode: TgApi.PARSEMODE_MARKDOWN);
                             if (result.ok)
                             {
-                                TgApi.getDefaultApiConnection().deleteMessage(Config.ReportGroupID, result.result.message_id);
+                                TgApi.getDefaultApiConnection().deleteMessage(Config.AdminContactGroupID, result.result.message_id);
                                 status = true;
                                 break;
                             }
@@ -55,11 +55,11 @@ namespace BlackListSoamChecker
                     }
                 if (status)
                 {
-                    System.Console.WriteLine("[checkHelper] Admin in report group GID : " + ChatID.ToString());
+                    System.Console.WriteLine("[checkHelper] Admin in contact group GID : " + ChatID.ToString());
                     Config.adminInReport.Add(ChatID);
                 }
                 else
-                    System.Console.WriteLine("[checkHelper] Admin not in report group GID : " + ChatID.ToString());
+                    System.Console.WriteLine("[checkHelper] Admin not in contact group GID : " + ChatID.ToString());
 
                 Config.adminChecking.Remove(ChatID);
                 

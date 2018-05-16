@@ -28,7 +28,7 @@ namespace BlackListSoamChecker
             if (BaseMessage.GetMessageChatInfo().type == "group")
             {
                 TgApi.getDefaultApiConnection().sendMessage(BaseMessage.GetMessageChatInfo().id,
-                    "一般群組無法使用本服務，如有疑問請至 @ChineseBlackList ");
+                    "一般群組無法使用本服務，如有疑問請至 @" + Config.CourtGroupName);
                 Thread.Sleep(2000);
                 TgApi.getDefaultApiConnection().leaveChat(BaseMessage.GetMessageChatInfo().id);
                 return new CallbackMessage();
@@ -39,12 +39,11 @@ namespace BlackListSoamChecker
                 new Thread(delegate()
                 {
                     TgApi.getDefaultApiConnection().sendMessage(BaseMessage.GetMessageChatInfo().id, 
-                        "群管理必須加入[項目群組](https://t.me/" + Config.ReportGroupName + ")才可使用本服務。",ParseMode: TgApi.PARSEMODE_MARKDOWN);
+                        "群管理必須加入[項目群組](https://t.me/" + Config.AdminContactGroupName + ")才可使用本服務。",ParseMode: TgApi.PARSEMODE_MARKDOWN);
                     Thread.Sleep(2000);
                     TgApi.getDefaultApiConnection().leaveChat(BaseMessage.GetMessageChatInfo().id);
                 }).Start();
                 return new CallbackMessage();
-                
             }
 
             string forward_from_id = null;

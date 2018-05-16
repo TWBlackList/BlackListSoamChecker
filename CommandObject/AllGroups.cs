@@ -34,7 +34,7 @@ namespace BlackListSoamChecker.CommandObject
                 if (groupCfg == null) return false;
                 foreach (GroupCfg cfg in groupCfg)
                 {
-                    string groupInfo = "無法取得";
+                    string groupInfo = Strings.;
                     try
                     {
                         groupInfo = TgApi.getDefaultApiConnection().getChatInfo(cfg.GroupID).result.GetChatTextInfo();
@@ -59,7 +59,7 @@ namespace BlackListSoamChecker.CommandObject
                         .sendMessage(RawMessage.chat.id, groups, ParseMode: TgApi.PARSEMODE_MARKDOWN);
 
                 TgApi.getDefaultApiConnection()
-                    .sendMessage(RawMessage.chat.id, "Groups 輸出完畢!", RawMessage.message_id);
+                    .sendMessage(RawMessage.chat.id, "Groups " + Strings.OUTPUT_DONE + "!", RawMessage.message_id);
             }
 
             return true;
