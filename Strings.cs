@@ -112,9 +112,9 @@ namespace BlackListSoamChecker
 
         public string HELP_AD { get; set; } = "\n如要贊助本項目請洽[生產公司](http://t.me/DonateDoramiBot)";
 
-        public static string GROUP_HELP()
+        public string GROUP_HELP()
         {
-            tmp = "";
+            string tmp = "";
             if (Config.EnableLeave) tmp = tmp + "/leave - 離開群組\n";
             if (Config.EnableEnableSoam) tmp = tmp + "/soamenable - 啟用功能\n";
             if (Config.EnableDisableSoam) tmp = tmp + "/soamdisable - 關閉功能\n";
@@ -122,24 +122,24 @@ namespace BlackListSoamChecker
             return tmp;
         }
         
-        public static string SHARED_HELP()
+        public string SHARED_HELP()
         {
-            tmp = "";
+            string tmp = "";
             if (Config.EnableBanStat) tmp = tmp + "/banstat - 查詢處分狀態\n";
             if (Config.EnableUser) tmp = tmp + "/user - 取得 User ID\n";
             if (Config.EnableListOP) tmp = tmp + "/lsop - Operator 名冊";
             return tmp;
         }
         
-        public static string PRIVATE_HELP()
+        public string PRIVATE_HELP()
         {
-            tmp = "";
+            string tmp = "";
             return tmp;
         }
         
-        public static string OPERATIOR_HELP()
+        public string OPERATIOR_HELP()
         {
-            tmp = "\n\nOperator指令:\n";
+            string tmp = "\n\nOperator指令:\n";
             if(Config.EnableGetGroupAdmin) tmp = tmp + "/groupadmin - 取得群組管理員名單\n";
             if(Config.EnableCustomBan) tmp = tmp + "/" + Config.CustomPrefix + "ban - 封鎖\n";
             if(Config.EnableBan) tmp = tmp + "/ban - 封鎖\n";
@@ -153,9 +153,9 @@ namespace BlackListSoamChecker
             return tmp;
         }
         
-        public static string ADMIN_HELP()
+        public string ADMIN_HELP()
         {
-            tmp = "\n\nAdmin指令:\n";
+            string tmp = "\n\nAdmin指令:\n";
             if(Config.EnableSuperBan) tmp = tmp + "/suban - 批次封鎖\n";
             if(Config.EnableSuperUnBan) tmp = tmp + "/suunban - 批次解除封鎖\n";
             if(Config.EnableAddSpamString) tmp = tmp + "/addspamstr - 新增 1 個自動規則\n";
