@@ -170,20 +170,20 @@ namespace BlackListSoamChecker
             if (Command == "/" + Config.CustomPrefix + "banstat")
             {
                 if(Config.EnableCustomBanStat)  
-                    new BanStatus().banstatus(RawMessage);
-                break;
+                    return new BanStatus().banstatus(RawMessage);
             }
             switch (Command)
             {
                 case "/user":
                     if(Config.EnableUser) {new UserCommand().User(RawMessage);}
-                    break;
+
+                    return true;
                 case "/lsop":
                     if (Config.EnableListOP) {new OP().lsOP(RawMessage);}
-                    break;
+                    return true;
                 case "/help":
                     if (Config.EnableHelp){new Help().HelpStatus(RawMessage);}
-                    break;
+                    return true;
                 case "/banstat":
                 case "/banstatus":
                     if (Config.DisableBanList)
@@ -197,7 +197,7 @@ namespace BlackListSoamChecker
                     }
 
                     if (Config.EnableBanStat) {new BanStatus().banstatus(RawMessage);}
-                    break;
+                    return true;
                 //case "/clickmetobesb"://垃圾功能，之後拔掉，希望不要爆炸！
                 //    TgApi.getDefaultApiConnection().sendMessage(
                 //        RawMessage.chat.id,
