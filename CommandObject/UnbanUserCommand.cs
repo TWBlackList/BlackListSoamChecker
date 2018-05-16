@@ -14,7 +14,7 @@ namespace BlackListSoamChecker.CommandObject
             {
                 TgApi.getDefaultApiConnection().sendMessage(
                     RawMessage.GetMessageChatInfo().id,
-                    ,
+                    Strings.UNBAN_HELP_MESSAGE,
                     RawMessage.message_id
                 );
                 return true;
