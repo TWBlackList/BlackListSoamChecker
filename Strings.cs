@@ -9,15 +9,18 @@ namespace BlackListSoamChecker
         {
             if (tmp == null)
             {
-                string lang = Config.Language
+                string lang = Config.Language;
             }
 
             return null;
         }
         
     }
-    
-    internal 
+
+    public class TWBlackList
+    {
+        
+    }
     
     
 }
