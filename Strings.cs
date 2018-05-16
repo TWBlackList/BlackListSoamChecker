@@ -11,7 +11,7 @@ namespace BlackListSoamChecker
             {
                 if (Config.Language == "TW")
                 {
-                    tmp = lang;
+                    tmp = new LanguageData();
                 }
             }
             return tmp;
