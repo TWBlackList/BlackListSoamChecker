@@ -3,7 +3,7 @@ using BlackListSoamChecker.DbManager;
 using System.Runtime.Serialization.Json;
 using System.IO;
 using System.Text;
-using System.Linq.Eumerable;
+using System.Linq.Enumerable;
 
 namespace BlackListSoamChecker
 {
