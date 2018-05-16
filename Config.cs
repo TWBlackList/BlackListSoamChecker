@@ -55,8 +55,8 @@ namespace BlackListSoamChecker
         internal static BlackListConfig tmp = null;
         
         
-        internal static bool DisableAdminTools = json.Functions.DisableAdminTools;                                      // 管理員功能，若需要的話改成 false，否則改成 true
-        internal static bool DisableBanList = json.Functions.DisableBanList;                                            // 封鎖清單功能，若需要的話改成 false，否則改成 true
+        internal static bool DisableAdminTools = json.Setting.DisableAdminTools;                                      // 管理員功能，若需要的話改成 false，否則改成 true
+        internal static bool DisableBanList = json.Setting.DisableBanList;                                            // 封鎖清單功能，若需要的話改成 false，否則改成 true
         
         
         internal static bool EnableOnlyJoinGroupInviteByAdmin = json.Setting.EnableOnlyJoinGroupInviteByAdmin;          // 讓Bot只加入OP拉取的群組
@@ -150,7 +150,12 @@ namespace BlackListSoamChecker
         public Chats Chats { get; set; } = new Chats();
         public Setting Setting { get; set; } = new Setting();
         public DefaultSoam DefaultSoam { get; set; } = new DefaultSoam();
-        public Functions Functions { get; set; } = new Functions();
+        public BanFunctions BanFunctions { get; set; } = new BanFunctions();
+        public SpamStringFunctions SpamStringFunctions { get; set; } = new SpamStringFunctions();
+        public SoamFunctions SoamFunctions { get; set; } = new SoamFunctions();
+        public AdminFunctions AdminFunctions { get; set; } = new AdminFunctions();
+        public WhiteListFunctions WhiteListFunctions { get; set; } = new WhiteListFunctions();
+        public BlockListFunctions BlockListFunctions { get; set; } = new BlockListFunctions();
     }
 
     public class Chats
@@ -179,18 +184,8 @@ namespace BlackListSoamChecker
         public string CustomPrefix { get; set; } = "tw";
         public bool EnableOnlyJoinGroupInviteByAdmin = false; // 讓Bot只加入Admin拉取的群組
         public bool EnableAutoKickNotBanUserinCourtGroup = false; // 讓Bot自動在申訴群組踢除非被封鎖者
-    }
-
-    public class Functions
-    {
         public bool DisableAdminTools { get; set; } = false;
         public bool DisableBanList { get; set; } = false;
-        public BanFunctions BanFunctions { get; set; } = new BanFunctions();
-        public SpamStringFunctions SpamStringFunctions { get; set; } = new SpamStringFunctions();
-        public SoamFunctions SoamFunctions { get; set; } = new SoamFunctions();
-        public AdminFunctions AdminFunctions { get; set; } = new AdminFunctions();
-        public WhiteListFunctions WhiteListFunctions { get; set; } = new WhiteListFunctions();
-        public BlockListFunctions BlockListFunctions { get; set; } = new BlockListFunctions();
     }
 
     public class BanFunctions 
