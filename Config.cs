@@ -3,6 +3,7 @@ using BlackListSoamChecker.DbManager;
 using System.Runtime.Serialization.Json;
 using System.IO;
 using System.Text;
+using System.Linq.Eumerable
 
 namespace BlackListSoamChecker
 {
@@ -58,14 +59,14 @@ namespace BlackListSoamChecker
         internal static bool EnableAutoKickNotBanUserinCourtGroup = json.Setting.EnableAutoKickNotBanUserinCourtGroup;  // 讓Bot自動在申訴群組踢除非被封鎖者
         
         // 0 = Disable , 1 = Enable
-        internal static int DefaultSoamAdminOnly = json.DefaultSoam.AdminOnly == 0 ? 1 : 0;                             // 只允許管理員使用指令
-        internal static int DefaultSoamBlacklist = json.DefaultSoam.Blacklist == 0 ? 1 : 0;                             // 黑名單功能
-        internal static int DefaultSoamAutoKick = json.DefaultSoam.AutoKick == 0 ? 1 : 0;                               // 自動踢除
-        internal static int DefaultSoamAntiBot = json.DefaultSoam.AntiBot == 0 ? 1 : 0;                                 // 自動踢除拉機器人的人
-        internal static int DefaultSoamAntiHalal = json.DefaultSoam.AntiHalal == 0 ? 1 : 0;                             // 防清真
-        internal static int DefaultSoamAutoDeleteSpamMessage = json.DefaultSoam.AutoDeleteSpamMessage == 0 ? 1 : 0;     // 自動刪除 Spam 訊息
-        internal static int DefaultSoamAutoDeleteCommand = json.DefaultSoam.AutoDeleteCommand == 0 ? 1 : 0;             // 自動刪除指令
-        internal static int DefaultSoamSubscribeBanList = json.DefaultSoam.SubscribeBanList == 0 ? 1 : 0;               // 訂閱封鎖清單
+        internal static int DefaultSoamAdminOnly = json.DefaultSoam.AdminOnly ? 0 : 1;                             // 只允許管理員使用指令
+        internal static int DefaultSoamBlacklist = json.DefaultSoam.Blacklist ? 0 : 1;                             // 黑名單功能
+        internal static int DefaultSoamAutoKick = json.DefaultSoam.AutoKick ? 0 : 1;                               // 自動踢除
+        internal static int DefaultSoamAntiBot = json.DefaultSoam.AntiBot ? 0 : 1;                                 // 自動踢除拉機器人的人
+        internal static int DefaultSoamAntiHalal = json.DefaultSoam.AntiHalal ? 0 : 1;                             // 防清真
+        internal static int DefaultSoamAutoDeleteSpamMessage = json.DefaultSoam.AutoDeleteSpamMessage ? 0 : 1;     // 自動刪除 Spam 訊息
+        internal static int DefaultSoamAutoDeleteCommand = json.DefaultSoam.AutoDeleteCommand ? 0 : 1;             // 自動刪除指令
+        internal static int DefaultSoamSubscribeBanList = json.DefaultSoam.SubscribeBanList ? 0 : 1;               // 訂閱封鎖清單
         
         public static long AdminGroupID = json.Chats.AdminGroupID;                                                      // 管理用群組
         
@@ -208,14 +209,14 @@ namespace BlackListSoamChecker
 
     public class DefaultSoam
     {
-        public bool AdminOnly { get; set; } = 1;
-        public bool Blacklist { get; set; } = 0;
-        public bool AutoKick { get; set; } = 0;
-        public bool AntiBot { get; set; } = 1;
-        public bool AntiHalal { get; set; } = 1;
-        public bool AutoDeleteSpamMessage { get; set; } = 1;
-        public bool AutoDeleteCommand { get; set; } = 1;
-        public bool SubscribeBanList { get; set; } = 0;
+        public bool AdminOnly { get; set; } = false;
+        public bool Blacklist { get; set; } = true;
+        public bool AutoKick { get; set; } = true;
+        public bool AntiBot { get; set; } = false;
+        public bool AntiHalal { get; set; } = false;
+        public bool AutoDeleteSpamMessage { get; set; } = false;
+        public bool AutoDeleteCommand { get; set; } = false;
+        public bool SubscribeBanList { get; set; } = true;
     }
     
     // code from : https://gist.github.com/wcoder/c24050c166b139739301
