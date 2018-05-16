@@ -17,7 +17,7 @@ namespace BlackListSoamChecker
         
     }
 
-    public class TWBlackList
+    public class LanguageData
     {
         
     }
