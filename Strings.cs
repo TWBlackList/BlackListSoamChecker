@@ -9,6 +9,7 @@ namespace BlackListSoamChecker
         {
             if (tmp == null)
             {
+                System.Console.WriteLine("Loaded Language Data");
                 if (Config.Language == "TW")
                 {
                     tmp = new LanguageData();
