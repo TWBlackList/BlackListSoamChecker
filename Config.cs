@@ -34,7 +34,7 @@ namespace BlackListSoamChecker
                         Encoding.UTF8.GetBytes(json)
                     )
                 );
-                tmp = data
+                tmp = data;
                 return data;
             }
 
@@ -92,7 +92,7 @@ namespace BlackListSoamChecker
     
     public class BlackListConfig
     {
-        public string Language { get; set } = "zh_TW";
+        public string Language { get; set; } = "zh_TW";
         public Chats Chats { get; set; } = new Chats();
         public Setting Setting { get; set; } = new Setting();
         public DefaultSoam DefaultSoam { get; set; } = new DefaultSoam();
