@@ -51,12 +51,16 @@ namespace BlackListSoamChecker
         internal static List<long> adminChecking = new List<long>();
         
         
+        internal static string Language = json.Setting.Language;                                                        // 語言
+        internal static string CustomPrefix = json.Setting.CustomPrefix;                                                // 自訂前綴
+        
+        
         internal static BlackListConfig json = getJsonConfig();
         internal static BlackListConfig tmp = null;
         
         
-        internal static bool DisableAdminTools = json.Setting.DisableAdminTools;                                      // 管理員功能，若需要的話改成 false，否則改成 true
-        internal static bool DisableBanList = json.Setting.DisableBanList;                                            // 封鎖清單功能，若需要的話改成 false，否則改成 true
+        internal static bool DisableAdminTools = json.Setting.DisableAdminTools;                                        // 管理員功能，若需要的話改成 false，否則改成 true
+        internal static bool DisableBanList = json.Setting.DisableBanList;                                              // 封鎖清單功能，若需要的話改成 false，否則改成 true
         
         
         internal static bool EnableOnlyJoinGroupInviteByAdmin = json.Setting.EnableOnlyJoinGroupInviteByAdmin;          // 讓Bot只加入OP拉取的群組
@@ -91,8 +95,13 @@ namespace BlackListSoamChecker
         internal static long InternGroupID = json.Chats.InternGroupID;                                                  // 內部群組 ChatID ( 此群組內的所有人都可對Bot轉發的訊息執行封鎖 )
         
         
+        internal static bool EnableUser = json.BasicFunctions.EnableUser;                                               // 開啟取得用戶ID
+        internal static bool EnableHelp = json.BasicFunctions.EnableHelp;                                               // 開啟取得用戶ID
+        
+        
         internal static bool EnableCustomBan = json.BanFunctions.EnableCustomBan;                                       // 開啟擁有前綴的 ban 指令
         internal static bool EnableCustomUnBan = json.BanFunctions.EnableCustomUnBan;                                   // 開啟擁有前綴的 unban 指令
+        internal static bool EnableCustomBanStat = json.BanFunctions.EnableCustomBanStat;                               // 開啟擁有前綴的 unban 指令
         internal static bool EnableBan = json.BanFunctions.EnableBan;                                                   // 開啟封鎖指令
         internal static bool EnableUnBan = json.BanFunctions.EnableUnBan;                                               // 開啟解除封鎖指令
         internal static bool EnableSuperBan = json.BanFunctions.EnableSuperBan;                                         // 開啟多重封鎖指令
@@ -113,7 +122,7 @@ namespace BlackListSoamChecker
         internal static bool EnableDisableAllGroupSoam = json.SoamFunctions.EnableDisableAllGroupSoam;                  // 開啟關閉所有群組功能
         internal static bool EnableEnableSoam = json.SoamFunctions.EnableEnableSoam;                                    // 開啟啟用群組功能
         internal static bool EnableDisableSoam = json.SoamFunctions.EnableDisableSoam;                                  // 開啟關閉群組功能
-        internal static bool EnableSoamStatus = json.SoamFunctions.EnableSoamStatus;                                   // 開啟取得群組功能狀態
+        internal static bool EnableSoamStatus = json.SoamFunctions.EnableSoamStatus;                                    // 開啟取得群組功能狀態
         
         
         internal static bool EnableGetAllGroup = json.AdminFunctions.EnableGetAllGroup;                                 // 開啟取得所有群組資訊
@@ -122,6 +131,7 @@ namespace BlackListSoamChecker
         internal static bool EnableBroadcast = json.AdminFunctions.EnableBroadcast;                                     // 開啟廣播
         internal static bool EnableAddOP = json.AdminFunctions.EnableAddOP;                                             // 開啟新增 OP
         internal static bool EnableDeleteOP = json.AdminFunctions.EnableDeleteOP;                                       // 開啟刪除 OP
+        internal static bool EnableListOP = json.AdminFunctions.EnableListOP;                                           // 開啟取得 OP 清單
         internal static bool EnableLeave = json.AdminFunctions.EnableLeave;                                             // 開啟取得 OP 清單
         
         
@@ -150,6 +160,7 @@ namespace BlackListSoamChecker
         public Chats Chats { get; set; } = new Chats();
         public Setting Setting { get; set; } = new Setting();
         public DefaultSoam DefaultSoam { get; set; } = new DefaultSoam();
+        public BasicFunctions BasicFunctions { get; set; } = new BasicFunctions();
         public BanFunctions BanFunctions { get; set; } = new BanFunctions();
         public SpamStringFunctions SpamStringFunctions { get; set; } = new SpamStringFunctions();
         public SoamFunctions SoamFunctions { get; set; } = new SoamFunctions();
@@ -188,10 +199,19 @@ namespace BlackListSoamChecker
         public bool DisableBanList { get; set; } = false;
     }
 
+
+
+    public class BasicFunctions
+    {
+        public bool EnableUser { get; set; } = true;
+        public bool EnableHelp { get; set; } = true;
+    }
+
     public class BanFunctions 
     {
         public bool EnableCustomBan { get; set; } = true;
         public bool EnableCustomUnBan { get; set; } = true;
+        public bool EnableCustomBanStat { get; set; } = true;
         
         public bool EnableBan { get; set; } = true;
         public bool EnableUnBan { get; set; } = true;
@@ -236,6 +256,7 @@ namespace BlackListSoamChecker
         
         public bool EnableAddOP { get; set; } = true;
         public bool EnableDeleteOP { get; set; } = true;
+        public bool EnableListOP { get; set; } = true;
         
         public bool EnableLeave { get; set; } = true;
     }

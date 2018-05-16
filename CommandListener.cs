@@ -75,19 +75,19 @@ namespace BlackListSoamChecker
                 switch (Command)
                 {
                     case "/leave":
-                        new LeaveCommand().Leave(RawMessage);
+                        if(Config.EnableLeave) new LeaveCommand().Leave(RawMessage);
                         break;
                     case "/soamenable":
-                        new SoamManager().SoamEnable(RawMessage);
+                        if(Config.EnableEnableSoam) new SoamManager().SoamEnable(RawMessage);
                         break;
                     case "/soamdisable":
-                        new SoamManager().SoamDisable(RawMessage);
+                        if(Config.EnableDisableSoam) new SoamManager().SoamDisable(RawMessage);
                         break;
                     case "/__get_exception":
                         throw new Exception();
                     case "/soamstat":
                     case "/soamstatus":
-                        new SoamManager().SoamStatus(RawMessage);
+                        if(Config.EnableSoamStatus) new SoamManager().SoamStatus(RawMessage);
                         break;
                     //case "/cnkick":
                     //    if (Config.DisableBanList)
@@ -167,17 +167,20 @@ namespace BlackListSoamChecker
 
         private bool SharedCommand(TgMessage RawMessage, string JsonMessage, string Command)
         {
+            if (Command == "/" + Config.CustomPrefix + "banstat")
+            {
+                if(Config.EnableCustomBanStat)  return new BanStatus().banstatus(RawMessage);
+            }
             switch (Command)
             {
                 case "/user":
-                    return new UserCommand().User(RawMessage);
+                    if(Config.EnableUser) return new UserCommand().User(RawMessage);
                 case "/lsop":
-                    return new OP().lsOP(RawMessage);
+                    if(Config.EnableListOP) return new OP().lsOP(RawMessage);
                 case "/help":
-                    return new Help().HelpStatus(RawMessage);
+                    if(Config.EnableHelp) return new Help().HelpStatus(RawMessage);
                 case "/banstat":
                 case "/banstatus":
-                case "/cnbanstat":
                     if (Config.DisableBanList)
                     {
                         TgApi.getDefaultApiConnection().sendMessage(
@@ -188,7 +191,7 @@ namespace BlackListSoamChecker
                         break;
                     }
 
-                    return new BanStatus().banstatus(RawMessage);
+                    if(Config.EnableBanStat)  return new BanStatus().banstatus(RawMessage);
                 //case "/clickmetobesb"://垃圾功能，之後拔掉，希望不要爆炸！
                 //    TgApi.getDefaultApiConnection().sendMessage(
                 //        RawMessage.chat.id,

@@ -11,12 +11,15 @@ namespace BlackListSoamChecker
             if (RawMessage.GetReplyMessage() != null)
                 if (RawMessage.GetMessageChatInfo().id == Config.InternGroupID && RawMessage.GetReplyMessage().GetSendUser().id == TgApi.getDefaultApiConnection().getMe().id)
                 {
-                    switch (Command)
+                    if (Command == "/" + Config.CustomPrefix + "ban")
                     {
-                        case "/devban":
-                        case "/ban":
-                            new BanUserCommand().Ban(RawMessage, JsonMessage, Command);
-                            throw new StopProcessException();                    
+                        if(Config.EnableCustomBan) new BanUserCommand().Ban(RawMessage, JsonMessage, Command);
+                        throw new StopProcessException();
+                    }
+                    if (Command == "/ban")
+                    {
+                        if(Config.EnableBan) new BanUserCommand().Ban(RawMessage, JsonMessage, Command);
+                        throw new StopProcessException();
                     }
                 }
             if (RAPI.getIsBotOP(RawMessage.GetSendUser().id) || RAPI.getIsBotAdmin(RawMessage.GetSendUser().id))
@@ -24,103 +27,116 @@ namespace BlackListSoamChecker
                 switch (Command)
                 {
                     case "/groups":
-                        new AllGroups().Groups_Status(RawMessage);
+                        if(Config.EnableGetAllGroup) new AllGroups().Groups_Status(RawMessage);
                         throw new StopProcessException();    
                 }
+
                 if (!Config.DisableBanList)
+                {
+                    
+                    if (Command == "/" + Config.CustomPrefix + "ban")
+                    {
+                        if(Config.EnableCustomBan) new BanUserCommand().Ban(RawMessage, JsonMessage, Command);
+                        throw new StopProcessException();
+                    }
+                    if (Command == "/" + Config.CustomPrefix + "unban")
+                    {
+                        if(Config.EnableCustomUnBan) new UnbanUserCommand().Unban(RawMessage);
+                        throw new StopProcessException();
+                    }
                     switch (Command)
                     {
                         case "/groupadmin":
-                            new GetAdmins().GetGroupAdmins(RawMessage);
+                            if(Config.EnableGetGroupAdmin)  new GetAdmins().GetGroupAdmins(RawMessage);
                             throw new StopProcessException();
                         case "/getspampoints":
-                            new SpamStringManager().GetSpamPoints(RawMessage);
+                            if(Config.EnableGetSpamStringPoints) new SpamStringManager().GetSpamPoints(RawMessage);
                             throw new StopProcessException();
-                        case "/cnban":
                         case "/ban":
-                            new BanUserCommand().Ban(RawMessage, JsonMessage, Command);
+                            if(Config.EnableBan) new BanUserCommand().Ban(RawMessage, JsonMessage, Command);
                             throw new StopProcessException();
-                        case "/cnunban":
                         case "/unban":
-                            new UnbanUserCommand().Unban(RawMessage);
+                            if(Config.EnableUnBan) new UnbanUserCommand().Unban(RawMessage);
                             throw new StopProcessException();
                         case "/addhk":
-                            new HKWhitelist().addHKWhitelist(RawMessage);
+                            if(Config.EnableHKWhitelistAdd) new HKWhitelist().addHKWhitelist(RawMessage);
                             throw new StopProcessException();
                         case "/delhk":
-                            new HKWhitelist().deleteHKWhitelist(RawMessage);
+                            if(Config.EnableHKWhitelistDelete) new HKWhitelist().deleteHKWhitelist(RawMessage);
                             throw new StopProcessException();
                         case "/lshk":
-                            new HKWhitelist().listHKWhitelist(RawMessage);
+                            if(Config.EnableHKWhitelisList) new HKWhitelist().listHKWhitelist(RawMessage);
                             throw new StopProcessException();
                     }
+                }
+
                 if (RAPI.getIsBotAdmin(RawMessage.GetSendUser().id))
                 {
                     if (!Config.DisableBanList)
                         switch (Command)
                         {
                             case "/getallspamstr":
-                                new SpamStringManager().GetAllInfo(RawMessage);
+                                if(Config.EnableGetAllSpamStringInfo) new SpamStringManager().GetAllInfo(RawMessage);
                                 return true;
                             case "/addspamstr":
-                                new SpamStringManager().Add(RawMessage);
+                                if(Config.EnableAddSpamString) new SpamStringManager().Add(RawMessage);
                                 throw new StopProcessException();
                             case "/delspamstr":
-                                new SpamStringManager().Remove(RawMessage);
+                                if(Config.EnableDeleteSpamString) new SpamStringManager().Remove(RawMessage);
                                 throw new StopProcessException();
                             case "/suban":
-                                new BanMultiUserCommand().BanMulti(RawMessage, JsonMessage, Command);
+                                if(Config.EnableSuperBan) new BanMultiUserCommand().BanMulti(RawMessage, JsonMessage, Command);
                                 throw new StopProcessException();
                             case "/suunban":
-                                new UnBanMultiUserCommand().UnbanMulti(RawMessage);
+                                if(Config.EnableSuperUnBan) new UnBanMultiUserCommand().UnbanMulti(RawMessage);
                                 throw new StopProcessException();
                             case "/getspamstr":
-                                new SpamStringManager().GetName(RawMessage);
+                                if(Config.EnableGetSpamString) new SpamStringManager().GetName(RawMessage);
                                 throw new StopProcessException();
                             case "/reloadspamstr":
-                                new SpamStringManager().reloadSpamList(RawMessage);
+                                if(Config.EnableReloadSpamString) new SpamStringManager().reloadSpamList(RawMessage);
                                 throw new StopProcessException();
                         }
                     switch (Command)
                     {
                         case "/points":
-                            new SpamStringManager().GetSpamKeywords(RawMessage);
+                            if(Config.EnableGetSpamStringKeywords) new SpamStringManager().GetSpamKeywords(RawMessage);
                             throw new StopProcessException();
                         case "/cleanup":
-                            new CleanUP().CleanUP_Status(RawMessage);
+                            if(Config.EnableCleanUp) new CleanUP().CleanUP_Status(RawMessage);
                             throw new StopProcessException();
                         case "/say":
-                            new BroadCast().BroadCast_Status(RawMessage);
+                            if(Config.EnableBroadcast) new BroadCast().BroadCast_Status(RawMessage);
                             throw new StopProcessException();
                         case "/sdall":
-                            new OP().SDAll(RawMessage);
+                            if(Config.EnableDisableAllGroupSoam) new OP().SDAll(RawMessage);
                             throw new StopProcessException();
                         case "/seall":
-                            new OP().SEAll(RawMessage);
+                            if(Config.EnableEnableAllGroupSoam) new OP().SEAll(RawMessage);
                             throw new StopProcessException();
                         case "/addop":
-                            new OP().addOP(RawMessage);
+                            if(Config.EnableAddOP) new OP().addOP(RawMessage);
                             throw new StopProcessException();
                         case "/delop":
-                            new OP().delOP(RawMessage);
+                            if(Config.EnableDeleteOP) new OP().delOP(RawMessage);
                             throw new StopProcessException();
                         case "/addwl":
-                            new Whitelist().addWhitelist(RawMessage);
+                            if(Config.EnableWhitelistAdd) new Whitelist().addWhitelist(RawMessage);
                             throw new StopProcessException();
                         case "/delwl":
-                            new Whitelist().deleteWhitelist(RawMessage);
+                            if(Config.EnableWhitelistDelete) new Whitelist().deleteWhitelist(RawMessage);
                             throw new StopProcessException();
                         case "/lswl":
-                            new Whitelist().listWhitelist(RawMessage);
+                            if(Config.EnableWhitelisList) new Whitelist().listWhitelist(RawMessage);
                             throw new StopProcessException();
                         case "/block":
-                            new BlockGroup().addBlockGroup(RawMessage);
+                            if(Config.EnableBlockListAdd) new BlockGroup().addBlockGroup(RawMessage);
                             throw new StopProcessException();
                         case "/unblock":
-                            new BlockGroup().deleteBlockGroup(RawMessage);
+                            if(Config.EnableBlockListDelete) new BlockGroup().deleteBlockGroup(RawMessage);
                             throw new StopProcessException();
                         case "/blocks":
-                            new BlockGroup().listBlockGroup(RawMessage);
+                            if(Config.EnableBlockListList) new BlockGroup().listBlockGroup(RawMessage);
                             throw new StopProcessException();
                     }
                 }
