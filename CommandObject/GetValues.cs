@@ -22,7 +22,7 @@ namespace BlackListSoamChecker.CommandObject
             {
                 TgApi.getDefaultApiConnection().sendMessage(
                     RawMessage.GetMessageChatInfo().id,
-                    String.BAN_ERROR_MESSAGE + " err9"
+                    Strings.BAN_ERROR_MESSAGE + " err9"
                 );
                 return null;
             }
@@ -74,7 +74,7 @@ namespace BlackListSoamChecker.CommandObject
             {
                 TgApi.getDefaultApiConnection().sendMessage(
                     RawMessage.GetMessageChatInfo().id,
-                    String.BAN_ERROR_MESSAGE + " err4"
+                    Strings.BAN_ERROR_MESSAGE + " err4"
                 );
                 return -1;
             }
@@ -85,7 +85,7 @@ namespace BlackListSoamChecker.CommandObject
             {
                 TgApi.getDefaultApiConnection().sendMessage(
                     RawMessage.GetMessageChatInfo().id,
-                    String.BAN_ERROR_MESSAGE + " err5"
+                    Strings.BAN_ERROR_MESSAGE + " err5"
                 );
                 return -1;
             }
@@ -100,7 +100,7 @@ namespace BlackListSoamChecker.CommandObject
             {
                 TgApi.getDefaultApiConnection().sendMessage(
                     RawMessage.GetMessageChatInfo().id,
-                    String.BAN_ERROR_MESSAGE + " err6"
+                    Strings.BAN_ERROR_MESSAGE + " err6"
                 );
                 return -1;
             }
@@ -199,7 +199,7 @@ namespace BlackListSoamChecker.CommandObject
                 {
                     TgApi.getDefaultApiConnection().sendMessage(
                         RawMessage.GetMessageChatInfo().id,
-                        String.BAN_ERROR_MESSAGE + " err3"
+                        Strings.BAN_ERROR_MESSAGE + " err3"
                     );
                     return null;
                 }
