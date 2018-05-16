@@ -122,8 +122,8 @@ namespace BlackListSoamChecker
 
     public class Setting
     {
-        internal static bool EnableOnlyJoinGroupInviteByAdmin = false; // 讓Bot只加入Admin拉取的群組
-        internal static bool EnableAutoKickNotBanUserinCourtGroup = false; // 讓Bot自動在申訴群組踢除非被封鎖者
+        public bool EnableOnlyJoinGroupInviteByAdmin = false; // 讓Bot只加入Admin拉取的群組
+        public bool EnableAutoKickNotBanUserinCourtGroup = false; // 讓Bot自動在申訴群組踢除非被封鎖者
     }
 
     public class Functions
