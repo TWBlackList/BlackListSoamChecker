@@ -51,12 +51,12 @@ namespace BlackListSoamChecker
         internal static List<long> adminChecking = new List<long>();
         
         
-        internal static string Language = json.Setting.Language;                                                        // 語言
-        internal static string CustomPrefix = json.Setting.CustomPrefix;                                                // 自訂前綴
-        
-        
         internal static BlackListConfig json = getJsonConfig();
         internal static BlackListConfig tmp = null;
+        
+        
+        internal static string Language = json.Setting.Language;                                                        // 語言
+        internal static string CustomPrefix = json.Setting.CustomPrefix;                                                // 自訂前綴
         
         
         internal static bool DisableAdminTools = json.Setting.DisableAdminTools;                                        // 管理員功能，若需要的話改成 false，否則改成 true
