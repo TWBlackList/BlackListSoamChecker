@@ -92,6 +92,9 @@ namespace BlackListSoamChecker
         internal static long CourtGroupID = json.Chats.CourtGroupID;                                                    // 申訴群組 ChatID ( 申訴 )
         internal static string CourtGroupName =json.Chats.CourtGroupName;                                               // 申訴群組 UserName
         
+        internal static long AdminContactGroupID = json.Chats.AdminContactGroupID;                                      // 溝通群組 ChatID ( 申訴 )
+        internal static string AdminContactGroupName =json.Chats.AdminContactGroupName;                                 // 溝通群組 UserName
+        
         internal static long InternGroupID = json.Chats.InternGroupID;                                                  // 內部群組 ChatID ( 此群組內的所有人都可對Bot轉發的訊息執行封鎖 )
         
         

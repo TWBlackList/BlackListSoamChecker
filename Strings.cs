@@ -37,6 +37,7 @@ namespace BlackListSoamChecker
         internal static string BAN_ERROR_NOTFOUNDMSGID_MESSAGE = lang.BAN_ERROR_NOTFOUNDMSGID_MESSAGE;
         internal static string UNBAN_HELP_MESSAGE = lang.UNBAN_HELP_MESSAGE;
         internal static string UNBAN_ERROR_MESSAGE = lang.UNBAN_ERROR_MESSAGE;
+        internal static string UNBAN_ERROR_USER_NOT_BANNED = lang.UNBAN_ERROR_USER_NOT_BANNED;
         internal static string BAN_ERROR_USER_IN_WHITELIST = lang.BAN_ERROR_USER_IN_WHITELIST;
         internal static string BAN_ERROR_USER_IN_HKWHITELIST = lang.BAN_ERROR_USER_IN_HKWHITELIST;
         
