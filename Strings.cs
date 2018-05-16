@@ -15,7 +15,8 @@ namespace BlackListSoamChecker
             return null;
         }
         
-        internal static LanguageData lang = getJsonConfig();
+        internal static LanguageData lang = getLangData();
+        internal static LanguageData tmp = null;
         
     }
 

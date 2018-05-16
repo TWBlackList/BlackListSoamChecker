@@ -175,14 +175,11 @@ namespace BlackListSoamChecker
             switch (Command)
             {
                 case "/user":
-                    if(Config.EnableUser) 
-                        return new UserCommand().User(RawMessage);
+                    if(Config.EnableUser) {return new UserCommand().User(RawMessage);}
                 case "/lsop":
-                    if(Config.EnableListOP) 
-                        return new OP().lsOP(RawMessage);
+                    if (Config.EnableListOP) {return new OP().lsOP(RawMessage);}
                 case "/help":
-                    if(Config.EnableHelp) 
-                        return new Help().HelpStatus(RawMessage);
+                    if (Config.EnableHelp){return new Help().HelpStatus(RawMessage);}
                 case "/banstat":
                 case "/banstatus":
                     if (Config.DisableBanList)
@@ -195,8 +192,7 @@ namespace BlackListSoamChecker
                         break;
                     }
 
-                    if(Config.EnableBanStat)  
-                        return new BanStatus().banstatus(RawMessage);
+                    if (Config.EnableBanStat) {return new BanStatus().banstatus(RawMessage);}
                 //case "/clickmetobesb"://垃圾功能，之後拔掉，希望不要爆炸！
                 //    TgApi.getDefaultApiConnection().sendMessage(
                 //        RawMessage.chat.id,
