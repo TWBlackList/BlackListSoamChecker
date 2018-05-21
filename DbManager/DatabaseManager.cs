@@ -339,14 +339,14 @@ namespace BlackListSoamChecker.DbManager
                     groupCfg = new GroupCfg
                     {
                         GroupID = gid,
-                        AdminOnly = 1,
-                        BlackList = 0,
-                        AutoKick = 0,
-                        AntiBot = 1,
-                        AntiHalal = 0,
-                        AutoDeleteSpamMessage = 0,
-                        AutoDeleteCommand = 1,
-                        SubscribeBanList = 0
+                        AdminOnly = Config.DefaultSoamAdminOnly,
+                        BlackList = Config.DefaultSoamBlacklist,
+                        AutoKick = Config.DefaultSoamAutoKick,
+                        AntiBot = Config.DefaultSoamAntiBot,
+                        AntiHalal = Config.DefaultSoamAntiHalal,
+                        AutoDeleteSpamMessage = Config.DefaultSoamAutoDeleteSpamMessage,
+                        AutoDeleteCommand = Config.DefaultSoamAutoDeleteCommand,
+                        SubscribeBanList = Config.DefaultSoamSubscribeBanList
                     };
                     db.GroupConfig.Add(groupCfg);
                     Config.groupConfig.TryAdd(gid, groupCfg);
