@@ -54,6 +54,15 @@ namespace BlackListSoamChecker
 
             if (JoinedUser.id == TgApi.getDefaultApiConnection().getMe().id)
             {
+                if (Config.EnableOnlyJoinGroupInviteByAdmin)
+                {
+                    if (!RAPI.getIsBotAdmin(RawMessage.GetSendUser().id))
+                    {
+                        Thread.Sleep(500);
+                        TgApi.getDefaultApiConnection().leaveChat(RawMessage.GetMessageChatInfo().id);
+                        return new CallbackMessage();
+                    }
+                }
                 if (RAPI.getIsBlockGroup(RawMessage.GetMessageChatInfo().id))
                 {
                     new Thread(delegate()
@@ -65,15 +74,19 @@ namespace BlackListSoamChecker
                     return new CallbackMessage();
                 }
 
-                if (RawMessage.GetMessageChatInfo().type == "group")
+                if (Config.DisableInNormalGroup)
                 {
-                    TgApi.getDefaultApiConnection().sendMessage(RawMessage.GetMessageChatInfo().id,
-                        "一般群組無法使用本服務，如有疑問請至 @" + Config.CourtGroupName);
-                    Thread.Sleep(2000);
-                    TgApi.getDefaultApiConnection().leaveChat(RawMessage.GetMessageChatInfo().id);
-                    return new CallbackMessage();
+                    if (RawMessage.GetMessageChatInfo().type == "group")
+                    {
+                        TgApi.getDefaultApiConnection().sendMessage(RawMessage.GetMessageChatInfo().id,
+                            "一般群組無法使用本服務，如有疑問請至 @" + Config.CourtGroupName);
+                        Thread.Sleep(2000);
+                        TgApi.getDefaultApiConnection().leaveChat(RawMessage.GetMessageChatInfo().id);
+                        return new CallbackMessage();
+                    }
+
                 }
-                
+
                 if (!new CheckHelper().CheckAdminInReportGroup(RawMessage.GetMessageChatInfo().id))
                 {
                     new Thread(delegate()

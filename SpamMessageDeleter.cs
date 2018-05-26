@@ -25,15 +25,18 @@ namespace BlackListSoamChecker
                 return new CallbackMessage();
             }
 
-            if (BaseMessage.GetMessageChatInfo().type == "group")
+            if (Config.DisableInNormalGroup)
             {
-                TgApi.getDefaultApiConnection().sendMessage(BaseMessage.GetMessageChatInfo().id,
-                    "一般群組無法使用本服務，如有疑問請至 @" + Config.CourtGroupName);
-                Thread.Sleep(2000);
-                TgApi.getDefaultApiConnection().leaveChat(BaseMessage.GetMessageChatInfo().id);
-                return new CallbackMessage();
+                if (BaseMessage.GetMessageChatInfo().type == "group")
+                {
+                    TgApi.getDefaultApiConnection().sendMessage(BaseMessage.GetMessageChatInfo().id,
+                        "一般群組無法使用本服務，如有疑問請至 @" + Config.CourtGroupName);
+                    Thread.Sleep(2000);
+                    TgApi.getDefaultApiConnection().leaveChat(BaseMessage.GetMessageChatInfo().id);
+                    return new CallbackMessage();
+                }
             }
-            
+
             if (!new CheckHelper().CheckAdminInReportGroup(BaseMessage.GetMessageChatInfo().id))
             {
                 new Thread(delegate()
