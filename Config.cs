@@ -62,7 +62,7 @@ namespace BlackListSoamChecker
         internal static bool DisableAdminTools = json.Setting.DisableAdminTools;                                        // 管理員功能，若需要的話改成 false，否則改成 true
         internal static bool DisableBanList = json.Setting.DisableBanList;                                              // 封鎖清單功能，若需要的話改成 false，否則改成 true
 
-        internal static bool DisableInNormalGroup = json.Setting.DisableInNormalGroup;                                  // 自動離開普通群組
+        internal static bool EnableAutoLeaveNormalGroup = json.Setting.DisableInNormalGroup;                                  // 自動離開普通群組
         internal static bool EnableOnlyJoinGroupInviteByAdmin = json.Setting.EnableOnlyJoinGroupInviteByAdmin;          // 讓Bot只加入Admin拉取的群組
         internal static bool EnableAutoKickNotBanUserinCourtGroup = json.Setting.EnableAutoKickNotBanUserinCourtGroup;  // 讓Bot自動在申訴群組踢除非被封鎖者
         
@@ -199,8 +199,9 @@ namespace BlackListSoamChecker
     {
         public string Language { get; set; } = "zh_TW";
         public string CustomPrefix { get; set; } = "tw";
-        public bool EnableOnlyJoinGroupInviteByAdmin = false; // 讓Bot只加入Admin拉取的群組
-        public bool EnableAutoKickNotBanUserinCourtGroup = false; // 讓Bot自動在申訴群組踢除非被封鎖者
+        public bool EnableOnlyJoinGroupInviteByAdmin { get; set; } = false; // 讓Bot只加入Admin拉取的群組
+        public bool EnableAutoKickNotBanUserinCourtGroup { get; set; } = false; // 讓Bot自動在申訴群組踢除非被封鎖者
+        public bool EnableAutoLeaveNormalGroup { get; set; } = true; // 自動離開普通群組
         public bool DisableAdminTools { get; set; } = false;
         public bool DisableBanList { get; set; } = false;
     }

@@ -25,7 +25,7 @@ namespace BlackListSoamChecker
                 return new CallbackMessage();
             }
 
-            if (Config.DisableInNormalGroup)
+            if (Config.EnableAutoLeaveNormalGroup)
             {
                 if (BaseMessage.GetMessageChatInfo().type == "group")
                 {
