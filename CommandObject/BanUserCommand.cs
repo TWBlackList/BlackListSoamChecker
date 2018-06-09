@@ -135,7 +135,7 @@ namespace BlackListSoamChecker.CommandObject
             }
 
             bool status;            
-            if (RawMessage.GetMessageChatInfo().id == Config.InternGroupID && RawMessage.GetReplyMessage().GetSendUser().id == TgApi.getDefaultApiConnection().getMe().id)
+            if (RawMessage.GetMessageChatInfo().id == Config.InternGroupID)
                 status = Config.GetDatabaseManager().BanUser(
                     1,
                     BanUserId,

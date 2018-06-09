@@ -8,7 +8,7 @@ namespace BlackListSoamChecker
     {
         internal bool AdminCommands(TgMessage RawMessage, string JsonMessage, string Command)
         {
-            if (RAPI.getIsBotOP(RawMessage.GetSendUser().id) || RAPI.getIsBotAdmin(RawMessage.GetSendUser().id) || RawMessage.GetMessageChatInfo().id == Config.InternGroupID)
+            if (RAPI.getIsBotOP(RawMessage.GetSendUser().id) || RAPI.getIsBotAdmin(RawMessage.GetSendUser().id) || RawMessage.GetMessageChatInfo().id == Config.     InternGroupID)
             {
                 switch (Command)
                 {
