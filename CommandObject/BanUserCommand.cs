@@ -141,7 +141,7 @@ namespace BlackListSoamChecker.CommandObject
             bool status;            
             if (BanUserInfo == null)
                 status = Config.GetDatabaseManager().BanUser(
-                    RawMessage.GetSendUser().id,
+                    AdminID,
                     BanUserId,
                     Level,
                     ExpiresTime,
@@ -149,7 +149,7 @@ namespace BlackListSoamChecker.CommandObject
                 );
             else if (RawMessage.GetReplyMessage().new_chat_member != null)
                 status = Config.GetDatabaseManager().BanUser(
-                    RawMessage.GetSendUser().id,
+                    AdminID,
                     BanUserId,
                     Level,
                     ExpiresTime,
@@ -160,7 +160,7 @@ namespace BlackListSoamChecker.CommandObject
                 );
             else
                 status = Config.GetDatabaseManager().BanUser(
-                    RawMessage.GetSendUser().id,
+                    AdminID,
                     BanUserId,
                     Level,
                     ExpiresTime,
