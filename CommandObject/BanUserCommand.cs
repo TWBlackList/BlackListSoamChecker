@@ -133,20 +133,13 @@ namespace BlackListSoamChecker.CommandObject
                 );
                 return false;
             }
-
-            bool status;            
+            
+            int AdminID = RawMessage.GetSendUser().id
             if (RawMessage.GetMessageChatInfo().id == Config.InternGroupID)
-                status = Config.GetDatabaseManager().BanUser(
-                    1,
-                    BanUserId,
-                    Level,
-                    ExpiresTime,
-                    Reason,
-                    RawMessage.GetMessageChatInfo().id,
-                    RawMessage.GetReplyMessage().message_id,
-                    BanUserInfo
-                );
-            else if (BanUserInfo == null)
+                AdminID = 1
+                    
+            bool status;            
+            if (BanUserInfo == null)
                 status = Config.GetDatabaseManager().BanUser(
                     RawMessage.GetSendUser().id,
                     BanUserId,
