@@ -102,7 +102,7 @@ namespace BlackListSoamChecker
                     );
                     TgApi.getDefaultApiConnection().sendMessage(
                         Config.InternGroupID,
-                        BaseMessage.GetMessageChatInfo().GetChatTextInfo() + "\n\nReport By" + BaseMessage.GetSendUser().GetUserTextInfo()
+                        BaseMessage.GetMessageChatInfo().GetChatTextInfo() + "\n\n被回覆的訊息的原發送使用者 : " + BaseMessage.GetReplyMessage().GetSendUser().GetUserTextInfo()  + "\n\nReport By : " + BaseMessage.GetSendUser().GetUserTextInfo()
                     );
                 }
             }
