@@ -30,42 +30,42 @@ namespace BlackListSoamChecker.CommandObject
             int commandBanLength = 0;
             if (valLen >= 4)
             {
-                if (value.Substring(0, 5) == "halal")
+                if (value == "halal")
                 {
                     commandBanLength = 5;
                     Reason = Strings.HALAL;
                     ExpiresTime = Config.DefaultHalalBanDay * 86400;
                     notCommonBan = false;
                 }
-                if (value.Substring(0, 4) == "spam")
+                if (value == "spam")
                 {
                     commandBanLength = 4;
                     Reason = Strings.SPAM;
                     ExpiresTime = Config.DefaultSpamBanDay * 86400;
                     notCommonBan = false;
                 }
-                if (value.Substring(0, 7) == "spammer")
+                if (value == "spammer")
                 {
                     commandBanLength = 7;
                     Reason = Strings.SPAMMER;
                     ExpiresTime = Config.DefaultSpammerBanDay * 86400;
                     notCommonBan = false;
                 }
-                if (value.Substring(0, 6) == "innsfw")
+                if (value == "innsfw")
                 {
                     commandBanLength = 6;
                     Reason = Strings.INNSFW;
                     ExpiresTime = Config.DefaultInNsfwBanDay * 86400;
                     notCommonBan = false;
                 }
-                if (value.Substring(0, 7) == "outnsfw")
+                if (value == "outnsfw")
                 {
                     commandBanLength = 7;
                     Reason = Strings.OUTNSFW;
                     ExpiresTime = Config.DefaultOutNsfwBanDay * 86400;
                     notCommonBan = false;
                 }
-                if (value.Substring(0, 4) == "coin")
+                if (value == "coin")
                 {
                     commandBanLength = 4;
                     Reason = Strings.COIN;
