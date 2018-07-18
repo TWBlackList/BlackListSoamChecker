@@ -105,7 +105,8 @@ namespace BlackListSoamChecker
         
         
         internal static bool EnableUser = json.BasicFunctions.EnableUser;                                               // 開啟取得用戶ID
-        internal static bool EnableHelp = json.BasicFunctions.EnableHelp;                                               // 開啟取得用戶ID
+        internal static bool EnableGroupID = json.BasicFunctions.EnableGroupID;                                         // 開啟取得群組ID
+        internal static bool EnableHelp = json.BasicFunctions.EnableHelp;                                               // 開啟取得幫助
         
         
         internal static bool EnableCustomBan = json.BanFunctions.EnableCustomBan;                                       // 開啟擁有前綴的 ban 指令
@@ -225,6 +226,7 @@ namespace BlackListSoamChecker
     {
         public bool EnableUser { get; set; } = true;
         public bool EnableHelp { get; set; } = true;
+        public bool EnableGroupID { get; set; } = true;
     }
 
     public class BanFunctions 

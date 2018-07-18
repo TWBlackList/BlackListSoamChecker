@@ -74,6 +74,9 @@ namespace BlackListSoamChecker
                 if (SharedCommand(RawMessage, JsonMessage, Command)) return new CallbackMessage();
                 switch (Command)
                 {
+                    case "/gid":
+                        if(Config.EnableGroup) new GroupCommand().GroupID(RawMessage);
+                        break;
                     case "/leave":
                         if(Config.EnableLeave) new LeaveCommand().Leave(RawMessage);
                         break;

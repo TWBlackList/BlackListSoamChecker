@@ -125,6 +125,7 @@ namespace BlackListSoamChecker
         public string GROUP_HELP()
         {
             string tmp = "";
+            if (Config.EnableGroupID) tmp = tmp + "/group - 取得群組 ID\n";
             if (Config.EnableLeave) tmp = tmp + "/leave - 離開群組\n";
             if (Config.EnableEnableSoam) tmp = tmp + "/soamenable - 啟用功能\n";
             if (Config.EnableDisableSoam) tmp = tmp + "/soamdisable - 關閉功能\n";
