@@ -27,50 +27,6 @@ namespace BlackListSoamChecker.CommandObject
             string value = RawMessage.text.Substring(banSpace + 1);
             int valLen = value.Length;
             bool notCommonBan = true;
-            if (valLen >= 5)
-                if (value.Substring(0, 5) == "halal")
-                {
-                    notCommonBan = false;
-                    Reason = Strings.HALAL;
-                    if (valLen > 6)
-                    {
-                        if (value[5] != ' ')
-                        {
-                            TgApi.getDefaultApiConnection().sendMessage(
-                                RawMessage.GetMessageChatInfo().id,
-                                Strings.BAN_ERROR_MESSAGE + " err_a1",
-                                RawMessage.message_id
-                            );
-                            return true;
-                        }
-
-                        UserInfo tmpUinfo =
-                            new GetValues().GetByTgMessage(
-                                new Dictionary<string, string> {{"from", value.Substring(6)}}, RawMessage);
-                        if (tmpUinfo == null) return true; // 如果没拿到使用者信息则代表出现了异常
-
-                        BanUserId = tmpUinfo.id;
-                        if (tmpUinfo.language_code != null && tmpUinfo.language_code != "__CAN_NOT_GET_USERINFO__")
-                            BanUserInfo = tmpUinfo;
-                    }
-                    else
-                    {
-                        UserInfo tmpUinfo =
-                            new GetValues().GetByTgMessage(new Dictionary<string, string>(), RawMessage);
-                        if (tmpUinfo == null) return true; // 如果没拿到使用者信息则代表出现了异常
-
-                        BanUserId = tmpUinfo.id;
-                        if (tmpUinfo.language_code != null)
-                        {
-                            if (tmpUinfo.language_code != "__CAN_NOT_GET_USERINFO__") BanUserInfo = tmpUinfo;
-                        }
-                        else
-                        {
-                            BanUserInfo = tmpUinfo;
-                        }
-                    }
-                }
-
             int commandBanLength = 0;
             if (valLen >= 4)
             {
