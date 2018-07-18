@@ -58,12 +58,12 @@ namespace BlackListSoamChecker
         internal static string Language = json.Setting.Language;                                                        // 語言
         internal static string CustomPrefix = json.Setting.CustomPrefix;                                                // 自訂前綴
         
-        internal static string DefaultHalalBanDay = json.Setting.DefaultHalalBanDay;                                    // 常用封鎖: 無法理解的語言 天數
-        internal static string DefaultSpamBanDay = json.Setting.DefaultSpamBanDay;                                      // 常用封鎖: 垃圾/無意義/濫發訊 天數
-        internal static string DefaultSpammerBanDay = json.Setting.DefaultSpammerBanDay;                                // 常用封鎖: 拉人訊息or用戶名/廣告用戶名 天數
-        internal static string DefaultInNsfwBanDay = json.Setting.DefaultInNsfwBanDay;                                  // 常用封鎖: 裸露/暴力/色情/非公眾適宜訊息 天數
-        internal static string DefaultOutNsfwBanDay = json.Setting.DefaultOutNsfwBanDay;                                // 常用封鎖: 連外裸露/暴力/色情/非公眾適宜訊息 天數
-        internal static string DefaultCoinBanDay = json.Setting.DefaultCoinBanDay;                                      // 常用封鎖: 虛擬貨幣廣告 天數
+        internal static int DefaultHalalBanDay = json.Setting.DefaultHalalBanDay;                                    // 常用封鎖: 無法理解的語言 天數
+        internal static int DefaultSpamBanDay = json.Setting.DefaultSpamBanDay;                                      // 常用封鎖: 垃圾/無意義/濫發訊 天數
+        internal static int DefaultSpammerBanDay = json.Setting.DefaultSpammerBanDay;                                // 常用封鎖: 拉人訊息or用戶名/廣告用戶名 天數
+        internal static int DefaultInNsfwBanDay = json.Setting.DefaultInNsfwBanDay;                                  // 常用封鎖: 裸露/暴力/色情/非公眾適宜訊息 天數
+        internal static int DefaultOutNsfwBanDay = json.Setting.DefaultOutNsfwBanDay;                                // 常用封鎖: 連外裸露/暴力/色情/非公眾適宜訊息 天數
+        internal static int DefaultCoinBanDay = json.Setting.DefaultCoinBanDay;                                      // 常用封鎖: 虛擬貨幣廣告 天數
 
         internal static bool DisableAdminTools = json.Setting.DisableAdminTools;                                        // 管理員功能，若需要的話改成 false，否則改成 true
         internal static bool DisableBanList = json.Setting.DisableBanList;                                              // 封鎖清單功能，若需要的話改成 false，否則改成 true
