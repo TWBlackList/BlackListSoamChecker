@@ -29,16 +29,8 @@ namespace BlackListSoamChecker.CommandObject
             bool notCommonBan = true;
             int commandBanLength = 0;
             int banDay = 0;
-            if (valLen >= 4)
+            if (valLen > 3)
             {
-                if(valLen == 5)
-                    if (value.Substring(0, 5) == "halal")
-                    {
-                        commandBanLength = 5;
-                        Reason = Strings.HALAL;
-                        banDay = Config.DefaultHalalBanDay;
-                        notCommonBan = false;
-                    }
 
                 if (valLen == 4)
                 {
@@ -58,6 +50,15 @@ namespace BlackListSoamChecker.CommandObject
                         notCommonBan = false;
                     }
                 }
+                
+                if(valLen == 5)
+                    if (value.Substring(0, 5) == "halal")
+                    {
+                        commandBanLength = 5;
+                        Reason = Strings.HALAL;
+                        banDay = Config.DefaultHalalBanDay;
+                        notCommonBan = false;
+                    }
                 
                 if(valLen == 6)
                     if (value.Substring(0, 6) == "innsfw")
