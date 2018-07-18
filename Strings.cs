@@ -57,6 +57,11 @@ namespace BlackListSoamChecker
         public string CAN_NOT_GET { get; set; } = "無法取得";
         public string OUTPUT_DONE { get; set; } = "輸出完畢";
         public string HALAL { get; set; } = "無法理解的語言";
+        public string SPAM { get; set; } = "垃圾/無意義/濫發訊息";
+        public string SPAMMER { get; set; } = "拉人訊息or用戶名/廣告用戶名";
+        public string INNSFW { get; set; } = "裸露/暴力/色情/非公眾適宜訊息";
+        public string OUTNSFW { get; set; } = "連外裸露/暴力/色情/非公眾適宜訊息";
+        public string COIN { get; set; } = "虛擬貨幣廣告";
         public string EXEC_OK { get; set; } = "操作成功。";
         public string EXEC_FAIL { get; set; } = "操作失敗 : ";
         

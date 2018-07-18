@@ -26,11 +26,11 @@ namespace BlackListSoamChecker.CommandObject
             UserInfo BanUserInfo = null;
             string value = RawMessage.text.Substring(banSpace + 1);
             int valLen = value.Length;
-            bool NotHalal = true;
+            bool notCommonBan = true;
             if (valLen >= 5)
                 if (value.Substring(0, 5) == "halal")
                 {
-                    NotHalal = false;
+                    notCommonBan = false;
                     Reason = Strings.HALAL;
                     if (valLen > 6)
                     {
@@ -71,7 +71,98 @@ namespace BlackListSoamChecker.CommandObject
                     }
                 }
 
-            if (NotHalal)
+            int commandBanLength = 0;
+            if (valLen >= 4)
+            {
+                if (value.Substring(0, 5) == "halal")
+                {
+                    commandBanLength = 5;
+                    Reason = Strings.HALAL;
+                    ExpiresTime = Config.DefaultHalalBanDay * 86400;
+                    notCommonBan = false;
+                }
+                if (value.Substring(0, 5) == "spam")
+                {
+                    commandBanLength = 5;
+                    Reason = Strings.SPAM;
+                    ExpiresTime = Config.DefaultSpamBanDay * 86400;
+                    notCommonBan = false;
+                }
+                if (value.Substring(0, 7) == "spammer")
+                {
+                    commandBanLength = 7;
+                    Reason = Strings.SPAMMER;
+                    ExpiresTime = Config.DefaultSpammerBanDay * 86400;
+                    notCommonBan = false;
+                }
+                if (value.Substring(0, 6) == "innsfw")
+                {
+                    commandBanLength = 6;
+                    Reason = Strings.INNSFW;
+                    ExpiresTime = Config.DefaultInNsfwBanDay * 86400;
+                    notCommonBan = false;
+                }
+                if (value.Substring(0, 7) == "outnsfw")
+                {
+                    commandBanLength = 7;
+                    Reason = Strings.OUTNSFW;
+                    ExpiresTime = Config.DefaultOutNsfwBanDay * 86400;
+                    notCommonBan = false;
+                }
+                if (value.Substring(0, 4) == "coin")
+                {
+                    commandBanLength = 4;
+                    Reason = Strings.COIN;
+                    ExpiresTime = Config.DefaultCoinBanDay * 86400;
+                    notCommonBan = false;
+                }
+            }
+
+            if (!notCommonBan)
+            {
+                if (valLen > (commandBanLength + 1))
+                {
+                    if (value[commandBanLength] != ' ')
+                    {
+                        TgApi.getDefaultApiConnection().sendMessage(
+                            RawMessage.GetMessageChatInfo().id,
+                            Strings.BAN_ERROR_MESSAGE + " err_a1",
+                            RawMessage.message_id
+                        );
+                        return true;
+                    }
+
+                    UserInfo tmpUinfo =
+                        new GetValues().GetByTgMessage(
+                            new Dictionary<string, string> {{"from", value.Substring(6)}}, RawMessage);
+                    if (tmpUinfo == null) return true; // 如果没拿到使用者信息则代表出现了异常
+
+                    BanUserId = tmpUinfo.id;
+                    if (tmpUinfo.language_code != null && tmpUinfo.language_code != "__CAN_NOT_GET_USERINFO__")
+                        BanUserInfo = tmpUinfo;
+                }
+                else
+                {
+                    UserInfo tmpUinfo =
+                        new GetValues().GetByTgMessage(new Dictionary<string, string>(), RawMessage);
+                    if (tmpUinfo == null) return true; // 如果没拿到使用者信息则代表出现了异常
+
+                    BanUserId = tmpUinfo.id;
+                    if (tmpUinfo.language_code != null)
+                    {
+                        if (tmpUinfo.language_code != "__CAN_NOT_GET_USERINFO__") BanUserInfo = tmpUinfo;
+                    }
+                    else
+                    {
+                        BanUserInfo = tmpUinfo;
+                    }
+                }
+            }
+            
+            
+                
+
+            if (notCommonBan)
                 try
                 {
                     Dictionary<string, string> banValues = CommandDecoder.cutKeyIsValue(value);
