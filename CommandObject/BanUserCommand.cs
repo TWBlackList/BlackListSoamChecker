@@ -81,9 +81,9 @@ namespace BlackListSoamChecker.CommandObject
                     ExpiresTime = Config.DefaultHalalBanDay * 86400;
                     notCommonBan = false;
                 }
-                if (value.Substring(0, 5) == "spam")
+                if (value.Substring(0, 4) == "spam")
                 {
-                    commandBanLength = 5;
+                    commandBanLength = 4;
                     Reason = Strings.SPAM;
                     ExpiresTime = Config.DefaultSpamBanDay * 86400;
                     notCommonBan = false;
