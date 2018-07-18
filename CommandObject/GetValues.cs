@@ -105,7 +105,7 @@ namespace BlackListSoamChecker.CommandObject
                 return -1;
             }
 
-            if (Days < 0 && Hours < 0 && Minutes < 0)
+            if (Days < 0 || Hours < 0 || Minutes < 0)
             {
                 TgApi.getDefaultApiConnection().sendMessage(
                     RawMessage.GetMessageChatInfo().id,
