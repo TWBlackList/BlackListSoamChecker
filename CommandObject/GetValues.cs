@@ -105,6 +105,15 @@ namespace BlackListSoamChecker.CommandObject
                 return -1;
             }
 
+            if (Days < 0 && Hours < 0 && Minutes < 0)
+            {
+                TgApi.getDefaultApiConnection().sendMessage(
+                    RawMessage.GetMessageChatInfo().id,
+                    Strings.BAN_ERROR_MESSAGE + "，數值不可為負值。 err-T"
+                );
+                return -1;
+            }
+
             long totalTime = Minutes * 60 + Hours * 360 + Days * 86400;
             if (totalTime == 0)
             {
