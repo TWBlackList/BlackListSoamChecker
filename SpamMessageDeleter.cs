@@ -67,7 +67,7 @@ namespace BlackListSoamChecker
                 chatText = BaseMessage.caption.ToLower();
             else
                 return new CallbackMessage();
-            // Call Admin START
+            // Call Admin Spam START
             int atAdminPath = chatText.IndexOf("@admin");
             if (atAdminPath == -1)
                 atAdminPath = chatText.IndexOf("!admin");
@@ -92,7 +92,9 @@ namespace BlackListSoamChecker
                         if (chatText[atAdminPath - 1] == ' ' && chatText[atAdminPath + 7] == ' ')
                             CallAdmin(BaseMessage);
                     }
-
+            }
+            int slashSpamPath = chatText.IndexOf("/spam");
+            if (atAdminPath != -1 || slashSpamPath != -1)
                 if (Config.InternGroupID != 0)
                 {
                     TgApi.getDefaultApiConnection().forwardMessage(
@@ -105,8 +107,8 @@ namespace BlackListSoamChecker
                         BaseMessage.GetMessageChatInfo().GetChatTextInfo() + "\n\n被回覆的訊息的原發送使用者 : " + BaseMessage.GetReplyMessage().GetSendUser().GetUserTextInfo()  + "\n\nReport By : " + BaseMessage.GetSendUser().GetUserTextInfo()
                     );
                 }
-            }
-            // Call Admin END
+            // Call Admin Spam END
+            
 
             if (Config.ReportGroupID != 0 && BaseMessage.GetMessageChatInfo().id == Config.ReportGroupID)
                 if (BaseMessage.forward_from != null)
