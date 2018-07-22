@@ -58,6 +58,7 @@ namespace BlackListSoamChecker
         internal static string Language = json.Setting.Language;                                                        // 語言
         internal static string CustomPrefix = json.Setting.CustomPrefix;                                                // 自訂前綴
         
+        internal static int DefaultBanDay = json.Setting.DefaultBanDay;                                                    // 預設封鎖天數
         internal static int DefaultHalalBanDay = json.Setting.DefaultHalalBanDay;                                    // 常用封鎖: 無法理解的語言 天數
         internal static int DefaultSpamBanDay = json.Setting.DefaultSpamBanDay;                                      // 常用封鎖: 垃圾/無意義/濫發訊 天數
         internal static int DefaultSpammerBanDay = json.Setting.DefaultSpammerBanDay;                                // 常用封鎖: 拉人訊息or用戶名/廣告用戶名 天數
@@ -211,6 +212,7 @@ namespace BlackListSoamChecker
         public bool EnableAutoLeaveNormalGroup { get; set; } = true; // 自動離開普通群組
         public bool DisableAdminTools { get; set; } = false;
         public bool DisableBanList { get; set; } = false;
+        public int DefaultBanDay { get; set; } = 90;
         public int DefaultHalalBanDay { get; set; } = 0;
         public int DefaultSpamBanDay { get; set; } = 7;
         public int DefaultSpammerBanDay { get; set; } = 0;

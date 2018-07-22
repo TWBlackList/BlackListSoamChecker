@@ -95,7 +95,7 @@ namespace BlackListSoamChecker.CommandObject
                 if (Minutes != 0 || Hours != 0)
                     tmpString = banValues.GetValueOrDefault("days", "0");
                 else
-                    tmpString = banValues.GetValueOrDefault("days", "90");
+                    tmpString = banValues.GetValueOrDefault("days", Config.DefaultBanDay.ToString());
             if (!int.TryParse(tmpString, out Days))
             {
                 TgApi.getDefaultApiConnection().sendMessage(
