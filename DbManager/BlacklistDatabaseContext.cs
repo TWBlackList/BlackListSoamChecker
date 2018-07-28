@@ -154,23 +154,19 @@ namespace BlackListSoamChecker.DbManager
             return Name + "\n\n" + string.Join("\n",Data.Split(","));
         }
         
-        public long[] GetArray()
-        {
-            long[] tmpList = Array.ConvertAll<string, long>(Data.Split(","), delegate(string i)
-            {
-                return Convert.ToInt64(i);
-            });
-            return tmpList;
-        }        
-        
         public List<long> GetList()
         {
             List<long> tmpList = new List<long>();
-            foreach (var i in GetArray())
+            foreach (var i in Data.Split(","))
             {
                 tmpList.Add(i);
             }
             return tmpList;
+        }
+        
+        public long[] GetArray()
+        {
+            return GetList().ToArray();
         }
         
         public void Save(dynamic list)
