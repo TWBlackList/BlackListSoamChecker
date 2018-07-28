@@ -4,6 +4,7 @@ using System.Runtime.Serialization.Json;
 using System.IO;
 using System.Text;
 using System.Linq;
+using ReimuAPI.ReimuBase;
 
 namespace BlackListSoamChecker
 {
@@ -170,6 +171,17 @@ namespace BlackListSoamChecker
         internal static IDList HKWhiteList = GetDatabaseManager().GetIDList("HKWhiteList");
         internal static IDList BlockGroups = GetDatabaseManager().GetIDList("BlockGroups");
         internal static IDList SpamBlackList = GetDatabaseManager().GetIDList("SpamBlackList");
+        
+        internal static bool GetIsInWhiteList(dynamic id)
+        {
+            int tmpInt;
+            if (int.TryParse(id, out tmpInt))
+                if (RAPI.getIsBotOP(id) || RAPI.getIsBotAdmin(id))
+                    return true;
+            if (WhiteList.CheckInList(id) || HKWhiteList.CheckInList(id))
+                return true;
+            return false;
+        }
     }
     
     public class BlackListConfig

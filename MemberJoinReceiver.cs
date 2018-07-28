@@ -131,7 +131,7 @@ namespace BlackListSoamChecker
                 else
                 {
                     if (!Config.EnableAutoKickNotBanUserinCourtGroup) return new CallbackMessage();
-                    if (Config.WhiteList.CheckInList(JoinedUser.id)) return new CallbackMessage();
+                    if (Config.GetIsInWhiteList(JoinedUser.id)) return new CallbackMessage();
                     TgApi.getDefaultApiConnection().sendMessage(
                         RawMessage.GetMessageChatInfo().id,
                         "您未被封鎖，請離開，本群僅提供被 CNBL 封鎖者申訴",

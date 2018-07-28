@@ -54,7 +54,7 @@ namespace BlackListSoamChecker
             if (BaseMessage.forward_from_chat != null)
             {
                 forward_from_id = BaseMessage.forward_from_chat.id.ToString();
-                if (Config.WhiteList.CheckInList(BaseMessage.forward_from_chat.id))
+                if (Config.GetIsInWhiteList(BaseMessage.forward_from_chat.id))
                     return new CallbackMessage();
             }
 
@@ -218,7 +218,7 @@ namespace BlackListSoamChecker
                     return new CallbackMessage();
                 }
 
-            if (Config.WhiteList.CheckInList(BaseMessage.from.id)) return new CallbackMessage();
+            if (Config.GetIsInWhiteList(BaseMessage.from.id)) return new CallbackMessage();
 
             if (TgApi.getDefaultApiConnection().checkIsAdmin(BaseMessage.chat.id, BaseMessage.from.id))
                 return new CallbackMessage();

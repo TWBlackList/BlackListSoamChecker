@@ -17,7 +17,7 @@ namespace BlackListSoamChecker.CommandObject
                 banmsg = "發送者 : " + RawMessage.GetSendUser().GetUserTextInfo_ESCMD() + "\n" + ban.GetBanMessage_ESCMD();
                 if(Config.HKWhiteList.CheckInList(RawMessage.GetSendUser().id)) 
                     banmsg = banmsg + "，使用者為港人";
-                else if (Config.WhiteList.CheckInList(RawMessage.GetSendUser().id)) 
+                else if (Config.GetIsInWhiteList(RawMessage.GetSendUser().id)) 
                     banmsg = banmsg + "，使用者在白名單內";
                 if (ban.Ban == 0)
                     banmsg += "\n對於被封鎖的使用者，你可以通過 [點選這裡](https://t.me/" + Config.CourtGroupName + ") 以請求解除。";
@@ -29,7 +29,7 @@ namespace BlackListSoamChecker.CommandObject
                               ban.GetBanMessage_ESCMD();
                     if (Config.HKWhiteList.CheckInList(RawMessage.reply_to_message.GetSendUser().id))
                         banmsg = banmsg + "，使用者為港人";
-                    else if (Config.WhiteList.CheckInList(RawMessage.reply_to_message.GetSendUser().id))
+                    else if (Config.GetIsInWhiteList(RawMessage.reply_to_message.GetSendUser().id))
                         banmsg = banmsg + "，使用者在白名單內";
                     if (RawMessage.reply_to_message.forward_from != null)
                     {
@@ -39,7 +39,7 @@ namespace BlackListSoamChecker.CommandObject
                                   ban.GetBanMessage_ESCMD();
                         if (Config.HKWhiteList.CheckInList(RawMessage.reply_to_message.forward_from.id))
                             banmsg = banmsg + "，使用者為港人";
-                        else if (Config.WhiteList.CheckInList(RawMessage.reply_to_message.forward_from.id))
+                        else if (Config.GetIsInWhiteList(RawMessage.reply_to_message.forward_from.id))
                             banmsg = banmsg + "，使用者在白名單內";
                     }
 
@@ -47,7 +47,7 @@ namespace BlackListSoamChecker.CommandObject
                     {
                         banmsg += "\n\n被回覆的訊息轉發自頻道 : \n" +
                                   RawMessage.reply_to_message.forward_from_chat.GetChatTextInfo();
-                        if (Config.WhiteList.CheckInList(RawMessage.reply_to_message.forward_from_chat.id))
+                        if (Config.GetIsInWhiteList(RawMessage.reply_to_message.forward_from_chat.id))
                             banmsg = banmsg + "\n頻道在白名單內";
                     }
                 }

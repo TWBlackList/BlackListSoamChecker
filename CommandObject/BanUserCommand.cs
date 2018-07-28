@@ -196,7 +196,7 @@ namespace BlackListSoamChecker.CommandObject
                     return true;
                 }
 
-            if (Config.WhiteList.CheckInList(BanUserId))
+            if (Config.GetIsInWhiteList(BanUserId))
             {
                 TgApi.getDefaultApiConnection().sendMessage(
                     RawMessage.GetMessageChatInfo().id,
