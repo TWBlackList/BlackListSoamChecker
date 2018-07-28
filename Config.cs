@@ -172,13 +172,17 @@ namespace BlackListSoamChecker
         internal static IDList BlockGroups = GetDatabaseManager().GetIDList("BlockGroups");
         internal static IDList SpamBlackList = GetDatabaseManager().GetIDList("SpamBlackList");
         
-        internal static bool GetIsInWhiteList(dynamic id)
+        internal static bool GetIsInWhiteList(int id)
         {
-            int tmpInt;
-            if (int.TryParse(id, out tmpInt))
-                if (RAPI.getIsBotOP(id) || RAPI.getIsBotAdmin(id))
-                    return true;
+            if (RAPI.getIsBotOP(id) || RAPI.getIsBotAdmin(id))
+                return true;
             if (WhiteList.CheckInList(id) || HKWhiteList.CheckInList(id))
+                return true;
+            return false;
+        }
+        internal static bool GetIsInWhiteList(long id)
+        {
+            if (WhiteList.CheckInList(id))
                 return true;
             return false;
         }
