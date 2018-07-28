@@ -151,12 +151,14 @@ namespace BlackListSoamChecker.DbManager
 
         public string GetListMessage()
         {
-            return Name + "\n\n" + string.Join("\n",Data.Split(","));
+            return Name + " : \n\n" + string.Join("\n",Data.Split(","));
         }
         
         public List<long> GetList()
         {
             List<long> tmpList = new List<long>();
+            if(Data == "")
+                return tmpList;
             foreach (var i in Data.Split(","))
             {
                 tmpList.Add(Convert.ToInt64(i));
