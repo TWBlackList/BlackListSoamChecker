@@ -151,9 +151,6 @@ namespace BlackListSoamChecker
         internal static bool EnableWhitelistAdd = json.WhiteListFunctions.EnableWhitelistAdd;                           // 開啟新增白名單
         internal static bool EnableWhitelistDelete = json.WhiteListFunctions.EnableWhitelistDelete;                     // 開啟刪除白名單
         internal static bool EnableWhitelisList = json.WhiteListFunctions.EnableWhitelisList;                           // 開啟白名單清單
-        internal static bool EnableHKWhitelistAdd = json.WhiteListFunctions.EnableHKWhitelistAdd;                       // 開啟新增HK白名單
-        internal static bool EnableHKWhitelistDelete = json.WhiteListFunctions.EnableHKWhitelistDelete;                 // 開啟刪除HK白名單
-        internal static bool EnableHKWhitelisList = json.WhiteListFunctions.EnableHKWhitelisList;                       // 開啟HK白名單清單
         
         
         internal static bool EnableBlockListAdd = json.BlockListFunctions.EnableBlockListAdd;                           // 開啟新增拒絕服務名單
@@ -168,7 +165,6 @@ namespace BlackListSoamChecker
         }
 
         internal static IDList WhiteList = GetDatabaseManager().GetIDList("WhiteList");
-        internal static IDList HKWhiteList = GetDatabaseManager().GetIDList("HKWhiteList");
         internal static IDList BlockGroups = GetDatabaseManager().GetIDList("BlockGroups");
         internal static IDList SpamBlackList = GetDatabaseManager().GetIDList("SpamBlackList");
         
@@ -176,7 +172,7 @@ namespace BlackListSoamChecker
         {
             if (RAPI.getIsBotOP(id) || RAPI.getIsBotAdmin(id))
                 return true;
-            if (WhiteList.CheckInList(id) || HKWhiteList.CheckInList(id))
+            if (WhiteList.CheckInList(id))
                 return true;
             return false;
         }
@@ -315,10 +311,6 @@ namespace BlackListSoamChecker
         public bool EnableWhitelistAdd { get; set; } = true;
         public bool EnableWhitelistDelete { get; set; } = true;
         public bool EnableWhitelisList { get; set; } = true;
-        
-        public bool EnableHKWhitelistAdd { get; set; } = true;
-        public bool EnableHKWhitelistDelete { get; set; } = true;
-        public bool EnableHKWhitelisList { get; set; } = true;
     }
     
     public class BlockListFunctions

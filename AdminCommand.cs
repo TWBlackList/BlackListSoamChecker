@@ -44,15 +44,6 @@ namespace BlackListSoamChecker
                         case "/unban":
                             if(Config.EnableUnBan) new UnbanUserCommand().Unban(RawMessage);
                             throw new StopProcessException();
-                        case "/addhk":
-                            if(Config.EnableHKWhitelistAdd) new HKWhitelist().addHKWhitelist(RawMessage);
-                            throw new StopProcessException();
-                        case "/delhk":
-                            if(Config.EnableHKWhitelistDelete) new HKWhitelist().deleteHKWhitelist(RawMessage);
-                            throw new StopProcessException();
-                        case "/lshk":
-                            if(Config.EnableHKWhitelisList) new HKWhitelist().listHKWhitelist(RawMessage);
-                            throw new StopProcessException();
                     }
                 }
 

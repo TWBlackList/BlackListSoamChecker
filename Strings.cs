@@ -44,7 +44,6 @@ namespace BlackListSoamChecker
         internal static string UNBAN_ERROR_MESSAGE = lang.UNBAN_ERROR_MESSAGE;
         internal static string UNBAN_ERROR_USER_NOT_BANNED = lang.UNBAN_ERROR_USER_NOT_BANNED;
         internal static string BAN_ERROR_USER_IN_WHITELIST = lang.BAN_ERROR_USER_IN_WHITELIST;
-        internal static string BAN_ERROR_USER_IN_HKWHITELIST = lang.BAN_ERROR_USER_IN_HKWHITELIST;
         
         
         internal static string HELP_AD = lang.HELP_AD;
@@ -107,7 +106,6 @@ namespace BlackListSoamChecker
         public string BAN_ERROR_NOTFOUNDUSERID_MESSAGE { get; set; } = "没有找到任何使用者 ID，請檢查您的輸入，或使用 /" + Config.CustomPrefix + "ban 查詢幫助。";
         public string BAN_ERROR_NOTFOUNDMSGID_MESSAGE { get; set; } = "未檢查到您指定的回覆訊息的 ID，請檢查您的輸入，或使用 /" + Config.CustomPrefix + "ban 查詢幫助。";
         public string BAN_ERROR_USER_IN_WHITELIST { get; set; } = "使用者在白名單";
-        public string BAN_ERROR_USER_IN_HKWHITELIST { get; set; } = "使用者為港人";
         public string UNBAN_HELP_MESSAGE { get; set; } = "/" + Config.CustomPrefix + "unban [i|id=1] [f|from=f|fwd|r|reply]" +
                                                          " r|reason=\"asdfsadf asdfadsf\"\n\n" +
                                                          "from 選項僅在 id 未被定義時起作用\n" +
@@ -156,9 +154,6 @@ namespace BlackListSoamChecker
             if(Config.EnableBan) tmp = tmp + "/ban - 封鎖\n";
             if(Config.EnableCustomUnBan) tmp = tmp + "/" + Config.CustomPrefix + "unban - 解除封鎖\n";
             if(Config.EnableUnBan) tmp = tmp + "/unban - 解除封鎖\n";
-            if(Config.EnableHKWhitelistAdd) tmp = tmp + "/addhk - 新增使用者至HK白名單\n";
-            if(Config.EnableHKWhitelistDelete) tmp = tmp + "/delhk - 從HK白名單中刪除使用者\n";
-            if(Config.EnableHKWhitelisList) tmp = tmp + "/lshk - 取得HK白名單列表\n";
             if(Config.EnableGetAllGroup) tmp = tmp + "/groups - 取得所有群組\n";
             if(Config.EnableGetSpamStringPoints) tmp = tmp + "/getspampoints - 測試關鍵字";
             return tmp;
