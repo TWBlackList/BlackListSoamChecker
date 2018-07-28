@@ -171,21 +171,20 @@ namespace BlackListSoamChecker.DbManager
             return GetList().ToArray();
         }
         
-        public void Save(dynamic list)
+        public void Save(long[] list)
         {
-            long[] tmpList;
-            if (! list.getType().IsArray)
-            {
-                tmpList = list.ToArray();
-            }
-            else
-            {
-                tmpList = list;
-            }
+            long[] tmpList = list;
             Config.GetDatabaseManager().ChangeDbIDList(Name, string.Join(",", tmpList));
             Data = string.Join(",", tmpList);
         }
-
+        
+        public void Save(List<long> list)
+        {
+            long[] tmpList = list.ToArray();
+            Config.GetDatabaseManager().ChangeDbIDList(Name, string.Join(",", tmpList));
+            Data = string.Join(",", tmpList);
+        }
+        
         public bool AddToList(int id)
         {            
             long tempID = Convert.ToInt64(id);
