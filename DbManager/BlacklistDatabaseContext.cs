@@ -188,13 +188,9 @@ namespace BlackListSoamChecker.DbManager
             Data = string.Join(",", tmpList);
         }
 
-        public bool AddToList(dynamic id)
+        public bool AddToList(int id)
         {            
-            long tempID;
-            if (id.GetType() == typeof(int))
-                tempID = Convert.ToInt64(id);
-            else
-                tempID = id;
+            long tempID = Convert.ToInt64(id);
 
             if (CheckInList(id))
             {
@@ -209,13 +205,26 @@ namespace BlackListSoamChecker.DbManager
             }
         }
         
-        public bool RemoveFromList(dynamic id)
-        {
-            long tempID;
-            if (id.GetType() == typeof(int))
-                tempID = Convert.ToInt64(id);
+        public bool AddToList(long id)
+        {            
+            long tempID = id;
+
+            if (CheckInList(id))
+            {
+                return false;
+            }
             else
-                tempID = id;
+            {
+                List<long> tmpArray = GetList();
+                tmpArray.Add(id);
+                Save(tmpArray);
+                return true;
+            }
+        }
+        
+        public bool RemoveFromList(int id)
+        {
+            long tempID = Convert.ToInt64(id);
 
             if (!CheckInList(id))
             {
@@ -228,16 +237,38 @@ namespace BlackListSoamChecker.DbManager
                 Save(tmpArray);
                 return true;
             }
-
         }
         
-        public bool CheckInList(dynamic id)
+        public bool RemoveFromList(long id)
         {
-            long tempID;
-            if (id.GetType() == typeof(int))
-                tempID = Convert.ToInt64(id);
+            long tempID = id;
+
+            if (!CheckInList(id))
+            {
+                return false;
+            }
             else
-                tempID = id;
+            {
+                List<long> tmpArray = GetList();
+                tmpArray.Remove(id);
+                Save(tmpArray);
+                return true;
+            }
+        }
+        
+        public bool CheckInList(int id)
+        {
+            long tempID = Convert.ToInt64(id);
+            
+            foreach (long i in GetList())
+                if (i == tempID)
+                    return true;
+            return false;
+        }        
+        
+        public bool CheckInList(long id)
+        {
+            long tempID = Convert.ToInt64(id);
             
             foreach (long i in GetList())
                 if (i == tempID)
