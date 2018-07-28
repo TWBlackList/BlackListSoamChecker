@@ -123,11 +123,12 @@ namespace BlackListSoamChecker
         public string GROUP_HELP()
         {
             string tmp = "";
-            if (Config.EnableGroupID) tmp = tmp + "/group - 取得群組 ID\n";
+            if (Config.EnableGroupID) tmp = tmp + "/gid - 取得群組 ID\n";
             if (Config.EnableLeave) tmp = tmp + "/leave - 離開群組\n";
             if (Config.EnableEnableSoam) tmp = tmp + "/soamenable - 啟用功能\n";
             if (Config.EnableDisableSoam) tmp = tmp + "/soamdisable - 關閉功能\n";
             if (Config.EnableSoamStatus) tmp = tmp + "/soamstatus - 取得目前群組開啟功能";
+            if (Config.EnableSoamReport) tmp = tmp + "/spam - 回報 Spam";
             return tmp;
         }
         
@@ -177,6 +178,9 @@ namespace BlackListSoamChecker
             if(Config.EnableBlockListAdd) tmp = tmp + "/block - 新增群組至禁止使用名單\n";
             if(Config.EnableBlockListDelete) tmp = tmp + "/unblock - 從禁止使用名單中刪除群組\n";
             if(Config.EnableBlockListList) tmp = tmp + "/blocks - 取得禁止使用名單\n";
+            if(Config.EnableBlockListDelete) tmp = tmp + "/unblock - 從禁止使用名單中刪除群組\n";
+            if(Config.EnableSpamOff) tmp = tmp + "/spamoff - 禁止使用 /spam\n";
+            if(Config.EnableSpamOn) tmp = tmp + "/unblock - 從禁止使用 /spam名單中刪除\n";
             if(Config.EnableAddOP) tmp = tmp + "/addop - 新增 Operator\n";
             if(Config.EnableDeleteOP) tmp = tmp + "/delop - 解除 Operator\n";
             if(Config.EnableDisableAllGroupSoam) tmp = tmp + "/seall - 開啟所有群組功能\n";

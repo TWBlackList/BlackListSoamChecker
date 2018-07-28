@@ -112,6 +112,12 @@ namespace BlackListSoamChecker
                         case "/unblock":
                             if(Config.EnableBlockListDelete) new BlockGroup().deleteBlockGroup(RawMessage);
                             throw new StopProcessException();
+                        case "/offspam":
+                            if(Config.EnableSpamOff) new Spam().offSpam(RawMessage);
+                            throw new StopProcessException();
+                        case "/onspam":
+                            if(Config.EnableSpamOn)  new Spam().onSpam(RawMessage);
+                            throw new StopProcessException();
                         case "/blocks":
                             if(Config.EnableBlockListList) new BlockGroup().listBlockGroup(RawMessage);
                             throw new StopProcessException();

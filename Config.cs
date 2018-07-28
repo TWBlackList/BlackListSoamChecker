@@ -110,6 +110,7 @@ namespace BlackListSoamChecker
         internal static bool EnableUser = json.BasicFunctions.EnableUser;                                               // 開啟取得用戶ID
         internal static bool EnableGroupID = json.BasicFunctions.EnableGroupID;                                         // 開啟取得群組ID
         internal static bool EnableHelp = json.BasicFunctions.EnableHelp;                                               // 開啟取得幫助
+        internal static bool EnableSoamReport = json.BasicFunctions.EnableSoamReport;                                   // 開啟回報 SPAM
         
         
         internal static bool EnableCustomBan = json.BanFunctions.EnableCustomBan;                                       // 開啟擁有前綴的 ban 指令
@@ -156,6 +157,9 @@ namespace BlackListSoamChecker
         internal static bool EnableBlockListAdd = json.BlockListFunctions.EnableBlockListAdd;                           // 開啟新增拒絕服務名單
         internal static bool EnableBlockListDelete = json.BlockListFunctions.EnableBlockListDelete;                     // 開啟刪除拒絕服務名單
         internal static bool EnableBlockListList = json.BlockListFunctions.EnableBlockListList;                         // 開啟拒絕服務名單清單
+        
+        internal static bool EnableSpamOff = json.BlockListFunctions.EnableSpamOff;                                     // 開啟新增拒絕/spam服務名單
+        internal static bool EnableSpamOn = json.BlockListFunctions.EnableSpamOn;                                       // 開啟刪除拒絕/spam服務名單
         
 
         internal static DatabaseManager GetDatabaseManager()
@@ -250,6 +254,7 @@ namespace BlackListSoamChecker
         public bool EnableUser { get; set; } = true;
         public bool EnableHelp { get; set; } = true;
         public bool EnableGroupID { get; set; } = true;
+        public bool EnableSoamReport { get; set; } = true;
     }
 
     public class BanFunctions 
@@ -318,6 +323,8 @@ namespace BlackListSoamChecker
         public bool EnableBlockListAdd { get; set; } = true;
         public bool EnableBlockListDelete { get; set; } = true;
         public bool EnableBlockListList { get; set; } = true;
+        public bool EnableSpamOff { get; set; } = true;
+        public bool EnableSpamOn { get; set; } = true;
     }
 
     public class DefaultSoam

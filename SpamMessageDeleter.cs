@@ -94,20 +94,42 @@ namespace BlackListSoamChecker
                     }
             }
             int slashSpamPath = chatText.IndexOf("/spam");
-            if (atAdminPath != -1 || slashSpamPath != -1)
-                if (Config.InternGroupID != 0)
-                {
-                    TgApi.getDefaultApiConnection().forwardMessage(
-                        Config.InternGroupID,
-                        BaseMessage.GetMessageChatInfo().id,
-                        BaseMessage.GetReplyMessage().message_id
-                    );
-                    TgApi.getDefaultApiConnection().sendMessage(
-                        Config.InternGroupID,
-                        BaseMessage.GetMessageChatInfo().GetChatTextInfo() + "\n\n被回覆的訊息的原發送使用者 : " + BaseMessage.GetReplyMessage().GetSendUser().GetUserTextInfo()  + "\n\nReport By : " + BaseMessage.GetSendUser().GetUserTextInfo()
-                    );
-                }
-            // Call Admin Spam END
+            if (atAdminPath != -1 || slashSpamPath != -1 )
+                if(!Config.SpamBlackList.CheckInList(BaseMessage.GetSendUser().id))
+                    if (Config.InternGroupID != 0 && Config.EnableSoamReport)
+                    {
+                        int noticeID = TgApi.getDefaultApiConnection().sendMessage(
+                            BaseMessage.GetMessageChatInfo().id,
+                            "已回報"
+                        ).result.message_id;
+                        TgApi.getDefaultApiConnection().forwardMessage(
+                            Config.InternGroupID,
+                            BaseMessage.GetMessageChatInfo().id,
+                            BaseMessage.GetReplyMessage().message_id
+                        );
+                        TgApi.getDefaultApiConnection().sendMessage(
+                            Config.InternGroupID,
+                            BaseMessage.GetMessageChatInfo().GetChatTextInfo() + "\n\n被回覆的訊息的原發送使用者 : " + BaseMessage.GetReplyMessage().GetSendUser().GetUserTextInfo()  + "\n\nReport By : " + BaseMessage.GetSendUser().GetUserTextInfo()
+                        );
+                        
+                        new Thread(delegate()
+                        {
+                            Thread.Sleep(10000);
+                            TgApi.getDefaultApiConnection().deleteMessage(
+                                BaseMessage.GetMessageChatInfo().id,
+                                BaseMessage.GetReplyMessage().message_id
+                            );
+                            TgApi.getDefaultApiConnection().deleteMessage(
+                                BaseMessage.GetMessageChatInfo().id,
+                                BaseMessage.message_id
+                            );
+                            TgApi.getDefaultApiConnection().deleteMessage(
+                                BaseMessage.GetMessageChatInfo().id,
+                                noticeID
+                            );
+                        }).Start();
+                    }
+               // Call Admin Spam END
             
 
             if (Config.ReportGroupID != 0 && BaseMessage.GetMessageChatInfo().id == Config.ReportGroupID)
