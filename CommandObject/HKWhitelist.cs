@@ -18,7 +18,7 @@ namespace BlackListSoamChecker.CommandObject
                 return false;
             }
 
-            if (Config.HKWhiteList.AddToList(Convert.ToInt64(ChatID_Value)))
+            if (Config.HKWhiteList.AddToList(Convert.ToInt64(UID_Value)))
             {
                 TgApi.getDefaultApiConnection().sendMessage(RawMessage.chat.id, "新增成功!", RawMessage.message_id);
             }
@@ -42,7 +42,7 @@ namespace BlackListSoamChecker.CommandObject
                 return false;
             }
             
-            if (Config.HKWhiteList.RemoveFromList(Convert.ToInt64(ChatID_Value)))
+            if (Config.HKWhiteList.RemoveFromList(Convert.ToInt64(UID_Value)))
             {
                 TgApi.getDefaultApiConnection().sendMessage(RawMessage.chat.id, "刪除成功 !", RawMessage.message_id);
             }

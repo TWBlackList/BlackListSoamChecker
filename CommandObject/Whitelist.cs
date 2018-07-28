@@ -20,7 +20,7 @@ namespace BlackListSoamChecker.CommandObject
 
             if (UID_Value.Length == 10 && Convert.ToInt64(UID_Value) > 0) UID_Value = "-100" + UID_Value;
 
-            if (Config.WhiteList.AddToList(Convert.ToInt64(ChatID_Value)))
+            if (Config.WhiteList.AddToList(Convert.ToInt64(UID_Value)))
             {
                 TgApi.getDefaultApiConnection().sendMessage(RawMessage.chat.id, "新增成功!", RawMessage.message_id);
             }
@@ -46,7 +46,7 @@ namespace BlackListSoamChecker.CommandObject
 
             if (UID_Value.Length == 10 && Convert.ToInt64(UID_Value) > 0) UID_Value = "-100" + UID_Value;
 
-            if (Config.WhiteList.RemoveFromList(Convert.ToInt64(ChatID_Value)))
+            if (Config.WhiteList.RemoveFromList(Convert.ToInt64(UID_Value)))
             {
                 TgApi.getDefaultApiConnection().sendMessage(RawMessage.chat.id, "刪除成功 !", RawMessage.message_id);
             }
