@@ -154,13 +154,100 @@ namespace BlackListSoamChecker.DbManager
             return Name + "\n\n" + string.Join("\n",Data.Split(","));
         }
         
-        public long[] GetList()
+        public long[] GetArray()
         {
             long[] tmpList = Array.ConvertAll<string, long>(Data.Split(","), delegate(string i)
             {
                 return Convert.ToInt64(i);
             });
             return tmpList;
+        }        
+        
+        public List<long> GetList()
+        {
+            List<long> tmpList = new List<long>();
+            foreach (var i in GetArray())
+            {
+                tmpList.Add(i);
+            }
+            return tmpList;
+        }
+        
+        public void Save(dynamic list)
+        {
+            long[] tmpList;
+            if (! list.getType().IsArray)
+            {
+                tmpList = list.ToArray();
+            }
+            else
+            {
+                tmpList = list;
+            }
+            Config.GetDatabaseManager().ChangeDbIDList(Name, string.Join(",", tmpList));
+            Data = string.Join(",", tmpList);
+        }
+
+        public bool AddToList(dynamic id)
+        {
+            long tempID;
+            if (long.TryParse(id, out tempID))
+            {
+                if (CheckInList(id))
+                {
+                    return false;
+                }
+                else
+                {
+                    List<long> tmpArray = GetList();
+                    tmpArray.Add(id);
+                    Save(tmpArray);
+                    return true;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
+        public bool RemoveFromList(dynamic id)
+        {
+            long tempID;
+            if (long.TryParse(id, out tempID))
+            {
+                if (!CheckInList(id))
+                {
+                    return false;
+                }
+                else
+                {
+                    List<long> tmpArray = GetList();
+                    tmpArray.Remove(id);
+                    Save(tmpArray);
+                    return true;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
+        public bool CheckInList(dynamic id)
+        {
+            long tempID;
+            if (long.TryParse(id, out tempID))
+            {
+                foreach (long i in GetList())
+                    if (i == tempID)
+                        return true;
+                return false;
+            }
+            else
+            {
+                return false;
+            }
         }
         
     }

@@ -534,13 +534,13 @@ namespace BlackListSoamChecker.DbManager
 
         public void ChangeDbIDList(
             string Name,
-            long[] DataList
+            string Data
         )
         {
             IDList idlist = new IDList
             {
                 Name = Name,
-                Data = string.Join(",", DataList)
+                Data = Data
             };
             using (var db = new BlacklistDatabaseContext())
             {

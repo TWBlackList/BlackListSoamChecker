@@ -10,9 +10,6 @@ namespace BlackListSoamChecker
 {
     internal class IDListHelper
     {
-        public static bool GetIsInWhiteList(long ID)
-        {
-            return true;
-        }
+        
     }
 }
