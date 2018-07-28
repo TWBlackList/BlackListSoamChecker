@@ -8,7 +8,7 @@ using ReimuAPI.ReimuBase.TgData;
 
 namespace BlackListSoamChecker
 {
-    internal class IDList
+    internal class IDListHelper
     {
         public static bool GetIsInWhiteList(long ID)
         {
