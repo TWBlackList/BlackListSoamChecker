@@ -159,7 +159,7 @@ namespace BlackListSoamChecker.DbManager
             List<long> tmpList = new List<long>();
             foreach (var i in Data.Split(","))
             {
-                tmpList.Add(i);
+                tmpList.Add(Convert.ToInt64(i));
             }
             return tmpList;
         }
