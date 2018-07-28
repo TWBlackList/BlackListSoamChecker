@@ -183,7 +183,10 @@ namespace BlackListSoamChecker
         internal static bool GetIsInWhiteList(long id)
         {
             if (WhiteList.CheckInList(id))
+            {
                 return true;
+            }
+                
             return false;
         }
     }
