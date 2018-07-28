@@ -1,4 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using ReimuAPI.ReimuBase;
 
@@ -9,6 +13,7 @@ namespace BlackListSoamChecker.DbManager
         public DbSet<BanUser> BanUsers { get; set; }
         public DbSet<BanHistory> BanHistorys { get; set; }
         public DbSet<GroupCfg> GroupConfig { get; set; }
+        public DbSet<IDList> IDList { get; set; }
         public DbSet<UnbanRequest> UnbanRequests { get; set; }
         public DbSet<UnbanRequestCount> UnbanRequestCount { get; set; }
 
@@ -137,4 +142,27 @@ namespace BlackListSoamChecker.DbManager
         public int RequestCount { get; set; }
         public int RequestLock { get; set; }
     }
+    
+    public class IDList
+    {
+        [Key] public string Name { get; set; }
+
+        public string Data { get; set; }
+
+        public string GetListMessage()
+        {
+            return Name + "\n\n" + string.Join("\n",Data.Split(","));
+        }
+        
+        public long[] GetList()
+        {
+            long[] tmpList = Array.ConvertAll<string, long>(Data.Split(","), delegate(string i)
+            {
+                return Convert.ToInt64(i);
+            });
+            return tmpList;
+        }
+        
+    }
+    
 }

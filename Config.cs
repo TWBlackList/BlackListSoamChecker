@@ -47,6 +47,7 @@ namespace BlackListSoamChecker
         internal static List<SpamMessage> spamMessageList = null;
         internal static Dictionary<long, GroupCfg> groupConfig = new Dictionary<long, GroupCfg>();
         internal static Dictionary<int, BanUser> bannedUsers = new Dictionary<int, BanUser>();
+        internal static Dictionary<string, IDList> IDList = new Dictionary<string, IDList>();
         internal static List<long> adminInReport = new List<long>();
         internal static List<long> adminChecking = new List<long>();
         

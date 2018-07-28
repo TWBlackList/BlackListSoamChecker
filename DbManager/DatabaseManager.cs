@@ -500,6 +500,37 @@ namespace BlackListSoamChecker.DbManager
             string jsonDB = TgApi.getDefaultApiConnection().jsonEncode(msg);
             File.WriteAllText(ConfigManager.GetConfigPath() + "spamstrings.json", jsonDB);
         }
+
+        public void ChangeDbIDList(
+            string Name,
+            long[] DataList
+        )
+        {
+            IDList idlist = new IDList
+            {
+                Name = Name,
+                Data = string.Join(",", DataList)
+            };
+            using (var db = new BlacklistDatabaseContext())
+            {
+                db.IDList.Add(idlist);
+                try
+                {
+                    db.IDList.Add(idlist);
+                    db.SaveChanges();
+                }
+                catch (SqliteException)
+                {
+                    db.IDList.Update(idlist);
+                    db.SaveChanges();
+                }
+                catch (DbUpdateException)
+                {
+                    db.IDList.Update(idlist);
+                    db.SaveChanges();
+                }
+            }
+        }
     }
 
     public class SpamMessage
