@@ -32,7 +32,7 @@ namespace BlackListSoamChecker.DbManager
             UserInfo userinfo = null
         )
         {
-            if (RAPI.getIsInWhitelist(UserID)) return false;
+            if (Config.WhiteList.CheckInList(UserID)) return false;
             bool finalResult = true;
             string banmsg = "";
             int ReasonID = 0;

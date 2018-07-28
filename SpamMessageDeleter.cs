@@ -14,7 +14,7 @@ namespace BlackListSoamChecker
     {
         public CallbackMessage ReceiveAllNormalMessage(TgMessage BaseMessage, string JsonMessage)
         {
-            if (RAPI.getIsBlockGroup(BaseMessage.GetMessageChatInfo().id))
+            if (Config.BlockGroups.CheckInList(BaseMessage.GetMessageChatInfo().id))
             {
                 new Thread(delegate()
                 {
@@ -54,7 +54,7 @@ namespace BlackListSoamChecker
             if (BaseMessage.forward_from_chat != null)
             {
                 forward_from_id = BaseMessage.forward_from_chat.id.ToString();
-                if (RAPI.getIsInWhitelist(BaseMessage.forward_from_chat.id))
+                if (Config.WhiteList.CheckInList(BaseMessage.forward_from_chat.id))
                     return new CallbackMessage();
             }
 
@@ -218,7 +218,7 @@ namespace BlackListSoamChecker
                     return new CallbackMessage();
                 }
 
-            if (RAPI.getIsInWhitelist(BaseMessage.from.id)) return new CallbackMessage();
+            if (Config.WhiteList.CheckInList(BaseMessage.from.id)) return new CallbackMessage();
 
             if (TgApi.getDefaultApiConnection().checkIsAdmin(BaseMessage.chat.id, BaseMessage.from.id))
                 return new CallbackMessage();

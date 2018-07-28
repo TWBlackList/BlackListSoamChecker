@@ -15,9 +15,9 @@ namespace BlackListSoamChecker.CommandObject
                 BanUser ban;
                 ban = Config.GetDatabaseManager().GetUserBanStatus(RawMessage.GetSendUser().id);
                 banmsg = "發送者 : " + RawMessage.GetSendUser().GetUserTextInfo_ESCMD() + "\n" + ban.GetBanMessage_ESCMD();
-                if(RAPI.getIsInHKWhitelist(RawMessage.GetSendUser().id)) 
+                if(Config.HKWhiteList.CheckInList(RawMessage.GetSendUser().id)) 
                     banmsg = banmsg + "，使用者為港人";
-                else if (RAPI.getIsInWhitelist(RawMessage.GetSendUser().id)) 
+                else if (Config.WhiteList.CheckInList(RawMessage.GetSendUser().id)) 
                     banmsg = banmsg + "，使用者在白名單內";
                 if (ban.Ban == 0)
                     banmsg += "\n對於被封鎖的使用者，你可以通過 [點選這裡](https://t.me/" + Config.CourtGroupName + ") 以請求解除。";
@@ -27,9 +27,9 @@ namespace BlackListSoamChecker.CommandObject
                     banmsg += "\n\n被回覆的訊息的原發送使用者 : " +
                               RawMessage.reply_to_message.GetSendUser().GetUserTextInfo_ESCMD() + "\n" +
                               ban.GetBanMessage_ESCMD();
-                    if (RAPI.getIsInHKWhitelist(RawMessage.reply_to_message.GetSendUser().id))
+                    if (Config.HKWhiteList.CheckInList(RawMessage.reply_to_message.GetSendUser().id))
                         banmsg = banmsg + "，使用者為港人";
-                    else if (RAPI.getIsInWhitelist(RawMessage.reply_to_message.GetSendUser().id))
+                    else if (Config.WhiteList.CheckInList(RawMessage.reply_to_message.GetSendUser().id))
                         banmsg = banmsg + "，使用者在白名單內";
                     if (RawMessage.reply_to_message.forward_from != null)
                     {
@@ -37,9 +37,9 @@ namespace BlackListSoamChecker.CommandObject
                         banmsg += "\n\n被回覆的訊息轉發自使用者 : " +
                                   RawMessage.reply_to_message.forward_from.GetUserTextInfo_ESCMD() + "\n" +
                                   ban.GetBanMessage_ESCMD();
-                        if (RAPI.getIsInHKWhitelist(RawMessage.reply_to_message.forward_from.id))
+                        if (Config.HKWhiteList.CheckInList(RawMessage.reply_to_message.forward_from.id))
                             banmsg = banmsg + "，使用者為港人";
-                        else if (RAPI.getIsInWhitelist(RawMessage.reply_to_message.forward_from.id))
+                        else if (Config.WhiteList.CheckInList(RawMessage.reply_to_message.forward_from.id))
                             banmsg = banmsg + "，使用者在白名單內";
                     }
 
@@ -47,7 +47,7 @@ namespace BlackListSoamChecker.CommandObject
                     {
                         banmsg += "\n\n被回覆的訊息轉發自頻道 : \n" +
                                   RawMessage.reply_to_message.forward_from_chat.GetChatTextInfo();
-                        if (RAPI.getIsInWhitelist(RawMessage.reply_to_message.forward_from_chat.id))
+                        if (Config.WhiteList.CheckInList(RawMessage.reply_to_message.forward_from_chat.id))
                             banmsg = banmsg + "\n頻道在白名單內";
                     }
                 }

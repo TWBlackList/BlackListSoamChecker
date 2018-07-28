@@ -166,8 +166,8 @@ namespace BlackListSoamChecker
             return databaseManager;
         }
 
-        internal static IDList Whitelist = GetDatabaseManager().GetIDList("WhiteList");
-        internal static IDList HKWhitelist = GetDatabaseManager().GetIDList("HKWhiteList");
+        internal static IDList WhiteList = GetDatabaseManager().GetIDList("WhiteList");
+        internal static IDList HKWhiteList = GetDatabaseManager().GetIDList("HKWhiteList");
         internal static IDList BlockGroups = GetDatabaseManager().GetIDList("BlockGroups");
         internal static IDList SpamBlackList = GetDatabaseManager().GetIDList("SpamBlackList");
     }

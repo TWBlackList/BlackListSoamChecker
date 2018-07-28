@@ -111,7 +111,7 @@ namespace BlackListSoamChecker.CommandObject
                         ExpiresTime,
                         Reason
                     );
-                    if (RAPI.getIsInWhitelist(BanUserId))
+                    if (Config.WhiteList.CheckInList(BanUserId))
                         TgApi.getDefaultApiConnection().sendMessage(
                             RawMessage.GetSendUser().id,
                             Strings.EXEC_FAIL + Strings.BAN_ERROR_USER_IN_WHITELIST + " UID " + BanUserId,
