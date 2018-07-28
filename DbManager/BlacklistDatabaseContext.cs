@@ -189,65 +189,60 @@ namespace BlackListSoamChecker.DbManager
         }
 
         public bool AddToList(dynamic id)
-        {
+        {            
             long tempID;
-            if (long.TryParse(id, out tempID))
+            if (id.GetType() == typeof(int))
+                tempID = Convert.ToInt64(id);
+            else
+                tempID = id;
+
+            if (CheckInList(id))
             {
-                if (CheckInList(id))
-                {
-                    return false;
-                }
-                else
-                {
-                    List<long> tmpArray = GetList();
-                    tmpArray.Add(id);
-                    Save(tmpArray);
-                    return true;
-                }
+                return false;
             }
             else
             {
-                return false;
+                List<long> tmpArray = GetList();
+                tmpArray.Add(id);
+                Save(tmpArray);
+                return true;
             }
         }
         
         public bool RemoveFromList(dynamic id)
         {
             long tempID;
-            if (long.TryParse(id, out tempID))
-            {
-                if (!CheckInList(id))
-                {
-                    return false;
-                }
-                else
-                {
-                    List<long> tmpArray = GetList();
-                    tmpArray.Remove(id);
-                    Save(tmpArray);
-                    return true;
-                }
-            }
+            if (id.GetType() == typeof(int))
+                tempID = Convert.ToInt64(id);
             else
+                tempID = id;
+
+            if (!CheckInList(id))
             {
                 return false;
             }
+            else
+            {
+                List<long> tmpArray = GetList();
+                tmpArray.Remove(id);
+                Save(tmpArray);
+                return true;
+            }
+
         }
         
         public bool CheckInList(dynamic id)
         {
             long tempID;
-            if (long.TryParse(id, out tempID))
-            {
-                foreach (long i in GetList())
-                    if (i == tempID)
-                        return true;
-                return false;
-            }
+            if (id.GetType() == typeof(int))
+                tempID = Convert.ToInt64(id);
             else
-            {
-                return false;
-            }
+                tempID = id;
+            
+            foreach (long i in GetList())
+                if (i == tempID)
+                    return true;
+            return false;
         }
         
     }
