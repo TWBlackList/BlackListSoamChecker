@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ReimuAPI.ReimuBase;
 using ReimuAPI.ReimuBase.TgData;
 
@@ -21,10 +22,8 @@ namespace BlackListSoamChecker.CommandObject
 
             if (TgApi.getDefaultApiConnection().checkIsAdmin(RawMessage.chat.id, RawMessage.GetSendUser().id))
             {
-                Dictionary<string, string>
-                    banValues = CommandDecoder.cutKeyIsValue(RawMessage.text.Substring(saySpace + 1));
 
-                long groupID = new GetValues().GetGroupID(banValues, RawMessage);
+                long groupID = Convert.ToInt64(RawMessage.text.Substring(saySpace + 1).ToLower().Replace("g=", ""));
 
                 if (groupID == 0)
                 {
