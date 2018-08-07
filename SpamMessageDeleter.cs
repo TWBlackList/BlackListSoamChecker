@@ -132,7 +132,8 @@ namespace BlackListSoamChecker
                // Call Admin Spam END
             
 
-            if (Config.ReportGroupID != 0 && BaseMessage.GetMessageChatInfo().id == Config.ReportGroupID)
+            if ((Config.ReportGroupID != 0 && BaseMessage.GetMessageChatInfo().id == Config.ReportGroupID) || 
+                (Config.InternGroupID != 0 && BaseMessage.GetMessageChatInfo().id == Config.InternGroupID))
                 if (BaseMessage.forward_from != null)
                 {
                     BanUser banUser = Config.GetDatabaseManager().GetUserBanStatus(BaseMessage.forward_from.id);
