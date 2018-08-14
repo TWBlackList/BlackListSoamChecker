@@ -15,10 +15,11 @@ namespace BlackListSoamChecker
         public CallbackMessage ReceiveOtherMessage(TgMessage BaseMessage, string JsonMessage)
         {
             ReceiveAllNormalMessage(BaseMessage, JsonMessage);
+            return new CallbackMessage();
         }        
         public CallbackMessage ReceiveUnknownBaseMessage(TgBaseMessage BaseMessage, string JsonMessage)
         {
-            ReceiveAllNormalMessage(BaseMessage, JsonMessage);
+            throw new NotImplementedException();
         }
 
         public CallbackMessage ReceiveAllNormalMessage(TgMessage BaseMessage, string JsonMessage)
