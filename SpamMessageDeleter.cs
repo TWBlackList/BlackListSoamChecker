@@ -109,7 +109,10 @@ namespace BlackListSoamChecker
                         );
                         TgApi.getDefaultApiConnection().sendMessage(
                             Config.InternGroupID,
-                            BaseMessage.GetMessageChatInfo().GetChatTextInfo() + "\n\n被回覆的訊息的原發送使用者 : " + BaseMessage.GetReplyMessage().GetSendUser().GetUserTextInfo()  + "\n\nReport By : " + BaseMessage.GetSendUser().GetUserTextInfo()
+                            BaseMessage.GetMessageChatInfo().GetChatTextInfo() + "\n\n被回覆的訊息的原發送使用者 : " + 
+                            BaseMessage.GetReplyMessage().GetSendUser().GetUserTextInfo_MD()  + "\n\nReport By : " + 
+                            BaseMessage.GetSendUser().GetUserTextInfo_MD(),
+                            ParseMode: TgApi.PARSEMODE_MARKDOWN
                         );
                         
                         new Thread(delegate()
@@ -139,7 +142,7 @@ namespace BlackListSoamChecker
                     BanUser banUser = Config.GetDatabaseManager().GetUserBanStatus(BaseMessage.forward_from.id);
                     if (banUser.Ban == 0)
                     {
-                        string resultmsg = "使用者被封鎖了\n" + banUser.GetBanMessage_ESCMD();
+                        string resultmsg = "使用者被封鎖了\n" + banUser.GetBanMessage_MD();
                         TgApi.getDefaultApiConnection().sendMessage(
                             BaseMessage.GetMessageChatInfo().id,
                             resultmsg,
@@ -219,7 +222,7 @@ namespace BlackListSoamChecker
                                         BaseMessage.forward_from.id,
                                         max_point_spam.BanLevel,
                                         banUtilTime,
-                                        max_point_spam.FriendlyName + "\n分數 : " + max_point,
+                                        "`" + max_point_spam.FriendlyName + "`" + "\n分數 : `" + max_point + "`",
                                         BaseMessage.GetMessageChatInfo().id,
                                         BaseMessage.message_id,
                                         BaseMessage.forward_from
@@ -520,7 +523,7 @@ namespace BlackListSoamChecker
                             SendUserInfo.id,
                             smsg.BanLevel,
                             banUtilTime,
-                            smsg.FriendlyName + "\n分數 : " + point,
+                            "`" + smsg.FriendlyName + "`\n分數 : `" + point + "`",
                             ChatID,
                             MsgID,
                             SendUserInfo

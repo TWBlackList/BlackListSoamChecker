@@ -37,13 +37,13 @@ namespace BlackListSoamChecker.CommandObject
                     string groupInfo = Strings.CAN_NOT_GET;
                     try
                     {
-                        groupInfo = TgApi.getDefaultApiConnection().getChatInfo(cfg.GroupID).result.GetChatTextInfo();
+                        groupInfo = TgApi.getDefaultApiConnection().getChatInfo(cfg.GroupID).result.GetChatTextInfo_MD();
                     }
                     catch
                     {
                     }
 
-                    groups = groups + cfg.GroupID + " : \n" + RAPI.escapeMarkdown(groupInfo) + "\n\n";
+                    groups = groups + cfg.GroupID + " : \n" + groupInfo + "\n\n";
 
                     if (groups.Length > 3072)
                     {

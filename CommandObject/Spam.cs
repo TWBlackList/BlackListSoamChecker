@@ -59,7 +59,8 @@ namespace BlackListSoamChecker.CommandObject
 
         internal bool listSpam(TgMessage RawMessage)
         {
-            TgApi.getDefaultApiConnection().sendMessage(RawMessage.chat.id,Config.SpamBlackList.GetListMessage(), RawMessage.message_id);
+            TgApi.getDefaultApiConnection().sendMessage(RawMessage.chat.id,Config.SpamBlackList.GetListMessage_MD(), 
+                RawMessage.message_id,ParseMode: TgApi.PARSEMODE_MARKDOWN);
             return true;
         }
     }

@@ -48,17 +48,17 @@ namespace BlackListSoamChecker.DbManager
                     if (userinforeq.ok)
                     {
                         userinfo = userinforeq.result;
-                        banmsg = userinfo.GetUserTextInfo();
+                        banmsg = userinfo.GetUserTextInfo_MD();
                     }
                     else
                     {
                         finalResult = false;
-                        banmsg = "User ID : " + UserID;
+                        banmsg = "User ID : `" + UserID + "`";
                     }
                 }
                 else
                 {
-                    banmsg = userinfo.GetUserTextInfo();
+                    banmsg = userinfo.GetUserTextInfo_MD();
                 }
 
                 string textlevel;
@@ -68,19 +68,19 @@ namespace BlackListSoamChecker.DbManager
                     textlevel = "警告";
                 else
                     textlevel = Level + " （未知）";
-                banmsg += "\n處分 : " + textlevel;
+                banmsg += "\n處分 : `" + textlevel + "`" ;
                 string ExpTime = GetTime.GetExpiresTime(Expires);
                 if (ExpTime != "永久封鎖")
-                    banmsg += "\n時效至 : " + GetTime.GetExpiresTime(Expires);
+                    banmsg += "\n時效至 : `" + GetTime.GetExpiresTime(Expires) + "`";
                 else
-                    banmsg += "\n時效 : 永久";
-                banmsg += "\n原因 : " + Reason;
+                    banmsg += "\n時效 : `永久`";
+                banmsg += "\n原因 : " + Reason ;
                 if(AdminID == 0)
-                    banmsg += "\nOID : Bot\n";
+                    banmsg += "\nOID : `Bot`\n";
                 else if(AdminID == 1 || ChatID == Config.InternGroupID)
-                    banmsg += "\nOID : Auditors\n";
+                    banmsg += "\nOID : `Auditors`\n";
                 else
-                    banmsg += "\nOID : " + AdminID + "\n";
+                    banmsg += "\nOID : `" + AdminID + "`\n";
                 if (Config.ReasonChannelID != 0 && ReasonID != 0 && Config.ReasonChannelName != null)
                     banmsg += "\n參考 : \nhttps://t.me/" + Config.ReasonChannelName + "/" + ReasonID;
                 else if (Config.ReasonChannelID != 0 && ChatID != 0 && MessageID != 0) finalResult = false;
@@ -88,14 +88,14 @@ namespace BlackListSoamChecker.DbManager
                 try
                 {
                     if (ChatID != Config.InternGroupID)
-                        banmsg += "\n" + TgApi.getDefaultApiConnection().getChatInfo(ChatID).result.GetChatTextInfo();
+                        banmsg += "\n" + TgApi.getDefaultApiConnection().getChatInfo(ChatID).result.GetChatTextInfo_MD();
                 }
                 catch
                 {
                 }
 
-                ChannelReasonID = TgApi.getDefaultApiConnection().sendMessage(Config.MainChannelID, banmsg).result
-                    .message_id;
+                ChannelReasonID = TgApi.getDefaultApiConnection().sendMessage(Config.MainChannelID, banmsg,
+                        ParseMode: TgApi.PARSEMODE_MARKDOWN).result.message_id;
             }
 
             ChangeDbBan(AdminID, UserID, Level, Expires, Reason, ChannelReasonID, ReasonID);
@@ -120,16 +120,16 @@ namespace BlackListSoamChecker.DbManager
                     if (userinforeq.ok)
                     {
                         userinfo = userinforeq.result;
-                        banmsg = userinfo.GetUserTextInfo();
+                        banmsg = userinfo.GetUserTextInfo_MD();
                     }
                     else
                     {
-                        banmsg = "User ID : " + UserID;
+                        banmsg = "User ID : `" + UserID + "`";
                     }
                 }
                 else
                 {
-                    banmsg = userinfo.GetUserTextInfo();
+                    banmsg = userinfo.GetUserTextInfo_MD();
                 }
 
                 banmsg += "\n\n已被解除封鎖";
@@ -138,13 +138,13 @@ namespace BlackListSoamChecker.DbManager
 
                 banmsg += "\n原封鎖原因 : \n" + Config.GetDatabaseManager().GetUserBanStatus(UserID).Reason + "\n";
 
-                banmsg += "\nOID : " + AdminID + "\n";
+                banmsg += "\nOID : `" + AdminID + "`\n";
 
                 BanUser ban = Config.GetDatabaseManager().GetUserBanStatus(UserID);
                 if (ban.Ban == 1) return false;
 
-                ChannelReasonID = TgApi.getDefaultApiConnection().sendMessage(Config.MainChannelID, banmsg).result
-                    .message_id;
+                ChannelReasonID = TgApi.getDefaultApiConnection().sendMessage(Config.MainChannelID, banmsg
+                        ,ParseMode: TgApi.PARSEMODE_MARKDOWN).result.message_id;
             }
 
             ChangeDbUnban(AdminID, UserID, Reason, ChannelReasonID);

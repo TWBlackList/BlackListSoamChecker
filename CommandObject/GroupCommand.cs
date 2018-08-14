@@ -8,7 +8,7 @@ namespace BlackListSoamChecker.CommandObject
         internal bool GroupID(TgMessage RawMessage)
         {
             TgApi.getDefaultApiConnection().sendMessage(RawMessage.GetMessageChatInfo().id,
-                RawMessage.GetMessageChatInfo().id.ToString(), RawMessage.message_id);
+                "`" + RawMessage.GetMessageChatInfo().id.ToString() + "`", RawMessage.message_id,ParseMode: TgApi.PARSEMODE_MARKDOWN);
             return true;
         }
     }

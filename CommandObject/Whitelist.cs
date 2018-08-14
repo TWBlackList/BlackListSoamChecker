@@ -60,7 +60,8 @@ namespace BlackListSoamChecker.CommandObject
 
         internal bool listWhitelist(TgMessage RawMessage)
         {
-            TgApi.getDefaultApiConnection().sendMessage(RawMessage.chat.id,Config.WhiteList.GetListMessage(), RawMessage.message_id);
+            TgApi.getDefaultApiConnection().sendMessage(RawMessage.chat.id,Config.WhiteList.GetListMessage_MD(), 
+                RawMessage.message_id,ParseMode: TgApi.PARSEMODE_MARKDOWN);
             return true;
         }
     }
