@@ -15,11 +15,12 @@ namespace BlackListSoamChecker
         public CallbackMessage ReceiveOtherMessage(TgMessage BaseMessage, string JsonMessage)
         {
             ReceiveAllNormalMessage(BaseMessage, JsonMessage);
-        }
-        public CallbackMessage ReceiveUnknownBaseMessage(TgMessage BaseMessage, string JsonMessage)
+        }        
+        public CallbackMessage ReceiveUnknownBaseMessage(TgBaseMessage BaseMessage, string JsonMessage)
         {
             ReceiveAllNormalMessage(BaseMessage, JsonMessage);
         }
+
         public CallbackMessage ReceiveAllNormalMessage(TgMessage BaseMessage, string JsonMessage)
         {
             if (Config.BlockGroups.CheckInList(BaseMessage.GetMessageChatInfo().id))
@@ -487,7 +488,7 @@ namespace BlackListSoamChecker
             // Admin ONLY END
             return new CallbackMessage();
         }
-        
+
         private void ProcessMessage(SpamMessage smsg, int MsgID, long ChatID, UserInfo SendUserInfo, int point)
         {
             long banUtilTime;
