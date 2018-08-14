@@ -20,8 +20,8 @@ namespace BlackListSoamChecker.CommandObject
                     }
 
                     TgApi.getDefaultApiConnection().sendMessage(RawMessage.GetMessageChatInfo().id,
-                        "`" + RawMessage.reply_to_message.GetSendUser().username "`", RawMessage.message_id,
-                    ParseMode: TgApi.PARSEMODE_MARKDOWN);
+                        "`" + RawMessage.reply_to_message.GetSendUser().username + "`", RawMessage.message_id,
+                        ParseMode: TgApi.PARSEMODE_MARKDOWN);
                     return true;
                 }
 
