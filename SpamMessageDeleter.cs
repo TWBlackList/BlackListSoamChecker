@@ -96,7 +96,7 @@ namespace BlackListSoamChecker
             int slashSpamPath = chatText.IndexOf("/spam");
             if (atAdminPath != -1 || slashSpamPath != -1 )
                 if(!Config.SpamBlackList.CheckInList(BaseMessage.GetSendUser().id))
-                    if (Config.InternGroupID != 0 && Config.EnableSoamReport)
+                    if (Config.InternGroupID != 0 && Config.EnableSoamReport && BaseMessage.GetReplyMessage() != null)
                     {
                         int noticeID = TgApi.getDefaultApiConnection().sendMessage(
                             BaseMessage.GetMessageChatInfo().id,
