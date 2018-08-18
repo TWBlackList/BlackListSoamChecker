@@ -74,7 +74,7 @@ namespace BlackListSoamChecker.DbManager
                     banmsg += "\n時效至 : `" + GetTime.GetExpiresTime(Expires) + "`";
                 else
                     banmsg += "\n時效 : `永久`";
-                banmsg += "\n原因 : " + Reason ;
+                banmsg += "\n原因 : " + RAPI.escapeMarkdown(Reason) ;
                 if(AdminID == 0)
                     banmsg += "\nOID : `Bot`\n";
                 else if(AdminID == 1 || ChatID == Config.InternGroupID)
@@ -82,7 +82,7 @@ namespace BlackListSoamChecker.DbManager
                 else
                     banmsg += "\nOID : `" + AdminID + "`\n";
                 if (Config.ReasonChannelID != 0 && ReasonID != 0 && Config.ReasonChannelName != null)
-                    banmsg += "\n參考 : \nhttps://t.me/" + Config.ReasonChannelName + "/" + ReasonID;
+                    banmsg += "\n參考 : \nhttps://t.me/" + RAPI.escapeMarkdown(Config.ReasonChannelName) + "/" + ReasonID;
                 else if (Config.ReasonChannelID != 0 && ChatID != 0 && MessageID != 0) finalResult = false;
                 banmsg += "\n";
                 try
