@@ -74,7 +74,7 @@ namespace BlackListSoamChecker.DbManager
                     banmsg += "\n時效至 : `" + GetTime.GetExpiresTime(Expires) + "`";
                 else
                     banmsg += "\n時效 : `永久`";
-                banmsg += "\n原因 : " + RAPI.escapeMarkdown(Reason) ;
+                banmsg += "\n原因 : " + Reason ;
                 if(AdminID == 0)
                     banmsg += "\nOID : `Bot`\n";
                 else if(AdminID == 1 || ChatID == Config.InternGroupID)
