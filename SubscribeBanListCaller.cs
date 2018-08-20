@@ -43,7 +43,8 @@ namespace BlackListSoamChecker
                 {
                     var userInChatInfo = TgApi.getDefaultApiConnection().getChatMember(cfg.GroupID, user.UserID);
                     if (userInChatInfo.ok)
-                        if (userInChatInfo.result.status == "member")
+                        try
+                        {
                             new Thread(delegate()
                             {
                                 Console.WriteLine("[SubscribeBanList] Ban " + user.UserID +
@@ -62,6 +63,11 @@ namespace BlackListSoamChecker
                                 TgApi.getDefaultApiConnection()
                                     .kickChatMember(cfg.GroupID, user.UserID, GetTime.GetUnixTime() + 1800);
                             }).Start();
+                        }
+                        catch
+                        {
+                        }
+
 
                     Thread.Sleep(500);
                 }
