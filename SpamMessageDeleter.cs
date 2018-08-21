@@ -84,6 +84,10 @@ namespace BlackListSoamChecker
             if (atAdminPath == -1)
                 atAdminPath = chatText.IndexOf("/admin");
             if (atAdminPath != -1)
+                atAdminPath = chatText.IndexOf("/report");
+            if (atAdminPath != -1)
+                atAdminPath = chatText.IndexOf("!report");
+            if (atAdminPath != -1)
             {
                 int textLen = chatText.Length;
                 if (textLen == 6)
