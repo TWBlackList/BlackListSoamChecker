@@ -295,8 +295,14 @@ namespace BlackListSoamChecker
                     //Send alert and delete alert after 60 second
                     new Thread(delegate()
                     {
-                        string msg = "偵測到 " + max_point_spam.FriendlyName +
-                                  " 已自動回報，如有誤封請聯繫 @" + Config.ReportGroupName + " 提出申訴。";
+                        string msg = "";
+                        if (Config.ReportGroupName == Config.CourtGroupName)
+                            msg = "偵測到 " + max_point_spam.FriendlyName +
+                                  " ，已自動回報，如有誤報請加入 @" + Config.ReportGroupName + " 以報告誤報。";
+                        else
+                            msg = "偵測到 " + max_point_spam.FriendlyName +
+                                  " ，已自動回報，如有誤報請加入 @" + Config.ReportGroupName + " 以報告誤報" +
+                                  " ，如有疑慮請加入 @" + Config.CourtGroupName + " 提出申訴。";
 
                         SendMessageResult autodeletespammessagesendresult = TgApi.getDefaultApiConnection()
                             .sendMessage(
