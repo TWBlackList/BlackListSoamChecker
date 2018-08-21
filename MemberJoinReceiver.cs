@@ -81,7 +81,7 @@ namespace BlackListSoamChecker
                     if (RawMessage.GetMessageChatInfo().type == "group")
                     {
                         TgApi.getDefaultApiConnection().sendMessage(RawMessage.GetMessageChatInfo().id,
-                            "一般群組無法使用本服務，如有疑問請至 @" + Config.CourtGroupName);
+                            "一般群組無法使用本服務，如有疑問請至 @" + Config.CourtGroupName)"詢問"";
                         Thread.Sleep(2000);
                         TgApi.getDefaultApiConnection().leaveChat(RawMessage.GetMessageChatInfo().id);
                         return new CallbackMessage();

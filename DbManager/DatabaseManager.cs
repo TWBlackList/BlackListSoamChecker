@@ -68,7 +68,7 @@ namespace BlackListSoamChecker.DbManager
                     textlevel = "警告";
                 else
                     textlevel = Level + " （未知）";
-                banmsg += "\n處分 : `" + textlevel + "`" ;
+                banmsg += "\n處分 : " + textlevel;
                 string ExpTime = GetTime.GetExpiresTime(Expires);
                 if (ExpTime != "永久封鎖")
                     banmsg += "\n時效至 : `" + GetTime.GetExpiresTime(Expires) + "`";

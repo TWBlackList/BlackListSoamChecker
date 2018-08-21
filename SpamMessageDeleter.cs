@@ -245,7 +245,7 @@ namespace BlackListSoamChecker
                         {
                             TgApi.getDefaultApiConnection().sendMessage(
                                 BaseMessage.GetMessageChatInfo().id,
-                                "使用者未被封鎖，如要舉報請附上截圖",
+                                "使用者未被封鎖，請自行處置。",
                                 BaseMessage.message_id,
                                 TgApi.PARSEMODE_MARKDOWN
                             );
@@ -433,7 +433,7 @@ namespace BlackListSoamChecker
                         string msg = "";
                         if (Config.ReportGroupName == Config.CourtGroupName)
                             msg = "偵測到 " + max_point_spam.FriendlyName +
-                                  " ，已自動回報，如有誤報請加入 @" + Config.ReportGroupName + " 以報告誤報。";
+                                  " ，已自動回報，如有誤封請聯繫 @" + Config.ReportGroupName + " 提出申訴。";
                         else
                             msg = "偵測到 " + max_point_spam.FriendlyName +
                                   " ，已自動回報，如有誤報請加入 @" + Config.ReportGroupName + " 以報告誤報" +
