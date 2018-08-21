@@ -43,32 +43,31 @@ namespace BlackListSoamChecker
                 {
                     var userInChatInfo = TgApi.getDefaultApiConnection().getChatMember(cfg.GroupID, user.UserID);
                     if (userInChatInfo.ok)
-                        try
-                        {
-                            new Thread(delegate()
+                        if (userInChatInfo.result.status == "member")
+                            try
                             {
-                                Console.WriteLine("[SubscribeBanList] Ban " + user.UserID +
-                                                  " in " + cfg.GroupID);
-                                //TgApi.getDefaultApiConnection().restrictChatMember(
-                                //    cfg.GroupID,
-                                //    user.UserID,
-                                //    GetTime.GetUnixTime() + 10,
-                                //    false);
-                                SendMessageResult result = TgApi.getDefaultApiConnection().sendMessage(
-                                    cfg.GroupID,
-                                    "使用者 : " + user.UserID + "\n" + user.GetBanMessage() +
-                                    "\n\n由於開啟了 SubscribeBanList ，已嘗試自動移除。"
-                                );
-                                Thread.Sleep(5000);
-                                TgApi.getDefaultApiConnection()
-                                    .kickChatMember(cfg.GroupID, user.UserID, GetTime.GetUnixTime() + 1800);
-                            }).Start();
-                        }
-                        catch
-                        {
-                        }
-
-
+                                new Thread(delegate()
+                                {
+                                    Console.WriteLine("[SubscribeBanList] Ban " + user.UserID +
+                                                      " in " + cfg.GroupID);
+                                    //TgApi.getDefaultApiConnection().restrictChatMember(
+                                    //    cfg.GroupID,
+                                    //    user.UserID,
+                                    //    GetTime.GetUnixTime() + 10,
+                                    //    false);
+                                    SendMessageResult result = TgApi.getDefaultApiConnection().sendMessage(
+                                        cfg.GroupID,
+                                        "使用者 : `" + user.UserID + "`\n" + user.GetBanMessage() +
+                                        "\n\n由於開啟了 SubscribeBanList ，已嘗試自動移除。",
+                                        ParseMode: TgApi.PARSEMODE_MARKDOWN);
+                                    Thread.Sleep(5000);
+                                    TgApi.getDefaultApiConnection()
+                                        .kickChatMember(cfg.GroupID, user.UserID, GetTime.GetUnixTime() + 1800);
+                                }).Start();
+                            }
+                            catch
+                            {
+                            }
                     Thread.Sleep(500);
                 }
             }
