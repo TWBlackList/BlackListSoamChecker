@@ -57,7 +57,7 @@ namespace BlackListSoamChecker
                                     //    false);
                                     SendMessageResult result = TgApi.getDefaultApiConnection().sendMessage(
                                         cfg.GroupID,
-                                        "使用者 : `" + user.UserID + "`\n" + user.GetBanMessage() +
+                                        "使用者 : `" + user.UserID + "`\n" + user.GetBanMessage_MD() +
                                         "\n\n由於開啟了 SubscribeBanList ，已嘗試自動移除。",
                                         ParseMode: TgApi.PARSEMODE_MARKDOWN);
                                     Thread.Sleep(5000);
