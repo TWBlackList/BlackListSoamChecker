@@ -8,10 +8,12 @@ namespace BlackListSoamChecker.CommandObject
     {
         internal bool getHistoryStatus(TgMessage RawMessage)
         {
-            if(Config.ReasonChannelID == 0)
+            if (Config.ReasonChannelID == 0)
+            {
                 TgApi.getDefaultApiConnection().forwardMessage(RawMessage.GetMessageChatInfo().id, "沒有證據頻道。",
                     RawMessage.message_id, TgApi.PARSEMODE_MARKDOWN);
-                return true
+                return true;
+            }
 
             int banstatSpace = RawMessage.text.IndexOf(" ");
             if (banstatSpace == -1)
