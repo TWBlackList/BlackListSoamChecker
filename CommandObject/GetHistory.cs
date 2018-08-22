@@ -10,7 +10,7 @@ namespace BlackListSoamChecker.CommandObject
         {
             if (Config.ReasonChannelID == 0)
             {
-                TgApi.getDefaultApiConnection().forwardMessage(RawMessage.GetMessageChatInfo().id, "沒有證據頻道。",
+                TgApi.getDefaultApiConnection().sendMessage(RawMessage.GetMessageChatInfo().id, "沒有證據頻道。",
                     RawMessage.message_id, TgApi.PARSEMODE_MARKDOWN);
                 return true;
             }
@@ -20,7 +20,7 @@ namespace BlackListSoamChecker.CommandObject
             {
                 if (RawMessage.reply_to_message.forward_from != null)
                 {
-                    ban = Config.GetDatabaseManager().GetUserBanStatus(RawMessage.reply_to_message.forward_from.id);
+                    BanUser ban = Config.GetDatabaseManager().GetUserBanStatus(RawMessage.reply_to_message.forward_from.id);
                     if (ban.ReasonMessageID != 0)
                         TgApi.getDefaultApiConnection().forwardMessage(RawMessage.GetMessageChatInfo().id, Config.ReasonChannelID, ban.ReasonMessageID);
                     return true;
@@ -28,7 +28,7 @@ namespace BlackListSoamChecker.CommandObject
 
                 if (RawMessage.reply_to_message != null)
                 {
-                    ban = Config.GetDatabaseManager().GetUserBanStatus(RawMessage.reply_to_message.GetSendUser().id);
+                    BanUser ban = Config.GetDatabaseManager().GetUserBanStatus(RawMessage.reply_to_message.GetSendUser().id);
                     if (ban.ReasonMessageID != 0)
                         TgApi.getDefaultApiConnection().forwardMessage(RawMessage.GetMessageChatInfo().id, Config.ReasonChannelID, ban.ReasonMessageID);
                     return true;
