@@ -10,8 +10,7 @@ namespace BlackListSoamChecker.CommandObject
         {
             if (Config.ReasonChannelID == 0)
             {
-                TgApi.getDefaultApiConnection().sendMessage(RawMessage.GetMessageChatInfo().id, "沒有證據頻道。",
-                    RawMessage.message_id, TgApi.PARSEMODE_MARKDOWN);
+                TgApi.getDefaultApiConnection().sendMessage(RawMessage.GetMessageChatInfo().id, "沒有證據頻道。");
                 return true;
             }
 
@@ -23,6 +22,8 @@ namespace BlackListSoamChecker.CommandObject
                     BanUser ban = Config.GetDatabaseManager().GetUserBanStatus(RawMessage.reply_to_message.forward_from.id);
                     if (ban.ReasonMessageID != 0)
                         TgApi.getDefaultApiConnection().forwardMessage(RawMessage.GetMessageChatInfo().id, Config.ReasonChannelID, ban.ReasonMessageID);
+                    else
+                        TgApi.getDefaultApiConnection().sendMessage(RawMessage.GetMessageChatInfo().id, "沒有證據紀錄。");
                     return true;
                 }
 
@@ -31,6 +32,8 @@ namespace BlackListSoamChecker.CommandObject
                     BanUser ban = Config.GetDatabaseManager().GetUserBanStatus(RawMessage.reply_to_message.GetSendUser().id);
                     if (ban.ReasonMessageID != 0)
                         TgApi.getDefaultApiConnection().forwardMessage(RawMessage.GetMessageChatInfo().id, Config.ReasonChannelID, ban.ReasonMessageID);
+                    else
+                        TgApi.getDefaultApiConnection().sendMessage(RawMessage.GetMessageChatInfo().id, "沒有證據紀錄。");
                     return true;
                 }
             }
@@ -40,6 +43,8 @@ namespace BlackListSoamChecker.CommandObject
                 BanUser ban = Config.GetDatabaseManager().GetUserBanStatus(userid);
                 if (ban.ReasonMessageID != 0)
                     TgApi.getDefaultApiConnection().forwardMessage(RawMessage.GetMessageChatInfo().id, Config.ReasonChannelID, ban.ReasonMessageID);
+                else
+                    TgApi.getDefaultApiConnection().sendMessage(RawMessage.GetMessageChatInfo().id, "沒有證據紀錄。");
                 return true;
             }
 
