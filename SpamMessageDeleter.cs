@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using BlackListSoamChecker.CommandObject;
 using BlackListSoamChecker.DbManager;
 using ReimuAPI.ReimuBase;
 using ReimuAPI.ReimuBase.Interfaces;
@@ -509,7 +508,7 @@ namespace BlackListSoamChecker
                     //    false);
                     Thread.Sleep(5500);
                     TgApi.getDefaultApiConnection()
-                        .kickChatMember(ChatID, SendUserInfo.id, GetTime.GetUnixTime() + 1800);
+                        .kickChatMember(ChatID, SendUserInfo.id, GetTime.GetUnixTime() + 28800);
                 }).Start();
             if (smsg.AutoBlackList)
             {

@@ -62,7 +62,7 @@ namespace BlackListSoamChecker
                                         ParseMode: TgApi.PARSEMODE_MARKDOWN);
                                     Thread.Sleep(5000);
                                     TgApi.getDefaultApiConnection()
-                                        .kickChatMember(cfg.GroupID, user.UserID, GetTime.GetUnixTime() + 1800);
+                                        .kickChatMember(cfg.GroupID, user.UserID, GetTime.GetUnixTime() + 28800);
                                 }).Start();
                             }
                             catch
