@@ -231,8 +231,125 @@ namespace BlackListSoamChecker
 
                 return new CallbackMessage {StopProcess = true};
             }
+            
+            if (Config.DisableBanList == false && groupCfg.AutoDeleteSpamMessage == 0)
+            {
+                int max_point = 0;
+                SpamMessage max_point_spam = new SpamMessage();
+                List<SpamMessage> spamMsgList = Config.GetDatabaseManager().GetSpamMessageList();
+                foreach (SpamMessage smsg in spamMsgList)
+                {
+                    int points = 0;
+                    switch (smsg.Type)
+                    {
+                        case 8:
+                            points = new SpamMessageChecker().GetNamePoints(smsg.Messages,
+                                RawMessage.from.full_name());
+                            break;
+                    }
+
+                    if (points >= smsg.MinPoints)
+                        if (points > max_point)
+                        {
+                            max_point = points;
+                            max_point_spam = smsg;
+                        }
+                }
+
+                if (max_point > 0)
+                {
+                    //Send alert and delete alert after 60 second
+                    new Thread(delegate()
+                    {
+                        string msg = "";
+                        if (Config.ReportGroupName == Config.CourtGroupName)
+                            msg = "偵測到 " + max_point_spam.FriendlyName +
+                                  " ，已自動回報，如有誤封請聯繫 @" + Config.ReportGroupName + " 提出申訴。";
+                        else
+                            msg = "偵測到 " + max_point_spam.FriendlyName +
+                                  " ，已自動回報，如有誤報請加入 @" + Config.ReportGroupName + " 以報告誤報" +
+                                  " ，如有疑慮請加入 @" + Config.CourtGroupName + " 提出申訴。";
+                        SendMessageResult autodeletespammessagesendresult = TgApi.getDefaultApiConnection()
+                            .sendMessage(
+                                RawMessage.GetMessageChatInfo().id,
+                                msg
+                            );
+
+                        ProcessMessage(max_point_spam, RawMessage.message_id, RawMessage.GetMessageChatInfo().id,
+                            RawMessage.GetSendUser(), max_point);
+                        Thread.Sleep(30000);
+                        TgApi.getDefaultApiConnection().deleteMessage(
+                            autodeletespammessagesendresult.result.chat.id,
+                            autodeletespammessagesendresult.result.message_id
+                        );
+                    }).Start();
+                    return new CallbackMessage {StopProcess = true};
+                }
+            }
+
 
             return new CallbackMessage();
+        }
+        
+        private void ProcessMessage(SpamMessage smsg, int MsgID, long ChatID, UserInfo SendUserInfo, int point)
+        {
+            long banUtilTime;
+            if (smsg.BanDays == 0 && smsg.BanHours == 0 && smsg.BanMinutes == 0)
+                banUtilTime = 0;
+            else
+                banUtilTime = GetTime.GetUnixTime() + smsg.BanDays * 86400 + smsg.BanHours * 3600 +
+                              smsg.BanMinutes * 60;
+
+            if (smsg.AutoKick)
+                new Thread(delegate()
+                {
+                    //TgApi.getDefaultApiConnection().restrictChatMember(
+                    //    ChatID,
+                    //    SendUserInfo.id,
+                    //    GetTime.GetUnixTime() + 60,
+                    //    false);
+                    Thread.Sleep(5500);
+                    TgApi.getDefaultApiConnection()
+                        .kickChatMember(ChatID, SendUserInfo.id, GetTime.GetUnixTime() + 1800);
+                }).Start();
+            if (smsg.AutoBlackList)
+            {
+                new Thread(delegate()
+                {
+                    if (Config.GetDatabaseManager().GetUserBanStatus(SendUserInfo.id).Ban == 0) return;
+                    new Task(() =>
+                    {
+                        Config.GetDatabaseManager().BanUser(
+                            0,
+                            SendUserInfo.id,
+                            smsg.BanLevel,
+                            banUtilTime,
+                            "`" + smsg.FriendlyName + "`\n分數 : `" + point + "`",
+                            ChatID,
+                            MsgID,
+                            SendUserInfo
+                        );
+                    }).Start();
+                }).Start();
+            }
+            else
+            {
+                if (smsg.AutoMute)
+                    TgApi.getDefaultApiConnection().restrictChatMember(
+                        ChatID,
+                        SendUserInfo.id,
+                        banUtilTime,
+                        true,
+                        false
+                    );
+            }
+
+            if (smsg.AutoDelete)
+                new Thread(delegate()
+                {
+                    Thread.Sleep(10000);
+                    TgApi.getDefaultApiConnection().deleteMessage(ChatID, MsgID);
+                }).Start();
         }
 
         public CallbackMessage OnGroupMemberLeftReceive(TgMessage RawMessage, string JsonMessage, UserInfo JoinedUser)
