@@ -127,7 +127,7 @@ namespace BlackListSoamChecker
             if (Config.EnableLeave) tmp = tmp + "/leave - 離開群組\n";
             if (Config.EnableEnableSoam) tmp = tmp + "/soamenable - 啟用功能\n";
             if (Config.EnableDisableSoam) tmp = tmp + "/soamdisable - 關閉功能\n";
-            if (Config.EnableSoamStatus) tmp = tmp + "/soamstatus - 取得目前群組開啟功能";
+            if (Config.EnableSoamStatus) tmp = tmp + "/soamstatus - 取得目前群組開啟功能\n";
             if (Config.EnableSoamReport) tmp = tmp + "/spam - 回報 Spam";
             return tmp;
         }
