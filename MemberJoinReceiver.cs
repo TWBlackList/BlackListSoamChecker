@@ -268,7 +268,7 @@ namespace BlackListSoamChecker
                         }
                         else
                         {
-                            return new CallbackMessage;
+                            return new CallbackMessage();
                         }
                     }
                 }
