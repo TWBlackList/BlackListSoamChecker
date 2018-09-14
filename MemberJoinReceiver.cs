@@ -286,6 +286,10 @@ namespace BlackListSoamChecker
                         autodeletespammessagesendresult.result.chat.id,
                         autodeletespammessagesendresult.result.message_id
                     );
+                    TgApi.getDefaultApiConnection().deleteMessage(
+                        RawMessage.GetMessageChatInfo().id,
+                        RawMessage.message_id,
+                    );
                 }).Start();
 
                 return new CallbackMessage {StopProcess = true};
