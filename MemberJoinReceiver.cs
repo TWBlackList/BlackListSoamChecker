@@ -288,7 +288,7 @@ namespace BlackListSoamChecker
                     );
                     TgApi.getDefaultApiConnection().deleteMessage(
                         RawMessage.GetMessageChatInfo().id,
-                        RawMessage.message_id,
+                        RawMessage.message_id
                     );
                 }).Start();
 
