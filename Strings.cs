@@ -156,8 +156,7 @@ namespace BlackListSoamChecker
             if(Config.EnableCustomUnBan) tmp = tmp + "/" + Config.CustomPrefix + "unban - 解除封鎖\n";
             if(Config.EnableUnBan) tmp = tmp + "/unban - 解除封鎖\n";
             if(Config.EnableGetAllGroup) tmp = tmp + "/groups - 取得所有群組\n";
-            if(Config.EnableGetSpamStringPoints) tmp = tmp + "/getspampoints - 測試關鍵字\n";
-            if(Config.EnableBanHistory) tmp = tmp + "/history - 取得證據";
+            if(Config.EnableGetSpamStringPoints) tmp = tmp + "/getspampoints - 測試關鍵字";
             return tmp;
         }
         

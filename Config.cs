@@ -121,7 +121,6 @@ namespace BlackListSoamChecker
         internal static bool EnableSuperBan = json.BanFunctions.EnableSuperBan;                                         // 開啟多重封鎖指令
         internal static bool EnableSuperUnBan = json.BanFunctions.EnableSuperUnBan;                                     // 開啟多重解除封鎖指令
         internal static bool EnableBanStat = json.BanFunctions.EnableBanStat;                                           // 開啟封鎖狀態查詢
-        internal static bool EnableBanHistory = json.BanFunctions.EnableBanHistory;                                     // 開啟封鎖證據查詢
         
        
         internal static bool EnableGetAllSpamStringInfo = json.SpamStringFunctions.EnableGetAllSpamStringInfo;          // 開啟取得所有 SPAM 規則
@@ -271,7 +270,6 @@ namespace BlackListSoamChecker
         public bool EnableSuperUnBan { get; set; } = true;
         
         public bool EnableBanStat { get; set; } = true;
-        public bool EnableBanHistory { get; set; } = false;
     }
     
     public class SpamStringFunctions
