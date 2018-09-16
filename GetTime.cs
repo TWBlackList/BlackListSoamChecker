@@ -12,14 +12,14 @@ namespace BlackListSoamChecker
         public static string DecodeUnixTime(long time, int offset)
         {
             DateTime dtime = new DateTime(1970, 1, 1).AddSeconds(time + offset * 3600);
-            return dtime.ToString("YYYY-MM-DD hh:mm:ss");
+            return dtime.ToString("yyyy-MM-dd HH:mm:ss");
         }
 
         public static string GetExpiresTime(long time)
         {
             if (time == 0) return "永久封鎖";
             DateTime dtime = new DateTime(1970, 1, 1).AddSeconds(time + 28800);
-            return dtime.ToString("YYYY-MM-DD hh:mm:ss");
+            return dtime.ToString("yyyy-MM-dd HH:mm:ss");
         }
 
         public static bool GetIsExpired(long time)
