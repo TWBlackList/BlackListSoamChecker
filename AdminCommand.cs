@@ -8,7 +8,19 @@ namespace BlackListSoamChecker
     {
         internal bool AdminCommands(TgMessage RawMessage, string JsonMessage, string Command)
         {
-            if (RAPI.getIsBotOP(RawMessage.GetSendUser().id) || RAPI.getIsBotAdmin(RawMessage.GetSendUser().id) || RawMessage.GetMessageChatInfo().id == Config.     InternGroupID)
+            if (RAPI.getIsBotAdmin(RawMessage.GetSendUser().id) ||
+                RawMessage.GetMessageChatInfo().id == Config.InternGroupID)
+            {
+                if(!Config.DisableBanList)
+                    switch (Command)
+                    {
+                        case "/history":
+                            if(Config.EnableBanHistory) new GetHistory().getHistoryStatus(RawMessage);
+                            throw new StopProcessException();    
+                    }
+            }
+            
+            if (RAPI.getIsBotOP(RawMessage.GetSendUser().id) || RAPI.getIsBotAdmin(RawMessage.GetSendUser().id) || RawMessage.GetMessageChatInfo().id == Config.InternGroupID)
             {
                 switch (Command)
                 {

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using BlackListSoamChecker.CommandObject;
 using BlackListSoamChecker.DbManager;
+using BlackListSoamChecker.CommandObject;
 using ReimuAPI.ReimuBase;
 using ReimuAPI.ReimuBase.Interfaces;
 using ReimuAPI.ReimuBase.TgData;
@@ -84,13 +84,9 @@ namespace BlackListSoamChecker
             if (atAdminPath == -1)
                 atAdminPath = chatText.IndexOf("/admin");
             if (atAdminPath != -1)
-                atAdminPath = chatText.IndexOf("/report");
-            if (atAdminPath != -1)
-                atAdminPath = chatText.IndexOf("!report");
-            if (atAdminPath != -1)
             {
                 int textLen = chatText.Length;
-                if (textLen == 6)
+                if (textLen == 6 || textLen == 7)
                     CallAdmin(BaseMessage);
                 else if (textLen >= 8)
                     if (atAdminPath == 0)
@@ -123,7 +119,7 @@ namespace BlackListSoamChecker
                         );
                         TgApi.getDefaultApiConnection().sendMessage(
                             Config.InternGroupID,
-                            BaseMessage.GetMessageChatInfo().GetChatTextInfo() + "\n\n被回覆的訊息的原發送使用者 : " + 
+                            BaseMessage.GetMessageChatInfo().GetChatTextInfo_MD() + "\n\n" +
                             BaseMessage.GetReplyMessage().GetSendUser().GetUserTextInfo_MD()  + "\n\nReport By : " + 
                             BaseMessage.GetSendUser().GetUserTextInfo_MD(),
                             ParseMode: TgApi.PARSEMODE_MARKDOWN
@@ -513,7 +509,7 @@ namespace BlackListSoamChecker
                     //    false);
                     Thread.Sleep(5500);
                     TgApi.getDefaultApiConnection()
-                        .kickChatMember(ChatID, SendUserInfo.id, GetTime.GetUnixTime() + 1800);
+                        .kickChatMember(ChatID, SendUserInfo.id, GetTime.GetUnixTime() + 28800);
                 }).Start();
             if (smsg.AutoBlackList)
             {
