@@ -74,6 +74,9 @@ namespace BlackListSoamChecker
                 if (SharedCommand(RawMessage, JsonMessage, Command)) return new CallbackMessage();
                 switch (Command)
                 {
+                    case "/delmsg":
+                        if(Config.EnableDeleteMessage) new DeleteMessage().DeleteMessageCommand(RawMessage);
+                        break;
                     case "/gid":
                         if(Config.EnableGroupID) new GroupCommand().GroupID(RawMessage);
                         break;

@@ -83,6 +83,10 @@ namespace BlackListSoamChecker
                 atAdminPath = chatText.IndexOf("!admin");
             if (atAdminPath == -1)
                 atAdminPath = chatText.IndexOf("/admin");
+            if (atAdminPath == -1)
+                atAdminPath = chatText.IndexOf("/report");
+            if (atAdminPath == -1)
+                atAdminPath = chatText.IndexOf("!report");
             if (atAdminPath != -1)
             {
                 int textLen = chatText.Length;
@@ -91,9 +95,9 @@ namespace BlackListSoamChecker
                 else if (textLen >= 8)
                     if (atAdminPath == 0)
                     {
-                        if (chatText[7] == ' ') CallAdmin(BaseMessage);
+                        if (chatText[7] == ' ' || chatText[8] == ' ') CallAdmin(BaseMessage);
                     }
-                    else if (atAdminPath == textLen - 6)
+                    else if (atAdminPath == textLen - 6 || atAdminPath == textLen - 7)
                     {
                         if (chatText[textLen - 7] == ' ') CallAdmin(BaseMessage);
                     }
