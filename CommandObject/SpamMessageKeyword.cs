@@ -86,7 +86,7 @@ namespace BlackListSoamChecker.CommandObject
             for (int nowPath = 0; nowPath < textLen; nowPath++)
             {
                 char nowChar = text[nowPath];
-                string unicode = System.Convert.ToInt32(nowChar).ToString();
+                string unicode = System.Convert.ToInt32(nowChar).ToString("X4");
 
                 if (nowChar >= 0x0600 && nowChar <= 0x06FF)
                 {
@@ -132,7 +132,7 @@ namespace BlackListSoamChecker.CommandObject
             for (int nowPath = 0; nowPath < textLen; nowPath++)
             {
                 char nowChar = text[nowPath];
-                string unicode = System.Convert.ToInt32(nowChar).ToString();
+                string unicode = System.Convert.ToInt32(nowChar).ToString("X4");
                 
                 if (nowChar >= 0x0900 && nowChar <= 0x097F)
                 {
@@ -174,7 +174,7 @@ namespace BlackListSoamChecker.CommandObject
             for (int nowPath = 0; nowPath < textLen; nowPath++)
             {
                 char nowChar = text[nowPath];
-                string unicode = System.Convert.ToInt32(nowChar).ToString();
+                string unicode = System.Convert.ToInt32(nowChar).ToString("X4");
                 
                 if (nowChar >= 0x0400 && nowChar <= 0x04FF)
                 {
