@@ -112,12 +112,6 @@ namespace BlackListSoamChecker.CommandObject
                     continue;
                 }
                 
-                if (nowChar >= 0xFB50 && nowChar <= 0xFEFF)
-                {
-                    totalPoints = totalPoints + nowChar + "  : " + unicode + " : 1 (FB50-FEFF)\n";
-                    continue;
-                }
-
                 if (nowChar >= 0x1EE00 && nowChar <= 0x1EEFF) totalPoints = totalPoints + nowChar + "  : " + unicode + " : 1 (1EE00-1EEFF)\n";
                 
             }
