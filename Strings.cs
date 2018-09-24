@@ -29,6 +29,7 @@ namespace BlackListSoamChecker
         internal static string INNSFW = lang.INNSFW;
         internal static string OUTNSFW = lang.OUTNSFW;
         internal static string COIN = lang.COIN;
+        internal static string CRAWLER = lang.CRAWLER;
         internal static string EXEC_OK = lang.EXEC_OK;
         internal static string EXEC_FAIL = lang.EXEC_FAIL;
         
