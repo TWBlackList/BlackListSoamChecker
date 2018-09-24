@@ -66,6 +66,7 @@ namespace BlackListSoamChecker
         public string INNSFW { get; set; } = "裸露/暴力/色情/非公眾適宜訊息";
         public string OUTNSFW { get; set; } = "連外裸露/暴力/色情/非公眾適宜訊息";
         public string COIN { get; set; } = "虛擬貨幣廣告";
+        public string CRAWLER { get; set; } = "網路爬蟲";
         public string EXEC_OK { get; set; } = "操作成功。";
         public string EXEC_FAIL { get; set; } = "操作失敗 : ";
         
