@@ -86,14 +86,14 @@ namespace BlackListSoamChecker
             if (atAdminPath != -1)
             {
                 int textLen = chatText.Length;
-                if (textLen == 6 || textLen == 7)
+                if (textLen == 6)
                     CallAdmin(BaseMessage);
                 else if (textLen >= 8)
                     if (atAdminPath == 0)
                     {
-                        if (chatText[7] == ' ') CallAdmin(BaseMessage);
+                        if (chatText[7] == ' ' || chatText[8] == ' ') CallAdmin(BaseMessage);
                     }
-                    else if (atAdminPath == textLen - 6)
+                    else if (atAdminPath == textLen - 6 || atAdminPath == textLen - 7)
                     {
                         if (chatText[textLen - 7] == ' ') CallAdmin(BaseMessage);
                     }
@@ -104,6 +104,10 @@ namespace BlackListSoamChecker
                     }
             }
             int slashSpamPath = chatText.IndexOf("/spam");
+            if (slashSpamPath == -1)
+                slashSpamPath = chatText.IndexOf("/report");
+            if (slashSpamPath == -1)
+                slashSpamPath = chatText.IndexOf("!report");
             if (atAdminPath != -1 || slashSpamPath != -1 )
                 if(!Config.SpamBlackList.CheckInList(BaseMessage.GetSendUser().id))
                     if (Config.InternGroupID != 0 && Config.EnableSoamReport && BaseMessage.GetReplyMessage() != null)

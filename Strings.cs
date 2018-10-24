@@ -29,6 +29,7 @@ namespace BlackListSoamChecker
         internal static string INNSFW = lang.INNSFW;
         internal static string OUTNSFW = lang.OUTNSFW;
         internal static string COIN = lang.COIN;
+        internal static string CRAWLER = lang.CRAWLER;
         internal static string EXEC_OK = lang.EXEC_OK;
         internal static string EXEC_FAIL = lang.EXEC_FAIL;
         
@@ -66,6 +67,7 @@ namespace BlackListSoamChecker
         public string INNSFW { get; set; } = "裸露/暴力/色情/非公眾適宜訊息";
         public string OUTNSFW { get; set; } = "連外裸露/暴力/色情/非公眾適宜訊息";
         public string COIN { get; set; } = "虛擬貨幣廣告";
+        public string CRAWLER { get; set; } = "網路爬蟲";
         public string EXEC_OK { get; set; } = "操作成功。";
         public string EXEC_FAIL { get; set; } = "操作失敗 : ";
         
@@ -156,8 +158,9 @@ namespace BlackListSoamChecker
             if(Config.EnableCustomUnBan) tmp = tmp + "/" + Config.CustomPrefix + "unban - 解除封鎖\n";
             if(Config.EnableUnBan) tmp = tmp + "/unban - 解除封鎖\n";
             if(Config.EnableGetAllGroup) tmp = tmp + "/groups - 取得所有群組\n";
-            if(Config.EnableGetSpamStringPoints) tmp = tmp + "/getspampoints - 測試關鍵字\n";
             if(Config.EnableBanHistory) tmp = tmp + "/history - 取得證據";
+            if(Config.EnableDeleteMessage) tmp = tmp + "/delmsg - 刪除訊息\n";
+            if(Config.EnableGetSpamStringPoints) tmp = tmp + "/getspampoints - 測試關鍵字";
             return tmp;
         }
         

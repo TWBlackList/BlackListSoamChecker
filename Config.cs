@@ -67,7 +67,8 @@ namespace BlackListSoamChecker
         internal static int DefaultInNsfwBanDay = json.Setting.DefaultInNsfwBanDay;                                  // 常用封鎖: 裸露/暴力/色情/非公眾適宜訊息 天數
         internal static int DefaultOutNsfwBanDay = json.Setting.DefaultOutNsfwBanDay;                                // 常用封鎖: 連外裸露/暴力/色情/非公眾適宜訊息 天數
         internal static int DefaultCoinBanDay = json.Setting.DefaultCoinBanDay;                                      // 常用封鎖: 虛擬貨幣廣告 天數
-
+        internal static int DefaultCrawlerBanDay = json.Setting.DefaultCrawlerBanDay;                                // 常用封鎖: 連外裸露/暴力/色情/非公眾適宜訊息 天數
+        
         internal static bool DisableAdminTools = json.Setting.DisableAdminTools;                                        // 管理員功能，若需要的話改成 false，否則改成 true
         internal static bool DisableBanList = json.Setting.DisableBanList;                                              // 封鎖清單功能，若需要的話改成 false，否則改成 true
 
@@ -106,7 +107,7 @@ namespace BlackListSoamChecker
         
         internal static long InternGroupID = json.Chats.InternGroupID;                                                  // 內部群組 ChatID ( 此群組內的所有人都可對Bot轉發的訊息執行封鎖 )
         
-        
+        internal static bool EnableDeleteMessage = json.BasicFunctions.EnableDeleteMessage;                             // 讓OP刪除訊息
         internal static bool EnableUser = json.BasicFunctions.EnableUser;                                               // 開啟取得用戶ID
         internal static bool EnableGroupID = json.BasicFunctions.EnableGroupID;                                         // 開啟取得群組ID
         internal static bool EnableHelp = json.BasicFunctions.EnableHelp;                                               // 開啟取得幫助
@@ -245,6 +246,7 @@ namespace BlackListSoamChecker
         public int DefaultInNsfwBanDay { get; set; } = 90;
         public int DefaultOutNsfwBanDay { get; set; } = 0;
         public int DefaultCoinBanDay { get; set; } = 90;
+        public int DefaultCrawlerBanDay { get; set; } = 0;
 
     }
 
@@ -252,6 +254,7 @@ namespace BlackListSoamChecker
 
     public class BasicFunctions
     {
+        public bool EnableDeleteMessage { get; set; } = true;
         public bool EnableUser { get; set; } = true;
         public bool EnableHelp { get; set; } = true;
         public bool EnableGroupID { get; set; } = true;

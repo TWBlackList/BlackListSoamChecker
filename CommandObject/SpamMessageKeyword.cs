@@ -86,39 +86,33 @@ namespace BlackListSoamChecker.CommandObject
             for (int nowPath = 0; nowPath < textLen; nowPath++)
             {
                 char nowChar = text[nowPath];
-                
-                
+                string unicode = System.Convert.ToInt32(nowChar).ToString("X4");
+
                 if (nowChar >= 0x0600 && nowChar <= 0x06FF)
                 {
-                    totalPoints = totalPoints + nowChar + " : 1\n";
+                    totalPoints = totalPoints + nowChar + "  : " + unicode + " : 1 (0600-06FF)\n";
                     continue;
                 }
 
                 if (nowChar >= 0x0750 && nowChar <= 0x077F)
                 {
-                    totalPoints = totalPoints + nowChar + " : 1\n";
+                    totalPoints = totalPoints + nowChar + "  : " + unicode + " : 1 (0750-077F)\n";
                     continue;
                 }
 
                 if (nowChar >= 0x08A0 && nowChar <= 0x08FF)
                 {
-                    totalPoints = totalPoints + nowChar + " : 1\n";
+                    totalPoints = totalPoints + nowChar + "  : " + unicode + " : 1 (08A0-08FF)\n";
                     continue;
                 }
                 
                 if (nowChar >= 0xFB50 && nowChar <= 0xFDFF)
                 {
-                    totalPoints = totalPoints + nowChar + " : 1\n";
+                    totalPoints = totalPoints + nowChar + "  : " + unicode + " : 1 (BF50-FDFF)\n";
                     continue;
                 }
                 
-                if (nowChar >= 0xFB50 && nowChar <= 0xFEFF)
-                {
-                    totalPoints = totalPoints + nowChar + " : 1\n";
-                    continue;
-                }
-
-                if (nowChar >= 0x1EE00 && nowChar <= 0x1EEFF) totalPoints = totalPoints + nowChar + " : 1\n";
+                if (nowChar >= 0x1EE00 && nowChar <= 0x1EEFF) totalPoints = totalPoints + nowChar + "  : " + unicode + " : 1 (1EE00-1EEFF)\n";
                 
             }
 
@@ -132,20 +126,21 @@ namespace BlackListSoamChecker.CommandObject
             for (int nowPath = 0; nowPath < textLen; nowPath++)
             {
                 char nowChar = text[nowPath];
+                string unicode = System.Convert.ToInt32(nowChar).ToString("X4");
                 
                 if (nowChar >= 0x0900 && nowChar <= 0x097F)
                 {
-                    totalPoints = totalPoints + nowChar + " : 1\n";
+                    totalPoints = totalPoints + nowChar + "  : " + unicode + " : 1 (0900-097F)\n";
                     continue;
                 }
 
                 if (nowChar >= 0x1CD0 && nowChar <= 0x1CFF)
                 {
-                    totalPoints = totalPoints + nowChar + " : 1\n";
+                    totalPoints = totalPoints + nowChar + "  : " + unicode + " : 1 (1CD0-1CFF)\n";
                     continue;
                 }
 
-                if (nowChar >= 0xA8E0 && nowChar <= 0xA8FF) totalPoints = totalPoints + nowChar + " : 1\n";
+                if (nowChar >= 0xA8E0 && nowChar <= 0xA8FF) totalPoints = totalPoints + nowChar + "  : " + unicode + " : 1 (A8E0-A8FF)\n";
                 
             }
 
@@ -173,25 +168,26 @@ namespace BlackListSoamChecker.CommandObject
             for (int nowPath = 0; nowPath < textLen; nowPath++)
             {
                 char nowChar = text[nowPath];
+                string unicode = System.Convert.ToInt32(nowChar).ToString("X4");
                 
                 if (nowChar >= 0x0400 && nowChar <= 0x04FF)
                 {
-                    totalPoints = totalPoints + nowChar + " : 1\n";
+                    totalPoints = totalPoints + nowChar + "  : " + unicode + " : 1 (0400-04FF)\n";
                     continue;
                 }
                 
                 if (nowChar >= 0x0500 && nowChar <= 0x052F)
                 {
-                    totalPoints = totalPoints + nowChar + " : 1\n";
+                    totalPoints = totalPoints + nowChar + "  : " + unicode + " : 1 (0500-052F)\n";
                     continue;
                 }
                 
                 if (nowChar >= 0x2DE0 && nowChar <= 0x2DEF)
                 {
-                    totalPoints = totalPoints + nowChar + " : 1\n";
+                    totalPoints = totalPoints + nowChar + "  : " + unicode + " : 1 (2DE0-2DEF)\n";
                     continue;
                 }
-                if (nowChar >= 0xA640 && nowChar <= 0xA69F) totalPoints = totalPoints + nowChar + " : 1\n";
+                if (nowChar >= 0xA640 && nowChar <= 0xA69F) totalPoints = totalPoints + nowChar + "  : " + unicode + " : 1 (A640-A69F)\n";
             }
 
             return totalPoints;

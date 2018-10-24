@@ -86,6 +86,14 @@ namespace BlackListSoamChecker.CommandObject
                         banDay = Config.DefaultOutNsfwBanDay;
                         notCommonBan = false;
                     }
+                    
+                    if (value.Substring(0, 7) == "crawler")
+                    {
+                        commandBanLength = 7;
+                        Reason = Strings.CRAWLER;
+                        banDay = Config.DefaultCrawlerBanDay;
+                        notCommonBan = false;
+                    }
                 }
 
                 if (banDay > 0)
@@ -185,6 +193,7 @@ namespace BlackListSoamChecker.CommandObject
                     if (Reason.ToLower() == "innsfw") Reason = Strings.INNSFW;
                     if (Reason.ToLower() == "outnsfw") Reason = Strings.OUTNSFW;
                     if (Reason.ToLower() == "coin") Reason = Strings.COIN;
+                    if (Reason.ToLower() == "crawler") Reason = Strings.CRAWLER;
                 }
                 catch (DecodeException)
                 {
