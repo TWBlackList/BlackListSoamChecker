@@ -109,7 +109,7 @@ namespace BlackListSoamChecker.CommandObject
             {
                 TgApi.getDefaultApiConnection().sendMessage(
                     RawMessage.GetMessageChatInfo().id,
-                    Strings.BAN_ERROR_MESSAGE + "，數值不可為負值。 err-T"
+                    Strings.BAN_ERROR_MESSAGE+ " 數值不可為負值。 err-T"
                 );
                 return -1;
             }
