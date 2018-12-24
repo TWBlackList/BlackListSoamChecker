@@ -42,13 +42,13 @@ namespace BlackListSoamChecker.CommandObject
                         notCommonBan = false;
                     }
 
-                    if (value.Substring(0, 4) == "coin")
-                    {
-                        commandBanLength = 4;
-                        Reason = Strings.COIN;
-                        banDay = Config.DefaultCoinBanDay;
-                        notCommonBan = false;
-                    }
+                    //if (value.Substring(0, 4) == "coin")
+                    //{
+                    //    commandBanLength = 4;
+                    //    Reason = Strings.COIN;
+                    //    banDay = Config.DefaultCoinBanDay;
+                    //    notCommonBan = false;
+                    //}
                 }
                 
                 if(valLen == 5)
@@ -60,41 +60,41 @@ namespace BlackListSoamChecker.CommandObject
                         notCommonBan = false;
                     }
                 
-                if(valLen == 6)
-                    if (value.Substring(0, 6) == "innsfw")
-                    {
-                        commandBanLength = 6;
-                        Reason = Strings.INNSFW;
-                        banDay = Config.DefaultInNsfwBanDay;
-                        notCommonBan = false;
-                    }
+                //if(valLen == 6)
+                //    if (value.Substring(0, 6) == "innsfw")
+                //    {
+                //        commandBanLength = 6;
+                //        Reason = Strings.INNSFW;
+                //        banDay = Config.DefaultInNsfwBanDay;
+                //        notCommonBan = false;
+                //    }
 
-                if (valLen == 7)
-                {
-                    if (value.Substring(0, 7) == "spammer")
-                    {
-                        commandBanLength = 7;
-                        Reason = Strings.SPAMMER;
-                        banDay = Config.DefaultSpammerBanDay;
-                        notCommonBan = false;
-                    }
+                //if (valLen == 7)
+                //{
+                //    if (value.Substring(0, 7) == "spammer")
+                //    {
+                //        commandBanLength = 7;
+                //        Reason = Strings.SPAMMER;
+                //        banDay = Config.DefaultSpammerBanDay;
+                //        notCommonBan = false;
+                //    }
 
-                    if (value.Substring(0, 7) == "outnsfw")
-                    {
-                        commandBanLength = 7;
-                        Reason = Strings.OUTNSFW;
-                        banDay = Config.DefaultOutNsfwBanDay;
-                        notCommonBan = false;
-                    }
+                //    if (value.Substring(0, 7) == "outnsfw")
+                //    {
+                //        commandBanLength = 7;
+                //        Reason = Strings.OUTNSFW;
+                //        banDay = Config.DefaultOutNsfwBanDay;
+                //        notCommonBan = false;
+                //    }
                     
-                    if (value.Substring(0, 7) == "crawler")
-                    {
-                        commandBanLength = 7;
-                        Reason = Strings.CRAWLER;
-                        banDay = Config.DefaultCrawlerBanDay;
-                        notCommonBan = false;
-                    }
-                }
+                //    if (value.Substring(0, 7) == "crawler")
+                //    {
+                //        commandBanLength = 7;
+                //        Reason = Strings.CRAWLER;
+                //        banDay = Config.DefaultCrawlerBanDay;
+                //        notCommonBan = false;
+                //    }
+                //}
 
                 if (banDay > 0)
                 {
@@ -189,11 +189,11 @@ namespace BlackListSoamChecker.CommandObject
                     if (Reason == null) return true; // 如果 Reason 是 null 则代表出现了异常
                     if (Reason.ToLower() == "halal") Reason = Strings.HALAL;
                     if (Reason.ToLower() == "spam") Reason = Strings.SPAM;
-                    if (Reason.ToLower() == "spammer") Reason = Strings.SPAMMER;
-                    if (Reason.ToLower() == "innsfw") Reason = Strings.INNSFW;
-                    if (Reason.ToLower() == "outnsfw") Reason = Strings.OUTNSFW;
-                    if (Reason.ToLower() == "coin") Reason = Strings.COIN;
-                    if (Reason.ToLower() == "crawler") Reason = Strings.CRAWLER;
+                    // if (Reason.ToLower() == "spammer") Reason = Strings.SPAMMER;
+                    // if (Reason.ToLower() == "innsfw") Reason = Strings.INNSFW;
+                    // if (Reason.ToLower() == "outnsfw") Reason = Strings.OUTNSFW;
+                    // if (Reason.ToLower() == "coin") Reason = Strings.COIN;
+                    // if (Reason.ToLower() == "crawler") Reason = Strings.CRAWLER;
                 }
                 catch (DecodeException)
                 {
