@@ -241,7 +241,7 @@ namespace BlackListSoamChecker
         public bool DisableBanList { get; set; } = false;
         public int DefaultBanDay { get; set; } = 90;
         public int DefaultHalalBanDay { get; set; } = 0;
-        public int DefaultSpamBanDay { get; set; } = 7;
+        public int DefaultSpamBanDay { get; set; } = 0;
         public int DefaultSpammerBanDay { get; set; } = 0;
         public int DefaultInNsfwBanDay { get; set; } = 90;
         public int DefaultOutNsfwBanDay { get; set; } = 0;
