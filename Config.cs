@@ -246,7 +246,7 @@ namespace BlackListSoamChecker
         // public int DefaultInNsfwBanDay { get; set; } = 90;
         // public int DefaultOutNsfwBanDay { get; set; } = 0;
         // public int DefaultCoinBanDay { get; set; } = 90;
-        p// ublic int DefaultCrawlerBanDay { get; set; } = 0;
+        // ublic int DefaultCrawlerBanDay { get; set; } = 0;
 
     }
 
