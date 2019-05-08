@@ -82,10 +82,10 @@ namespace BlackListSoamChecker.DbManager
                 else
                     msg += "\n時效 : 永久";
 
-                msg += "\n原因 : " + Reason;
+                msg += "\n原因 : " + RAPI.escapeMarkdown(Reason);
 
                 if (ChannelMessageID != 0 && Config.MainChannelName != null)
-                    msg += "\n\n參考 : https://t.me/" + Config.MainChannelName + "/" + ChannelMessageID;
+                    msg += "\n\n參考 : https://t.me/" + RAPI.escapeMarkdown(Config.MainChannelName) + "/" + ChannelMessageID;
 
                 msg = RAPI.escapeMarkdown(msg);
             }
