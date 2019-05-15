@@ -123,7 +123,7 @@ namespace BlackListSoamChecker
                         );
                         TgApi.getDefaultApiConnection().sendMessage(
                             Config.InternGroupID,
-                            BaseMessage.GetMessageChatInfo().GetChatTextInfoMarkdwon() + "\n\n" +
+                            BaseMessage.GetMessageChatInfo().GetChatTextInfoMarkdown() + "\n\n" +
                             BaseMessage.GetReplyMessage().GetSendUser().GetUserTextInfoMarkdown()  + "\n\nReport By : " + 
                             BaseMessage.GetSendUser().GetUserTextInfoMarkdown(),
                             ParseMode: TgApi.PARSEMODE_MARKDOWN
