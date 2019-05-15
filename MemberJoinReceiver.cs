@@ -30,13 +30,13 @@ namespace BlackListSoamChecker
                 if (result.ok)
                     TgApi.getDefaultApiConnection().sendMessage(
                         RawMessage.GetMessageChatInfo().id,
-                        "機器人 : " + JoinedUser.GetUserTextInfo_MD() + "\n由於開啟了 AntiBot ，已自動移除機器人。",
+                        "機器人 : " + JoinedUser.GetUserTextInfoMarkdown() + "\n由於開啟了 AntiBot ，已自動移除機器人。",
                         ParseMode: TgApi.PARSEMODE_MARKDOWN
                     );
                 else
                     TgApi.getDefaultApiConnection().sendMessage(
                         RawMessage.GetMessageChatInfo().id,
-                        "機器人 : " + JoinedUser.GetUserTextInfo_MD() + "\n由於開啟了 AntiBot ，但沒有 (Ban User) 權限，請設定正確的權限。",
+                        "機器人 : " + JoinedUser.GetUserTextInfoMarkdown() + "\n由於開啟了 AntiBot ，但沒有 (Ban User) 權限，請設定正確的權限。",
                         ParseMode: TgApi.PARSEMODE_MARKDOWN
                     );
 
@@ -48,7 +48,7 @@ namespace BlackListSoamChecker
                         RawMessage.GetSendUser().id,
                         0,
                         banUtilTime,
-                        "自動封鎖 - 拉入機器人 " + JoinedUser.GetUserTextInfo_MD(),
+                        "自動封鎖 - 拉入機器人 " + JoinedUser.GetUserTextInfoMarkdown(),
                         RawMessage.GetMessageChatInfo().id,
                         0,
                         RawMessage.GetSendUser()
@@ -124,7 +124,7 @@ namespace BlackListSoamChecker
                 BanUser banUser = dbmgr.GetUserBanStatus(JoinedUser.id);
                 if (banUser.Ban == 0)
                 {
-                    string resultmsg = "這位使用者被封鎖了\n請先閱讀置頂及公告區\n未依規定發表的任何訊息皆不回應\n\n" + banUser.GetBanMessage_ESCMD() ;
+                    string resultmsg = "這位使用者被封鎖了\n請先閱讀置頂及公告區\n未依規定發表的任何訊息皆不回應\n\n" + banUser.GetBanMessageMarkdown() ;
                     TgApi.getDefaultApiConnection().sendMessage(
                         RawMessage.GetMessageChatInfo().id,
                         resultmsg,

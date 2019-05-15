@@ -62,38 +62,8 @@ namespace BlackListSoamChecker.DbManager
 
             return msg;
         }
-
-        public string GetBanMessage_ESCMD()
-        {
-            string msg = "未封鎖";
-            if (Ban == 0)
-            {
-                string ExpTime = GetTime.GetExpiresTime(Expires);
-                msg = "處分 : ";
-                if (Level == 0)
-                    msg += "封鎖";
-                else if (Level == 1)
-                    msg += "警告";
-                else
-                    msg += " : " + Level + " (未知)";
-
-                if (ExpTime != "永久封鎖")
-                    msg += "\n時效至 : " + GetTime.GetExpiresTime(Expires);
-                else
-                    msg += "\n時效 : 永久";
-
-                msg += "\n原因 : " + RAPI.escapeMarkdown(Reason);
-
-                if (ChannelMessageID != 0 && Config.MainChannelName != null)
-                    msg += "\n\n參考 : https://t.me/" + RAPI.escapeMarkdown(Config.MainChannelName) + "/" + ChannelMessageID;
-
-                msg = RAPI.escapeMarkdown(msg);
-            }
-
-            return msg;
-        }        
-
-        public string GetBanMessage_MD()
+        
+        public string GetBanMessageMarkdown()
         {
             string msg = "未封鎖";
             if (Ban == 0)
@@ -114,7 +84,7 @@ namespace BlackListSoamChecker.DbManager
                 else
                     msg += "\n時效 : `永久`";
 
-                msg += "\n原因 : " + Reason;
+                msg += "\n原因 : " + RAPI.escapeMarkdown(Reason);
 
                 if (ChannelMessageID != 0 && Config.MainChannelName != null)
                     msg += "\n\n參考 : https://t.me/" + RAPI.escapeMarkdown(Config.MainChannelName) + "/" + ChannelMessageID;

@@ -124,8 +124,8 @@ namespace BlackListSoamChecker
                         TgApi.getDefaultApiConnection().sendMessage(
                             Config.InternGroupID,
                             BaseMessage.GetMessageChatInfo().GetChatTextInfo_MD() + "\n\n" +
-                            BaseMessage.GetReplyMessage().GetSendUser().GetUserTextInfo_MD()  + "\n\nReport By : " + 
-                            BaseMessage.GetSendUser().GetUserTextInfo_MD(),
+                            BaseMessage.GetReplyMessage().GetSendUser().GetUserTextInfoMarkdown()  + "\n\nReport By : " + 
+                            BaseMessage.GetSendUser().GetUserTextInfoMarkdown(),
                             ParseMode: TgApi.PARSEMODE_MARKDOWN
                         );
                         
@@ -156,7 +156,7 @@ namespace BlackListSoamChecker
                     BanUser banUser = Config.GetDatabaseManager().GetUserBanStatus(BaseMessage.forward_from.id);
                     if (banUser.Ban == 0)
                     {
-                        string resultmsg = "使用者被封鎖了\n" + banUser.GetBanMessage_MD();
+                        string resultmsg = "使用者被封鎖了\n" + banUser.GetBanMessageMarkdown();
                         TgApi.getDefaultApiConnection().sendMessage(
                             BaseMessage.GetMessageChatInfo().id,
                             resultmsg,

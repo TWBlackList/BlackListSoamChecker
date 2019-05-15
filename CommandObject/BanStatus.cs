@@ -14,7 +14,7 @@ namespace BlackListSoamChecker.CommandObject
                 string banmsg = "";
                 BanUser ban;
                 ban = Config.GetDatabaseManager().GetUserBanStatus(RawMessage.GetSendUser().id);
-                banmsg = "發送者 : " + RawMessage.GetSendUser().GetUserTextInfo_MD() + "\n" + ban.GetBanMessage_MD();
+                banmsg = "發送者 : " + RawMessage.GetSendUser().GetUserTextInfoMarkdown() + "\n" + ban.GetBanMessageMarkdown();
                 if (Config.GetIsInWhiteList(RawMessage.GetSendUser().id)) 
                     banmsg = banmsg + "，使用者在白名單內";
                 if (ban.Ban == 0)
@@ -23,16 +23,16 @@ namespace BlackListSoamChecker.CommandObject
                 {
                     ban = Config.GetDatabaseManager().GetUserBanStatus(RawMessage.reply_to_message.GetSendUser().id);
                     banmsg += "\n\n被回覆的訊息的原發送使用者 : " +
-                              RawMessage.reply_to_message.GetSendUser().GetUserTextInfo_MD() + "\n" +
-                              ban.GetBanMessage_MD();
+                              RawMessage.reply_to_message.GetSendUser().GetUserTextInfoMarkdown() + "\n" +
+                              ban.GetBanMessageMarkdown();
                     if (Config.GetIsInWhiteList(RawMessage.reply_to_message.GetSendUser().id))
                         banmsg = banmsg + "，使用者在白名單內";
                     if (RawMessage.reply_to_message.forward_from != null)
                     {
                         ban = Config.GetDatabaseManager().GetUserBanStatus(RawMessage.reply_to_message.forward_from.id);
                         banmsg += "\n\n被回覆的訊息轉發自使用者 : " +
-                                  RawMessage.reply_to_message.forward_from.GetUserTextInfo_MD() + "\n" +
-                                  ban.GetBanMessage_MD();
+                                  RawMessage.reply_to_message.forward_from.GetUserTextInfoMarkdown() + "\n" +
+                                  ban.GetBanMessageMarkdown();
                         if (Config.GetIsInWhiteList(RawMessage.reply_to_message.forward_from.id))
                             banmsg = banmsg + "，使用者在白名單內";
                     }
@@ -55,7 +55,7 @@ namespace BlackListSoamChecker.CommandObject
             {
                 BanUser ban = Config.GetDatabaseManager().GetUserBanStatus(userid);
                 TgApi.getDefaultApiConnection().sendMessage(RawMessage.GetMessageChatInfo().id,
-                    "這位使用者" + ban.GetBanMessage_MD(), RawMessage.message_id, TgApi.PARSEMODE_MARKDOWN);
+                    "這位使用者\n" + ban.GetBanMessageMarkdown(), RawMessage.message_id, TgApi.PARSEMODE_MARKDOWN);
                 return true;
             }
 

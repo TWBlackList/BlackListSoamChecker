@@ -48,7 +48,7 @@ namespace BlackListSoamChecker.DbManager
                     if (userinforeq.ok)
                     {
                         userinfo = userinforeq.result;
-                        banmsg = userinfo.GetUserTextInfo_MD();
+                        banmsg = userinfo.GetUserTextInfoMarkdown();
                     }
                     else
                     {
@@ -58,7 +58,7 @@ namespace BlackListSoamChecker.DbManager
                 }
                 else
                 {
-                    banmsg = userinfo.GetUserTextInfo_MD();
+                    banmsg = userinfo.GetUserTextInfoMarkdown();
                 }
 
                 string textlevel;
@@ -120,7 +120,7 @@ namespace BlackListSoamChecker.DbManager
                     if (userinforeq.ok)
                     {
                         userinfo = userinforeq.result;
-                        banmsg = userinfo.GetUserTextInfo_MD();
+                        banmsg = userinfo.GetUserTextInfoMarkdown();
                     }
                     else
                     {
@@ -129,7 +129,7 @@ namespace BlackListSoamChecker.DbManager
                 }
                 else
                 {
-                    banmsg = userinfo.GetUserTextInfo_MD();
+                    banmsg = userinfo.GetUserTextInfoMarkdown();
                 }
 
                 banmsg += "\n\n已被解除封鎖";
