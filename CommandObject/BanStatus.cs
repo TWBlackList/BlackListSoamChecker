@@ -40,7 +40,7 @@ namespace BlackListSoamChecker.CommandObject
                     if (RawMessage.reply_to_message.forward_from_chat != null)
                     {
                         banmsg += "\n\n被回覆的訊息轉發自頻道 : \n" +
-                                  RawMessage.reply_to_message.forward_from_chat.GetChatTextInfo_MD();
+                                  RawMessage.reply_to_message.forward_from_chat.GetChatTextInfoMarkdown();
                         if (Config.GetIsInWhiteList(RawMessage.reply_to_message.forward_from_chat.id))
                             banmsg = banmsg + "\n頻道在白名單內";
                     }
