@@ -37,7 +37,7 @@ namespace BlackListSoamChecker.CommandObject
                     string groupInfo = Strings.CAN_NOT_GET;
                     try
                     {
-                        groupInfo = TgApi.getDefaultApiConnection().getChatInfo(cfg.GroupID).result.GetChatTextInfo_MD();
+                        groupInfo = TgApi.getDefaultApiConnection().getChatInfo(cfg.GroupID).result.GetChatTextInfoMarkdown();
                     }
                     catch
                     {

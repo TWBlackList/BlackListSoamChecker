@@ -74,7 +74,7 @@ namespace BlackListSoamChecker.DbManager
                     banmsg += "\n時效至 : `" + GetTime.GetExpiresTime(Expires) + "`";
                 else
                     banmsg += "\n時效 : `永久`";
-                banmsg += "\n原因 : " + Reason ;
+                banmsg += "\n原因 : " + RAPI.escapeMarkdown(Reason) ;
                 if(AdminID == 0)
                     banmsg += "\nOID : `Bot`\n";
                 else if(AdminID == 1 || ChatID == Config.InternGroupID)
@@ -88,7 +88,7 @@ namespace BlackListSoamChecker.DbManager
                 try
                 {
                     if (ChatID != Config.InternGroupID)
-                        banmsg += "\n" + TgApi.getDefaultApiConnection().getChatInfo(ChatID).result.GetChatTextInfo_MD();
+                        banmsg += "\n" + TgApi.getDefaultApiConnection().getChatInfo(ChatID).result.GetChatTextInfoMarkdown();
                 }
                 catch
                 {
@@ -134,9 +134,9 @@ namespace BlackListSoamChecker.DbManager
 
                 banmsg += "\n\n已被解除封鎖";
 
-                if (Reason != null) banmsg += "，原因 : \n" + Reason;
+                if (Reason != null) banmsg += "，原因 : \n" + RAPI.escapeMarkdown(Reason);
 
-                banmsg += "\n原封鎖原因 : \n" + Config.GetDatabaseManager().GetUserBanStatus(UserID).Reason + "\n";
+                banmsg += "\n原封鎖原因 : \n" + RAPI.escapeMarkdown(Config.GetDatabaseManager().GetUserBanStatus(UserID).Reason) + "\n";
 
                 banmsg += "\nOID : `" + AdminID + "`\n";
 
