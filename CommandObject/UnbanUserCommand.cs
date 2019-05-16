@@ -64,13 +64,13 @@ namespace BlackListSoamChecker.CommandObject
                     status = Config.GetDatabaseManager().UnbanUser(
                         RawMessage.GetSendUser().id,
                         BanUserId,
-                        Reason
+                        RAPI.escapeMarkdown(Reason)
                     );
                 else
                     status = Config.GetDatabaseManager().UnbanUser(
                         RawMessage.GetSendUser().id,
                         BanUserId,
-                        Reason,
+                        RAPI.escapeMarkdown(Reason),
                         BanUserInfo
                     );
             }

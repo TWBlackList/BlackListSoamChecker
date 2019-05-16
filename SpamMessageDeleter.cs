@@ -236,7 +236,7 @@ namespace BlackListSoamChecker
                                         BaseMessage.forward_from.id,
                                         max_point_spam.BanLevel,
                                         banUtilTime,
-                                        "`" + max_point_spam.FriendlyName + "`" + "\n分數 : `" + max_point + "`",
+                                        "`" + RAPI.escapeMarkdown(max_point_spam.FriendlyName) + "`" + "\n分數 : `" + max_point + "`",
                                         BaseMessage.GetMessageChatInfo().id,
                                         BaseMessage.message_id,
                                         BaseMessage.forward_from
@@ -527,7 +527,7 @@ namespace BlackListSoamChecker
                             SendUserInfo.id,
                             smsg.BanLevel,
                             banUtilTime,
-                            "`" + smsg.FriendlyName + "`\n分數 : `" + point + "`",
+                            "`" + RAPI.escapeMarkdown(smsg.FriendlyName) + "`\n分數 : `" + point + "`",
                             ChatID,
                             MsgID,
                             SendUserInfo

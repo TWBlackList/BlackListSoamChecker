@@ -109,7 +109,7 @@ namespace BlackListSoamChecker.CommandObject
                         BanUserId,
                         Level,
                         ExpiresTime,
-                        Reason
+                        RAPI.escapeMarkdown(Reason)
                     );
                     if (Config.GetIsInWhiteList(BanUserId))
                         TgApi.getDefaultApiConnection().sendMessage(

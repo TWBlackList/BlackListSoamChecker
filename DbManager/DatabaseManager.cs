@@ -134,7 +134,7 @@ namespace BlackListSoamChecker.DbManager
 
                 banmsg += "\n\n已被解除封鎖";
 
-                if (Reason != null) banmsg += "，原因 : \n" + RAPI.escapeMarkdown(Reason);
+                if (Reason != null) banmsg += "，原因 : \n" + Reason;
 
                 banmsg += "\n原封鎖原因 : \n" + RAPI.escapeMarkdown(Config.GetDatabaseManager().GetUserBanStatus(UserID).Reason) + "\n";
 

@@ -226,7 +226,7 @@ namespace BlackListSoamChecker.CommandObject
                     BanUserId,
                     Level,
                     ExpiresTime,
-                    Reason
+                    RAPI.escapeMarkdown(Reason)
                 );
             else if (RawMessage.GetReplyMessage().new_chat_member != null)
                 status = Config.GetDatabaseManager().BanUser(
@@ -234,7 +234,7 @@ namespace BlackListSoamChecker.CommandObject
                     BanUserId,
                     Level,
                     ExpiresTime,
-                    Reason,
+                    RAPI.escapeMarkdown(Reason),
                     0,
                     0,
                     BanUserInfo
@@ -245,7 +245,7 @@ namespace BlackListSoamChecker.CommandObject
                     BanUserId,
                     Level,
                     ExpiresTime,
-                    Reason,
+                    RAPI.escapeMarkdown(Reason),
                     RawMessage.GetMessageChatInfo().id,
                     RawMessage.GetReplyMessage().message_id,
                     BanUserInfo
