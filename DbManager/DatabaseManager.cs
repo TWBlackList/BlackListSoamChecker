@@ -136,7 +136,7 @@ namespace BlackListSoamChecker.DbManager
 
                 if (Reason != null) banmsg += "，原因 : \n" + Reason;
 
-                banmsg += "\n原封鎖原因 : \n" + RAPI.escapeMarkdown(Config.GetDatabaseManager().GetUserBanStatus(UserID).Reason) + "\n";
+                banmsg += "\n原封鎖原因 : \n" + Config.GetDatabaseManager().GetUserBanStatus(UserID).Reason + "\n";
 
                 banmsg += "\nOID : `" + AdminID + "`\n";
 
