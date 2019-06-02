@@ -48,7 +48,7 @@ namespace BlackListSoamChecker
                         RawMessage.GetSendUser().id,
                         0,
                         banUtilTime,
-                        RAPI.escapeMarkdown("自動封鎖 - 拉入機器人 ") + JoinedUser.GetUserTextInfoMarkdown(),
+                        "`自動封鎖 - 拉入機器人`" + JoinedUser.GetUserTextInfoMarkdown(),
                         RawMessage.GetMessageChatInfo().id,
                         0,
                         RawMessage.GetSendUser()
