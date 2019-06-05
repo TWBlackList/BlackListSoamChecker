@@ -182,7 +182,7 @@ namespace BlackListSoamChecker
                         banReason = "[原因請點選這裡查看](https://t.me/" + Config.MainChannelName + "/" +
                                     banUser.ChannelMessageID + ")\n";
                     else
-                        banReason = "\n原因 : " banUser.Reason + "\n";
+                        banReason = "\n原因 : " + banUser.Reason + "\n";
                     if (banUser.Level == 0)
                     {
                         resultmsg += "警告 : 這個使用者「將會」對群組造成負面影響\n" +
